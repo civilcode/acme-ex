@@ -32,7 +32,9 @@ defmodule Magasin.MixProject do
   defp deps do
     [
       {:postgrex, ">= 0.0.0"},
-      {:ecto, "~> 2.1"}
+      {:ecto, "~> 2.1"},
+      {:uuid, "~> 1.1"},
+      {:mix_test_watch, "~> 0.5", only: :dev, runtime: false}
     ]
   end
 
