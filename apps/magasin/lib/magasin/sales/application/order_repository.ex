@@ -5,7 +5,9 @@ defmodule Magasin.Sales.Application.OrderRepository do
   alias Magasin.Sales.Domain.Order
 
   def add(order) do
-    Repo.insert(order.state)
+    order.state
+    |> Ecto.Changeset.unique_constraint(:id, name: :magasin_sale_orders_pkey)
+    |> Repo.insert()
   end
 
   def get(guid) do

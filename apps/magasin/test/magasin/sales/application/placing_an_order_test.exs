@@ -16,10 +16,22 @@ defmodule Magasin.Sales.Application.PlacingAnOrderTest do
   end
 
   describe "given invalid command" do
-    test "foo" do
+    test "returns an error" do
       order_guid = UUID.uuid4()
       command = %PlaceOrder{guid: order_guid, email: nil}
 
+      result = OrderApplicationService.handle(command)
+
+      assert {:error, _} = result
+    end
+  end
+
+  describe "given duplicate keys" do
+    test "returns an error" do
+      order_guid = UUID.uuid4()
+      command = %PlaceOrder{guid: order_guid, email: "foo@bar.com"}
+
+      OrderApplicationService.handle(command)
       result = OrderApplicationService.handle(command)
 
       assert {:error, _} = result
