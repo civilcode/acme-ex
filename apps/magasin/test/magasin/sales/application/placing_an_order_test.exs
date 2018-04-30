@@ -3,13 +3,26 @@ defmodule Magasin.Sales.Application.PlacingAnOrderTest do
   alias Magasin.Sales.Application.{OrderApplicationService, PlaceOrder, OrderRepository}
   alias Magasin.Sales.Domain.Order
 
-  test "an order placed" do
-    order_guid = UUID.uuid4()
-    command = %PlaceOrder{guid: order_guid, email: "foo@bar.com"}
+  describe "given valid command" do
+    test "an order placed" do
+      order_guid = UUID.uuid4()
+      command = %PlaceOrder{guid: order_guid, email: "foo@bar.com"}
 
-    _result = OrderApplicationService.handle(command)
+      _result = OrderApplicationService.handle(command)
 
-    placed_order = OrderRepository.get(order_guid)
-    assert placed_order
+      placed_order = OrderRepository.get(order_guid)
+      assert placed_order
+    end
+  end
+
+  describe "given invalid command" do
+    test "foo" do
+      order_guid = UUID.uuid4()
+      command = %PlaceOrder{guid: order_guid, email: nil}
+
+      result = OrderApplicationService.handle(command)
+
+      assert {:error, _} = result
+    end
   end
 end
