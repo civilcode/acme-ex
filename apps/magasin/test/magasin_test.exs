@@ -1,6 +1,5 @@
 defmodule MagasinTest do
-  use ExUnit.Case
-  doctest Magasin
+  use Magasin.TestCase
 
   test "greets the world" do
     assert Magasin.hello() == :world
