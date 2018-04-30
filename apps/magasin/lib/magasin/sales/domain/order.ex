@@ -1,15 +1,12 @@
 defmodule Magasin.Sales.Domain.Order do
-  # Discussion: State?
+  use CivilCode.Aggregate
 
-  use Magasin.Schema
+  alias Magasin.Sales.Domain.{Order, OrderPlaced}
 
-  schema "magasin_sale_orders" do
-    field(:email, :string)
+  def place(state, guid, email) do
+    order_placed = %OrderPlaced{guid: guid, email: email}
+    new_state = Order.State.apply(state, order_placed)
 
-    timestamps()
-  end
-
-  def place(state, email) do
-    %{state | email: email}
+    {:ok, %__MODULE__{state: new_state, events: [order_placed]}}
   end
 end

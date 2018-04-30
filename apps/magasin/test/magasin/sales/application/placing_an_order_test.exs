@@ -1,6 +1,6 @@
 defmodule Magasin.Sales.Application.PlacingAnOrderTest do
   use Magasin.TestCase
-  alias Magasin.Sales.Application.{OrderApplicationService, PlaceOrder}
+  alias Magasin.Sales.Application.{OrderApplicationService, PlaceOrder, OrderRepository}
   alias Magasin.Sales.Domain.Order
 
   test "an order placed" do
@@ -9,7 +9,7 @@ defmodule Magasin.Sales.Application.PlacingAnOrderTest do
 
     _result = OrderApplicationService.handle(command)
 
-    placed_order = Repo.get(Order, order_guid)
+    placed_order = OrderRepository.get(order_guid)
     assert placed_order
   end
 end
