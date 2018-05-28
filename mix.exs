@@ -15,6 +15,8 @@ defmodule MagasinPlatform.MixProject do
   #
   # Run "mix help deps" for examples and options.
   defp deps do
-    []
+    [
+      {:distillery, "~> 1.5", runtime: false}
+    ]
   end
 end
