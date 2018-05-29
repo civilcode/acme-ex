@@ -62,4 +62,7 @@ config :magasin_web, MagasinWeb.Endpoint,
 
 # Finally import the config/prod.secret.exs
 # which should be versioned separately.
-import_config "prod.secret.exs"
+# import_config "prod.secret.exs"
+
+config :magasin_web, MagasinWeb.Endpoint,
+  secret_key_base: {:system, "SECRET_KEY_BASE"}

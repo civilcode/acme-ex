@@ -1,19 +1,21 @@
 {
-  "name": "magasin",
+  "name": "Magasin platform",
   "description": "Civilcode's Reference Application",
-  "scripts": {
-  },
+  "repository": "https://github.com/civilcode/magasin",
+  "success_url": "/",
+  "addons": ["heroku-postgresql:hobby-dev", "papertrail:choklad"],
   "env": {
-  },
-  "formation": {
-    "web": {
-      "quantity": 1
+    "MIX_ENV": "production",
+    "SECRET_KEY_BASE": {
+      "generator": "secret"
+    },
+    "POOL_SIZE": {
+      "description": "Database pool size",
+      "value": "18"
+    },
+    "SETUP_BY": {
+      "description": "Who initiated this setup",
+      "value": "CivilCode Inc"
     }
-  },
-  "addons": [
-    "heroku-postgresql"
-  ],
-  "buildpacks": [
-
-  ]
+  }
 }
