@@ -1,0 +1,19 @@
+{
+  "name": "magasin",
+  "description": "Civilcode's Reference Application",
+  "scripts": {
+  },
+  "env": {
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "addons": [
+    "heroku-postgresql"
+  ],
+  "buildpacks": [
+
+  ]
+}
