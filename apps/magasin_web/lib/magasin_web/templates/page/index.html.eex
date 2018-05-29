@@ -4,6 +4,10 @@
 </section>
 
 <section class="row">
+  <%= @db_url %>
+</section>
+
+<section class="row">
   <article class="column">
     <h4>Resources</h4>
     <ul>

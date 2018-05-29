@@ -15,4 +15,9 @@ defmodule Magasin do
   def hello do
     :world
   end
+
+  def db_url do
+    Application.get_env(:magasin, Magasin.Repo)[:url]
+    System.get_env("DATABASE_URL")
+  end
 end
