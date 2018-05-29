@@ -4,10 +4,4 @@ use Mix.Config
 
 config :magasin, ecto_repos: [Magasin.Repo]
 
-config :magasin, Magasin.Repo,
-  adapter: Ecto.Adapters.Postgres,
-  database: "magasin_test",
-  hostname: "localhost",
-  pool: Ecto.Adapters.SQL.Sandbox
-
 import_config "#{Mix.env}.exs"

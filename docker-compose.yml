@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:9.6
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: music_accent_test
+      PGDATA: /pgdata
+
+  application:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    env_file: .env
+    volumes:
+      - .:/app
+      - node_modules:/app/node_modules
+      - deps:/app/deps
+      - _build:/app/_build
+    ports:
+      - "4000:4000"
+    depends_on:
+      - db
+
+volumes:
+  node_modules:
+  _build:
+  deps:

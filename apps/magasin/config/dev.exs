@@ -2,5 +2,7 @@ use Mix.Config
 
 config :magasin, Magasin.Repo,
   adapter: Ecto.Adapters.Postgres,
-  url: {:system, "DATABASE_URL" },
-  ssl: true
+  database: "magasin_dev",
+  hostname: "db",
+  username: "postgres",
+  pool: Ecto.Adapters.SQL.Sandbox
