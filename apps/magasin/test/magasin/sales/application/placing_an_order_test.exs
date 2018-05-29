@@ -1,4 +1,4 @@
-defmodule Magasin.Sales.Application.PlaceOrderTest do
+defmodule Magasin.Sales.Application.PlacingAnOrderTest do
   use Magasin.TestCase
   alias Magasin.Sales.Application.{OrderApplicationService, PlaceOrder, OrderRepository}
   alias Magasin.Sales.Domain.Order
