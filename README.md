@@ -53,12 +53,11 @@ db_url=$(heroku config:get DATABASE_URL -a magasin-platform)
  docker run -i --name mag -t --rm -p 4000:4000 -e DATABASE_URL=$db_url magasin/app /app/bin/magasin foreground
 
 # Stop/ remove
- docker stop mag1
- docker container rm mag1
+ docker stop mag
+ docker container rm mag
 
 # Connect to a running container
-docker exec -it mag1 bash
-
+docker exec -it mag bash
 ```
 
 ## About CivilCode Inc
