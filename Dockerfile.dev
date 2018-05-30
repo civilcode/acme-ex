@@ -19,5 +19,3 @@ EXPOSE 4000
 
 ENV PORT=4000 \
     MIX_ENV=dev
-
-CMD ["iex", "-S", "mix", "phx.server"]
