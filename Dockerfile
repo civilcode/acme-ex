@@ -30,7 +30,8 @@ RUN mix release --env=prod --verbose
 FROM alpine:3.6
 
 # we need bash and openssl for Phoenix
-RUN apk upgrade --no-cache && \
+RUN apk update \
+    apk upgrade --no-cache && \
     apk add --no-cache bash openssl
 
 # EXPOSE is not used by Heroku, it uses the PORT env var and expose the same value
