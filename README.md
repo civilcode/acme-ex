@@ -40,7 +40,8 @@ TBD
  docker-compose run application mix ecto.create
  docker-compose run application mix ecto.migrate
  docker-compose up
- docker-compose run application mix test (to check)
+ docker-compose run application mix test
+ docker-compose run -e MIX_ENV=test application mix ecto.migrate
 ```
 
 ### Reproduce production environment locally
