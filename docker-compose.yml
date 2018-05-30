@@ -27,6 +27,7 @@ services:
       - "4000:4000"
     depends_on:
       - db
+    tty: true
 
 volumes:
   node_modules:

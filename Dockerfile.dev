@@ -17,4 +17,4 @@ WORKDIR /app
 
 EXPOSE 4000
 
-CMD ["bash"]
+CMD ["/bin/bash"]
