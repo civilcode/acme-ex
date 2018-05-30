@@ -39,7 +39,7 @@ TBD
  docker-compose build
  docker-compose run application mix ecto.create
  docker-compose run application mix ecto.migrate
- docker-compose up
+ docker-compose up -d
  docker-compose run application mix test
  docker-compose run -e MIX_ENV=test application mix ecto.migrate
 ```
