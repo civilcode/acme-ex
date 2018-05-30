@@ -1,15 +1,15 @@
 FROM bitwalker/alpine-elixir-phoenix as builder
 
+ENV PORT=4000 \
+    MIX_ENV=dev
+
 RUN mkdir /app
 WORKDIR /app
-
-# Umbrella
 ADD . /app
 
 RUN mix do local.hex --force, local.rebar --force
 RUN mix do deps.get, deps.compile
 
-# Build assets in production mode:
 WORKDIR /app/apps/magasin_web/assets
 RUN npm install
 
@@ -17,5 +17,4 @@ WORKDIR /app
 
 EXPOSE 4000
 
-ENV PORT=4000 \
-    MIX_ENV=dev
+CMD ["bash"]

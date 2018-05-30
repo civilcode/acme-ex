@@ -7,8 +7,10 @@ services:
       - "5432:5432"
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_DB: music_accent_test
+      POSTGRES_DB: magasin_dev
       PGDATA: /pgdata
+    volumes:
+      - ../magasin_pgdata:/pgdata
 
   application:
     build:
@@ -17,7 +19,8 @@ services:
     env_file: .env
     volumes:
       - .:/app
-      - node_modules:/app/node_modules
+      - node_modules:/app/magasin_web/assets/node_modules
+      - static:/app/magasin_web/priv/static
       - deps:/app/deps
       - _build:/app/_build
     ports:
@@ -27,5 +30,6 @@ services:
 
 volumes:
   node_modules:
+  static:
   _build:
   deps:
