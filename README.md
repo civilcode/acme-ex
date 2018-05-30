@@ -45,9 +45,12 @@ TBD
 
 ### Reproduce production environment locally
 ```
+# Retrieve the production DATABASE_URL
+db_url=$(heroku config:get DATABASE_URL -a magasin-platform)
+
 # Build from the production Dockerfile and run
  docker build --no-cache -t magasin/app -f Dockerfile .
- docker run -i --name mag1 -t --rm -p 4000:4000 -e DATABASE_URL="postgres://user:password@hostname:5432/db" magasin/app /app/bin/magasin foreground
+ docker run -i --name mag -t --rm -p 4000:4000 -e DATABASE_URL=$db_url magasin/app /app/bin/magasin foreground
 
 # Stop/ remove
  docker stop mag1
