@@ -33,6 +33,12 @@ environment :dev do
   set cookie: :"uE(:/nUb.yF[(FSkI^BAU`(>a2=Gj;_!yM,i}c`%e>l!5&Znv{|D/YWZwE]NwOF|"
 end
 
+environment :staging do
+  set include_erts: true
+  set include_src: false
+  set cookie: :"KYY?g&*R>bH$!OT@yycvnL$Nr:v8/J>x^m_pnsjnM7;?N{Ss]p[`QhJB]s7l%7?U"
+end
+
 environment :prod do
   set include_erts: true
   set include_src: false
@@ -52,4 +58,3 @@ release :magasin do
     magasin_web: :permanent
   ]
 end
-

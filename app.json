@@ -5,7 +5,6 @@
   "success_url": "/",
   "addons": ["heroku-postgresql:hobby-dev", "papertrail:choklad"],
   "env": {
-    "MIX_ENV": "production",
     "SECRET_KEY_BASE": {
       "generator": "secret"
     },
@@ -16,6 +15,6 @@
     "SETUP_BY": {
       "description": "Who initiated this setup",
       "value": "CivilCode Inc"
-    }
-  }
+    },
+    "MIX_ENV": "staging"
 }

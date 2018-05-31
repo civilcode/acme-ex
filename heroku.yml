@@ -1,3 +1,5 @@
 build:
+  config:
+    MIX_ENV: staging
   docker:
     web: Dockerfile

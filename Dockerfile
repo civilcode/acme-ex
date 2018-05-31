@@ -4,7 +4,9 @@ RUN mkdir /app
 
 WORKDIR /app
 
-ENV MIX_ENV=prod
+ARG MIX_ENV
+ENV MIX_ENV ${MIX_ENV}
+RUN echo $MIX_ENV
 
 # Umbrella
 COPY mix.exs mix.lock ./
@@ -19,11 +21,11 @@ WORKDIR /app/apps/magasin_web/assets
 RUN npm install && ./node_modules/webpack/bin/webpack.js --mode production
 
 WORKDIR /app/apps/magasin_web
-RUN MIX_ENV=prod mix phx.digest
+RUN mix phx.digest
 
 WORKDIR /app
 COPY rel rel
-RUN mix release --env=prod --verbose
+RUN mix release --env=$MIX_ENV --verbose
 
 
 ### RELEASE
@@ -37,15 +39,15 @@ RUN apk update \
 # EXPOSE is not used by Heroku, it uses the PORT env var and expose the same value
 EXPOSE 4000
 
+ARG MIX_ENV
 ENV PORT=4000 \
-    MIX_ENV=prod \
     REPLACE_OS_VARS=true \
     SHELL=/bin/bash
 
 RUN mkdir /app
 WORKDIR /app
 
-COPY --from=builder /app/_build/prod/rel/magasin/releases/0.1.0/magasin.tar.gz .
+COPY --from=builder /app/_build/$MIX_ENV/rel/magasin/releases/0.1.0/magasin.tar.gz .
 
 RUN tar xzf magasin.tar.gz && rm magasin.tar.gz
 
