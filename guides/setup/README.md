@@ -22,7 +22,7 @@ This guide covers everything that needs to be setup for an application.
 - [ ] Add [GitHub Issue Templates]((../../.github/ISSUE_TEMPLATES.md))
 - [ ] Update README.md based on the [reference application](../../README.md)
 - [ ] Add [Glossary](../../GLOSSARY.md)
-- [ ] (Centralize configuration)[../../config]
+- [ ] [Centralize configuration](../../config)
 - [ ] Create staging environment configuration
 - [ ] Add Basic Authentication to staging environment
 
