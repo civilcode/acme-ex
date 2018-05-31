@@ -1,5 +1,5 @@
 ### BUILD
-FROM bitwalker/alpine-elixir-phoenix as builder
+FROM bitwalker/alpine-elixir-phoenix:1.6.5 as builder
 RUN mkdir /app
 
 WORKDIR /app
