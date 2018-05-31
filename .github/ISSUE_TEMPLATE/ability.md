@@ -36,3 +36,7 @@
 ## Wireframes
 
 {insert wireframes}
+
+## Peer review
+
+- [ ] manual acceptance testing
