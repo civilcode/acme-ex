@@ -19,8 +19,8 @@ services:
     env_file: .env
     volumes:
       - .:/app
-      - node_modules:/app/magasin_web/assets/node_modules
-      - static:/app/magasin_web/priv/static
+      - node_modules:/app/apps/magasin_web/assets/node_modules
+      - static:/app/apps/magasin_web/priv/static
       - deps:/app/deps
       - _build:/app/_build
     ports:
