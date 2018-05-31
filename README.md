@@ -1,4 +1,4 @@
-# Magasin - CivilCode's Reference Application and Development Guides
+# Magasin - CivilCode's Reference Application and Guides
 
 ## About CivilCode Inc
 
