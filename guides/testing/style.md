@@ -48,6 +48,16 @@ describe "adding a product to a new order" do
 end
 ```
 
+## Meta-constants
+
+Use meta-constants to help communicate types of data in setup phase of your test:
+
+```elixir
+product_out_of_stock = build(:product, sku: ":out-of-stock:")
+
+Order.place(%{product_sku:  ":out-of-stock:", quantity: 1})
+```
+
 ## Credit
 
 Some of this style guide is influenced by Roy Osherove's [Naming standards for unit tests](http://osherove.com/blog/2005/4/3/naming-standards-for-unit-tests.html).
