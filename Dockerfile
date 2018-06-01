@@ -18,6 +18,11 @@ RUN mix do deps.get, deps.compile
 
 # Build assets in production mode:
 WORKDIR /app/apps/magasin_web/assets
+
+# The version 6.0.1 returned "npm ERR! write after end" sometimes
+# https://github.com/npm/npm/issues/19989
+RUN npm i -g npm@6.1.0
+
 RUN npm install && ./node_modules/webpack/bin/webpack.js --mode production
 
 WORKDIR /app/apps/magasin_web
