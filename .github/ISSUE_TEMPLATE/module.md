@@ -10,7 +10,7 @@
 
 ## Statement of Purpose
 
-{what is the purpose of this ability}
+{what is the purpose of this module}
 
 ## To-do
 
