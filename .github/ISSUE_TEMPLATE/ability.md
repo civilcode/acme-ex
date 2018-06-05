@@ -13,9 +13,9 @@
 
 {what is the purpose of this ability}
 
-## To-do
+## Tasks
 
-{insert to-do items}
+{insert tasks}
 
 ## Event Storming Model (or Story Mapping)
 
