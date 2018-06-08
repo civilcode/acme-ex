@@ -1,0 +1,25 @@
+FROM bitwalker/alpine-elixir-phoenix:1.6.5 as builder
+
+ENV PORT=4000 \
+    MIX_ENV=dev
+
+RUN mkdir /app
+WORKDIR /app
+ADD . /app
+
+RUN mix do local.hex --force, local.rebar --force
+RUN mix do deps.get, deps.compile
+
+WORKDIR /app/apps/magasin_web/assets
+
+# The version 6.0.1 returned "npm ERR! write after end" sometimes
+# https://github.com/npm/npm/issues/19989
+RUN npm i -g npm@6.1.0
+
+RUN npm install
+
+WORKDIR /app
+
+EXPOSE 4000
+
+CMD ["/bin/bash"]

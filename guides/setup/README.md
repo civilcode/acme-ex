@@ -31,6 +31,7 @@ This guide covers everything that needs to be setup for an application.
 - [ ] [Setup S3](./s3.md) (if required)
 - [ ] Configure [CircleCI](http://circleci.com)
 - [ ] Configure [Coveralls](https://coveralls.io)
+- [ ] [Setup Docker](./docker.md) (if required)
 
 ## Heroku Deployment with Docker
 

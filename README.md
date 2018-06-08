@@ -33,6 +33,33 @@ TBD
 
 TBD
 
+## Docker
+### Locally
+```
+ docker-compose build
+ docker-compose up -d
+ docker-compose exec -e MIX_ENV=test application mix ecto.create
+ docker-compose exec -e MIX_ENV=test application mix ecto.migrate
+ docker-compose exec -e MIX_ENV=test application mix test
+```
+
+### Reproduce production environment locally
+```
+# Retrieve the production DATABASE_URL
+db_url=$(heroku config:get DATABASE_URL -a magasin-platform)
+
+# Build from the production Dockerfile and run
+ docker build --no-cache -t magasin/app -f Dockerfile .
+ docker run -i --name mag -t --rm -p 4000:4000 -e DATABASE_URL=$db_url magasin/app /app/bin/magasin foreground
+
+# Stop/ remove
+ docker stop mag
+ docker container rm mag
+
+# Connect to a running container
+docker exec -it mag bash
+```
+
 ## About CivilCode Inc
 
 [CivilCode Inc.](http://www.civilcode.io) develops tailored business applications in [Elixir](http://elixir-lang.org/) and [Phoenix](http://www.phoenixframework.org/)
