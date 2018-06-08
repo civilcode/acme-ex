@@ -20,3 +20,6 @@
 
 ```
 - [ ] Setup `prod.exs` to not import a `prod.secrets.exs`
+
+## References
+- https://cultivatehq.com/posts/elixir-distillery-umbrella-docker/
