@@ -34,7 +34,9 @@ TBD
 TBD
 
 ## Docker
+
 ### Locally
+
 ```
  docker-compose build
  docker-compose up -d
@@ -44,17 +46,18 @@ TBD
 ```
 
 ### Reproduce production environment locally
+
 ```
 # Retrieve the production DATABASE_URL
 db_url=$(heroku config:get DATABASE_URL -a magasin-platform)
 
 # Build from the production Dockerfile and run
- docker build --no-cache -t magasin/app -f Dockerfile .
- docker run -i --name mag -t --rm -p 4000:4000 -e DATABASE_URL=$db_url magasin/app /app/bin/magasin foreground
+docker build --no-cache --build-arg MIX_ENV=prod -t magasin/app -f Dockerfile .
+docker run -i --name mag -t --rm -p 4000:4000 -e DATABASE_URL=$db_url magasin/app /app/bin/magasin foreground
 
 # Stop/ remove
- docker stop mag
- docker container rm mag
+docker stop mag
+docker container rm mag
 
 # Connect to a running container
 docker exec -it mag bash
