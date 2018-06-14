@@ -5,7 +5,19 @@ defmodule MagasinPlatform.MixProject do
     [
       apps_path: "apps",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      dialyzer: [
+        flags: [
+          :unmatched_returns,
+          :error_handling,
+          :race_conditions,
+          :underspecs,
+          :no_opaque
+        ],
+        plt_add_deps: :transitive,
+        plt_add_apps: [:mix],
+        ignore_warnings: "dialyzer.ignore-warnings"
+      ]
     ]
   end
 
@@ -16,7 +28,8 @@ defmodule MagasinPlatform.MixProject do
   # Run "mix help deps" for examples and options.
   defp deps do
     [
-      {:distillery, "~> 1.5", runtime: false}
+      {:distillery, "~> 1.5", runtime: false},
+      {:dialyxir, "~> 0.5", only: [:dev], runtime: false}
     ]
   end
 end
