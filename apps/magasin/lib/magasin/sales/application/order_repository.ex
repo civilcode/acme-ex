@@ -1,4 +1,6 @@
 defmodule Magasin.Sales.Application.OrderRepository do
+  @moduledoc false
+
   use CivilCode.Repository
 
   alias Magasin.Repo

@@ -1,4 +1,6 @@
 defmodule Magasin.Sales.Domain.Order.State do
+  @moduledoc false
+
   use Magasin.Schema
 
   alias Magasin.Sales.Domain.OrderPlaced

@@ -16,7 +16,8 @@ use Mix.Config
 
 config :magasin_web, MagasinWeb.Endpoint,
   http: [port: {:system, "PORT"}],
-  url: [host: "localhost", port: {:system, "PORT"}], # This is critical for ensuring web-sockets properly authorize.
+  # This is critical for ensuring web-sockets properly authorize.
+  url: [host: "localhost", port: {:system, "PORT"}],
   cache_static_manifest: "priv/static/cache_manifest.json",
   server: true,
   root: ".",
@@ -64,5 +65,4 @@ config :magasin_web, MagasinWeb.Endpoint,
 # which should be versioned separately.
 # import_config "prod.secret.exs"
 
-config :magasin_web, MagasinWeb.Endpoint,
-  secret_key_base: {:system, "SECRET_KEY_BASE"}
+config :magasin_web, MagasinWeb.Endpoint, secret_key_base: {:system, "SECRET_KEY_BASE"}

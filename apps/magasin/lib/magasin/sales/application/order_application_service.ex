@@ -1,7 +1,9 @@
 defmodule Magasin.Sales.Application.OrderApplicationService do
+  @moduledoc false
+
   use CivilCode.ApplicationService
 
-  alias Magasin.Sales.Application.{PlaceOrder, OrderRepository}
+  alias Magasin.Sales.Application.{OrderRepository, PlaceOrder}
   alias Magasin.Sales.Domain.Order
 
   def handle(%PlaceOrder{} = place_order) do

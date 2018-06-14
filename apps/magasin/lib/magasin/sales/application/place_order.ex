@@ -1,4 +1,6 @@
 defmodule Magasin.Sales.Application.PlaceOrder do
+  @moduledoc false
+
   use CivilCode.Command
 
   defstruct [:guid, :email]

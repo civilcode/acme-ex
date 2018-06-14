@@ -1,4 +1,6 @@
 defmodule Magasin.Sales.Domain.Order do
+  @moduledoc false
+
   use CivilCode.Aggregate
 
   alias Magasin.Sales.Domain.{Order, OrderPlaced}
