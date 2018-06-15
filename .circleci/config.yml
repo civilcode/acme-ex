@@ -5,7 +5,7 @@ jobs:
     environment:
       - MIX_ENV: "test"
     machine:
-      docker_layer_caching: true
+      docker_layer_caching: false
     steps:
       - checkout
       - run:
@@ -15,7 +15,7 @@ jobs:
             chmod +x ~/docker-compose
             sudo mv ~/docker-compose /usr/local/bin/docker-compose
       - run: cp config/test.secret.exs.ci config/test.secret.exs
-      - run: docker-compose build
+      - run: docker-compose build --build-arg MIX_ENV=test application
       - run: docker-compose run application mix do local.hex --force, local.rebar --force
       - run: docker-compose run application mix do deps.get, compile --warnings-as-errors
       - run: docker-compose run application mix do ecto.create, ecto.migrate
