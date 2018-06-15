@@ -1,7 +1,6 @@
 FROM bitwalker/alpine-elixir-phoenix:1.6.5 as builder
 
-ENV PORT=4000 \
-    MIX_ENV=dev
+ENV PORT=4000
 
 RUN mkdir /app
 WORKDIR /app

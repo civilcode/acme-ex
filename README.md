@@ -38,11 +38,13 @@ TBD
 ### Locally
 
 ```
- docker-compose build
- docker-compose up -d
- docker-compose exec -e MIX_ENV=test application mix ecto.create
- docker-compose exec -e MIX_ENV=test application mix ecto.migrate
- docker-compose exec -e MIX_ENV=test application mix test
+docker-compose build
+docker-compose up -d
+docker-compose exec -e MIX_ENV=test application mix ecto.create
+docker-compose exec application mix test
+docker-compose exec application mix test.watch
+docker-compose exec -e MIX_ENV=test application mix ecto.rollback
+docker-compose exec application bash
 ```
 
 ### Reproduce production environment locally

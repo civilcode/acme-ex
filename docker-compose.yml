@@ -16,7 +16,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.dev
-    env_file: .env
     volumes:
       - .:/app
       - node_modules:/app/apps/magasin_web/assets/node_modules
