@@ -1,5 +1,20 @@
 use Mix.Config
 
+###############################################################################
+# MAGASIN
+###############################################################################
+
+config :magasin, Magasin.Repo,
+  adapter: Ecto.Adapters.Postgres,
+  database: "magasin_dev",
+  hostname: "db",
+  username: "postgres",
+  pool: Ecto.Adapters.SQL.Sandbox
+
+###############################################################################
+# MAGASIN WEB
+###############################################################################
+
 # For development, we disable any cache and enable
 # debugging and code reloading.
 #
