@@ -1,0 +1,28 @@
+version: 2
+
+jobs:
+  test:
+    environment:
+      - MIX_ENV: "test"
+    machine:
+      docker_layer_caching: false
+    steps:
+      - checkout
+      - run:
+          name: Install Docker Compose
+          command: |
+            curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
+            chmod +x ~/docker-compose
+            sudo mv ~/docker-compose /usr/local/bin/docker-compose
+      - run: cp config/test.secret.exs.ci config/test.secret.exs
+      - run: docker-compose build --build-arg MIX_ENV=test application
+      - run: docker-compose run application mix do local.hex --force, local.rebar --force
+      - run: docker-compose run application mix do deps.get, compile --warnings-as-errors
+      - run: docker-compose run application mix do ecto.create, ecto.migrate
+      - run: docker-compose run application mix test
+
+workflows:
+  version: 2
+  build_deploy:
+    jobs:
+      - test

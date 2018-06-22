@@ -7,11 +7,31 @@ use Mix.Config
 # they all use the same configuration. While one could
 # configure all applications here, we prefer to delegate
 # back to each application for organization purposes.
-import_config "../apps/*/config/config.exs"
+# General application configuration
 
-# Sample configuration (overrides the imported configuration above):
-#
-#     config :logger, :console,
-#       level: :info,
-#       format: "$date $time [$level] $metadata$message\n",
-#       metadata: [:user_id]
+###############################################################################
+# MAGASIN
+###############################################################################
+
+config :magasin, ecto_repos: [Magasin.Repo]
+
+###############################################################################
+# MAGASIN WEB
+###############################################################################
+
+config :magasin_web,
+  generators: [context_app: :magasin]
+
+# Configures the endpoint
+config :magasin_web, MagasinWeb.Endpoint,
+  url: [host: "localhost"],
+  secret_key_base: "t+rnxLm4FP2zzACQCy/v65vJ0U9oL5OqHBtcKqKMLhQvHc1sLw0D3S292UgItkIV",
+  render_errors: [view: MagasinWeb.ErrorView, accepts: ~w(html json)],
+  pubsub: [name: MagasinWeb.PubSub, adapter: Phoenix.PubSub.PG2]
+
+# Use Jason for JSON parsing in Phoenix
+config :phoenix, :json_library, Jason
+
+# Import environment specific config. This must remain at the bottom
+# of this file so it overrides the configuration defined above.
+import_config "#{Mix.env()}.exs"
