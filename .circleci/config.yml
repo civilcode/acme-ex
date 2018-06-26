@@ -24,31 +24,30 @@ jobs:
       - run: mix do local.hex --force, local.rebar --force
       - restore_cache: # restore saved dependency cache
           keys:
-            - v2-dep-cache-{{ checksum "mix.lock" }}
-            - v2-dep-cache-{{ .Branch }}
-            - v2-dep-cache
+            - v3-dep-cache-{{ checksum "mix.lock" }}
+            - v3-dep-cache-{{ .Branch }}
+            - v3-dep-cache
       - restore_cache:  # restores saved build cache
           keys:
-            - v2-build-and-mix-cache-{{ .Branch }}
-            - v2-build-and-mix-cache
+            - v3-build-and-mix-cache-{{ .Branch }}
+            - v3-build-and-mix-cache
       - run: mix do deps.get, compile --warnings-as-errors
-      - run: mix dialyzer --halt-exit-status
       - save_cache: # save dependencies to cache
-          key: v2-dep-cache-{{ checksum "mix.lock" }}
+          key: v3-dep-cache-{{ checksum "mix.lock" }}
           paths: "deps"
       - save_cache: # save dependencies to cache
-          key: v2-dep-cache-{{ .Branch }}
+          key: v3-dep-cache-{{ .Branch }}
           paths: "deps"
       - save_cache: # save dependencies to cache
-          key: v2-dep-cache
+          key: v3-dep-cache
           paths: "deps"
       - save_cache: # save build cache
-          key: v2-build-and-mix-cache-{{ .Branch }}
+          key: v3-build-and-mix-cache-{{ .Branch }}
           paths:
             - _build
             - ~/.mix
       - save_cache: # save build cache
-          key: v2-build-and-mix-cache
+          key: v3-build-and-mix-cache
           paths:
             - _build
             - ~/.mix
