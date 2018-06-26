@@ -1,4 +1,4 @@
-## Peer Review
+## Checklist
 
 - [ ] review code
 - [ ] check I18n (if applicable)

@@ -1,4 +1,4 @@
-## To-do
+## Checklist
 
 - [ ] Obtain related documents
 - [ ] Determine requirements using Event Storming or Story Mapping
