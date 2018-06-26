@@ -1,28 +1,58 @@
 version: 2
 
 jobs:
-  test:
+  build:
     environment:
       - MIX_ENV: "test"
-    machine:
-      docker_layer_caching: false
+    docker:
+      - image: circleci/elixir:1.6.4
+      - image: circleci/postgres:10.1-alpine
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_DB: magasin_test
+          POSTGRES_PASSWORD: postgres
+
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/postgres:9.4
+
+    working_directory: ~/repo
     steps:
       - checkout
+      - run: cp config/test.circle.exs config/test.secret.exs
+      - run: mix do local.hex --force, local.rebar --force
+      - restore_cache: # restore saved dependency cache
+          keys:
+            - v2-dep-cache-{{ checksum "mix.lock" }}
+            - v2-dep-cache-{{ .Branch }}
+            - v2-dep-cache
+      - restore_cache:  # restores saved build cache
+          keys:
+            - v2-build-and-mix-cache-{{ .Branch }}
+            - v2-build-and-mix-cache
+      - run: mix do deps.get, compile --warnings-as-errors
+      - run: mix dialyzer --halt-exit-status
+      - save_cache: # save dependencies to cache
+          key: v2-dep-cache-{{ checksum "mix.lock" }}
+          paths: "deps"
+      - save_cache: # save dependencies to cache
+          key: v2-dep-cache-{{ .Branch }}
+          paths: "deps"
+      - save_cache: # save dependencies to cache
+          key: v2-dep-cache
+          paths: "deps"
+      - save_cache: # save build cache
+          key: v2-build-and-mix-cache-{{ .Branch }}
+          paths:
+            - _build
+            - ~/.mix
+      - save_cache: # save build cache
+          key: v2-build-and-mix-cache
+          paths:
+            - _build
+            - ~/.mix
       - run:
-          name: Install Docker Compose
-          command: |
-            curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
-            chmod +x ~/docker-compose
-            sudo mv ~/docker-compose /usr/local/bin/docker-compose
-      - run: cp config/test.secret.exs.ci config/test.secret.exs
-      - run: docker-compose build --build-arg MIX_ENV=test application
-      - run: docker-compose run application mix do local.hex --force, local.rebar --force
-      - run: docker-compose run application mix do deps.get, compile --warnings-as-errors
-      - run: docker-compose run application mix do ecto.create, ecto.migrate
-      - run: docker-compose run application mix test
-
-workflows:
-  version: 2
-  build_deploy:
-    jobs:
-      - test
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run: mix credo --strict
