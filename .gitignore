@@ -22,3 +22,6 @@ erl_crash.dump
 # Secrets
 config/dev.secret.exs
 config/test.secret.exs
+
+# PostgreSQL Data
+/pgdata/
