@@ -6,7 +6,7 @@ jobs:
       - MIX_ENV: "test"
     docker:
       # CircleCI Elixir image is required for the  `dockerize` command below
-      - image: circleci/elixir:1.6.4
+      - image: circleci/elixir:1.6.5
       - image: postgres:10.4
         environment:
           POSTGRES_USER: postgres
