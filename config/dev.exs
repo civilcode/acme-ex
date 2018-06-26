@@ -1,17 +1,6 @@
 use Mix.Config
 
 ###############################################################################
-# MAGASIN
-###############################################################################
-
-config :magasin, Magasin.Repo,
-  adapter: Ecto.Adapters.Postgres,
-  database: "magasin_dev",
-  hostname: "db",
-  username: "postgres",
-  pool: Ecto.Adapters.SQL.Sandbox
-
-###############################################################################
 # MAGASIN WEB
 ###############################################################################
 
@@ -67,3 +56,5 @@ config :magasin_web, MagasinWeb.Endpoint,
 
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
+
+import_config "dev.secret.exs"

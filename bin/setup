@@ -1,0 +1,4 @@
+cp config/dev.secret.exs.sample config/dev.secret.exs
+cp config/test.secret.exs.sample config/test.secret.exs
+
+echo "Please configure the 'secret' configuration files in ./config directory."

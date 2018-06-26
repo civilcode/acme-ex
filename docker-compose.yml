@@ -10,7 +10,7 @@ services:
       POSTGRES_DB: magasin_dev
       PGDATA: /pgdata
     volumes:
-      - ../magasin_pgdata:/pgdata
+      - ./pgdata
 
   application:
     build:
