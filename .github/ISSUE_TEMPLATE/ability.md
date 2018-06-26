@@ -8,6 +8,7 @@
 - [ ] Model the state transitions
 - [ ] Determine the business rules
 - [ ] Create the screen wireframes
+- [ ] Review the approach with a team member
 
 ## Statement of Purpose
 
