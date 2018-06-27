@@ -19,6 +19,8 @@ services:
       context: .
       dockerfile: Dockerfile.dev
     volumes:
+      # Mount the application: allows us to update files on the host without copying them into the image
+      - .:/app
       # Let Docker persist dependencies and builds:
       # * if we blow away Docker this can be easily recreated
       # * it keeps all build concerns separate from the host operating system
