@@ -23,47 +23,54 @@ The application implements a basic ordering system.
 
 ## Development Setup
 
-TBD
+For a Docker-based development environment run the following setup scripts and follow the instructions:
+
+    ./bin/setup
+    ./bin/docker.setup
+
+To run the server:
+
+    docker-compose exec application mix phx.server
+
+To start and shutdown Docker containers:
+
+    docker-compose up -d
+    docker-compose stop
 
 ## Running tests
 
-TBD
+    docker-compose exec -e MIX_ENV=test application mix ecto.create
+    docker-compose exec application mix test
+
+## Helpful Commands
+
+    docker-compose build
+    docker-compose up -d
+    docker-compose exec application mix ecto.create
+    docker-compose exec application mix test
+    docker-compose exec application mix test.watch
+    docker-compose exec application mix ecto.rollback
+    docker-compose exec application bash
 
 ## Deployment
 
 TBD
 
-## Docker
-
-### Locally
-
-```
-docker-compose build
-docker-compose up -d
-docker-compose exec application mix ecto.create
-docker-compose exec application mix test
-docker-compose exec application mix test.watch
-docker-compose exec application mix ecto.rollback
-docker-compose exec application bash
-```
-
 ### Reproduce production environment locally
 
-```
-# Retrieve the production DATABASE_URL
-db_url=$(heroku config:get DATABASE_URL -a magasin-platform)
+    # Retrieve the production DATABASE_URL
+    db_url=$(heroku config:get DATABASE_URL -a magasin-platform)
 
-# Build from the production Dockerfile and run
-docker build --no-cache --build-arg MIX_ENV=prod -t magasin/app -f Dockerfile .
-docker run -i --name mag -t --rm -p 4000:4000 -e DATABASE_URL=$db_url magasin/app /app/bin/magasin foreground
+    # Build from the production Dockerfile and run
+    docker build --no-cache --build-arg MIX_ENV=prod -t magasin/app -f Dockerfile .
+    docker run -i --name mag -t --rm -p 4000:4000 -e DATABASE_URL=$db_url magasin/app /app/bin/magasin foreground
 
-# Stop/ remove
-docker stop mag
-docker container rm mag
+    # Stop/ remove
+    docker stop mag
+    docker container rm mag
 
-# Connect to a running container
-docker exec -it mag bash
-```
+    # Connect to a running container
+    docker exec -it mag bash
 
 ## About CivilCode Inc
 
