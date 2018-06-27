@@ -21,7 +21,7 @@ config :magasin_web, MagasinWeb.Endpoint,
       "--mode",
       "development",
       "--watch-stdin",
-      cd: "apps/magasin_web/assets"
+      cd: Path.expand("../apps/magasin_web/assets", __DIR__)
     ]
   ]
 
