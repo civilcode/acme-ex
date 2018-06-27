@@ -32,6 +32,8 @@ To run the server:
 
     docker-compose exec application mix phx.server
 
+Visit http://localhost:4000.
+
 To start and shutdown Docker containers:
 
     docker-compose up -d
