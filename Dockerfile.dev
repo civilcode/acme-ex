@@ -1,9 +1,5 @@
 FROM bitwalker/alpine-elixir-phoenix:1.6.5 as builder
 
-RUN mkdir /app
-WORKDIR /app
-ADD . /app
-
 RUN mix do local.hex --force, local.rebar --force
 RUN mix do deps.get, deps.compile
 
