@@ -10,6 +10,8 @@ services:
       POSTGRES_DB: magasin_dev
       PGDATA: /pgdata
     volumes:
+      # Persist data in a local folder: this allows us to have access to it even if we blow
+      # away Docker
       - ./pgdata:/pgdata
 
   application:
@@ -17,6 +19,11 @@ services:
       context: .
       dockerfile: Dockerfile.dev
     volumes:
+      # Let Docker persist dependencies and builds:
+      # * if we blow away Docker this can be easily recreated
+      # * it keeps all build concerns separate from the host operating system
+      # * for compiled dependencies, stop conflicts with different host OS
+      # * maps to a subset of directories in .gitignore
       - node_modules:/app/apps/magasin_web/assets/node_modules
       - static:/app/apps/magasin_web/priv/static
       - deps:/app/deps
@@ -27,6 +34,7 @@ services:
       - db
     tty: true
 
+# volumes defined for use in above configuration
 volumes:
   node_modules:
   static:
