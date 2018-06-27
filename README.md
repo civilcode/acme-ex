@@ -25,6 +25,8 @@ The application implements a basic ordering system.
 
 For a Docker-based development environment run the following setup scripts and follow the instructions:
 
+    git clone https://github.com/civilcode/magasin-platform
+    cd magasin-platform    
     ./bin/setup
     ./bin/docker.setup
 
