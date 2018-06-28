@@ -3,7 +3,7 @@
 - [ ] Run `mix release.init` and commit the `rel` folder
 - [ ] Copy dockerfiles (`./Dockerfile`, `/Dockerfile.dev`, `.docker-compose.yml`)
 - [ ] Copy heroku files (`./heroku.yml`, `app.json`)
-- [ ] Add config files for staging (`apps/magasin/config/staging.exs`, `apps/magasin_web/config/staging.exs`)
+- [ ] Add config files for staging (`config/staging.exs`)
 - [ ] Setup distillery to build for staging
 - [ ] Setup Magasin.Repo for default credentials from postgres docker image
 - [ ] Setup Magasin.Repo to get the DATABASE_URL environment variable (`apps/magasin/lib/magasin/repo.ex`)
