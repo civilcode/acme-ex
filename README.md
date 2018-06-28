@@ -41,7 +41,7 @@ To start and shutdown Docker containers:
     docker-compose up -d
     docker-compose stop
 
-## Running tests
+## Running Tests
 
     docker-compose exec -e MIX_ENV=test application mix ecto.create
     docker-compose exec application mix test
@@ -56,25 +56,26 @@ To start and shutdown Docker containers:
     docker-compose exec application mix ecto.rollback
     docker-compose exec application bash
 
-## Deployment
+## Deployment to staging
 
-TBD
+    heroku container:release web -a magasin-platform
+    heroku container:push web -a magasin-platform
 
-### Reproduce production environment locally
+### How to reproduce deployment environment locally
 
-    # Retrieve the production DATABASE_URL
+    # retrieve the production DATABASE_URL
     db_url=$(heroku config:get DATABASE_URL -a magasin-platform)
 
-    # Build from the production Dockerfile and run
-    docker build --no-cache --build-arg MIX_ENV=prod -t magasin/app -f Dockerfile .
-    docker run -i --name mag -t --rm -p 4000:4000 -e DATABASE_URL=$db_url magasin/app /app/bin/magasin foreground
+    # build from the production Dockerfile and run
+    docker build --no-cache --build-arg MIX_ENV=staging -t magasin/app -f Dockerfile .
+    docker run -i --name magasin -t --rm -p 4000:4000 -e DATABASE_URL=$db_url magasin/app /app/bin/magasin foreground
 
-    # Stop/ remove
-    docker stop mag
-    docker container rm mag
+    # stop and remove
+    docker stop magasin
+    docker container rm magasin
 
-    # Connect to a running container
-    docker exec -it mag bash
+    # connect to a running container
+    docker exec -it magasin bash
 
 ## About CivilCode Inc
 
