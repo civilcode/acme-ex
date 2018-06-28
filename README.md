@@ -58,24 +58,22 @@ To start and shutdown Docker containers:
 
 ## Deployment to staging
 
-    heroku container:release web -a magasin-platform
-    heroku container:push web -a magasin-platform
+    heroku container:push web -r staging
+    heroku container:release web -r staging    
+
+For more information see: [Container Registry & Runtime (Docker Deploys)](https://devcenter.heroku.com/articles/container-registry-and-runtime)
 
 ### How to reproduce deployment environment locally
+    # build from the production Dockerfile
+    bin/heroku.docker.build
 
-    # retrieve the production DATABASE_URL
-    db_url=$(heroku config:get DATABASE_URL -a magasin-platform)
+    # run the Docker image
+    bin/heroku.docker.start
 
-    # build from the production Dockerfile and run
-    docker build --no-cache --build-arg MIX_ENV=staging -t magasin/app -f Dockerfile .
-    docker run -i --name magasin -t --rm -p 4000:4000 -e DATABASE_URL=$db_url magasin/app /app/bin/magasin foreground
+    # stop the Docker container
+    bin/heroku.docker.stop    
 
-    # stop and remove
-    docker stop magasin
-    docker container rm magasin
-
-    # connect to a running container
-    docker exec -it magasin bash
+For more information see: [Local Development with Docker Compose](https://devcenter.heroku.com/articles/local-development-with-docker-compose)
 
 ## About CivilCode Inc
 
