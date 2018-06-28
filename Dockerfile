@@ -4,7 +4,8 @@ RUN mkdir /app
 
 WORKDIR /app
 
-ARG MIX_ENV
+# Provide a default for the env as it is not currently using the config from heroku.yml
+ARG MIX_ENV=staging
 ENV MIX_ENV ${MIX_ENV}
 RUN echo $MIX_ENV
 
@@ -44,7 +45,7 @@ RUN apk update \
 # EXPOSE is not used by Heroku, it uses the PORT env var and expose the same value
 EXPOSE 4000
 
-ARG MIX_ENV
+ARG MIX_ENV=staging
 ENV PORT=4000 \
     REPLACE_OS_VARS=true \
     SHELL=/bin/bash
