@@ -1,6 +1,6 @@
 # Setup Guide
 
-This guide covers everything that needs to be setup for an application.
+This guide covers everything that needs to be setup for a new application.
 
 ## GitHub
 
