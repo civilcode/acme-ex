@@ -23,57 +23,38 @@ The application implements a basic ordering system.
 
 ## Development Setup
 
-For a Docker-based development environment run the following setup scripts and follow the instructions:
+Before following the instructions below, ensure your development environment meets the prerequisites
+outlined here:
+
+    https://github.com/civilcode/playbook/blob/master/guides/ops/developer_setup.md
+
+For a Docker-based development environment run the following setup scripts and follow
+the instructions:
 
     git clone https://github.com/civilcode/magasin-platform
     cd magasin-platform    
-    ./bin/setup
-    ./bin/docker.setup
+    ./bin/setup.config
+    ./bin/setup.docker
 
 To run the server:
 
     docker-compose exec application mix phx.server
 
-Visit http://localhost:4000.
+To view the application with your browser visit:
+
+    http://localhost:4000
 
 To start and shutdown Docker containers:
 
     docker-compose up -d
     docker-compose stop
 
-## Running Tests
+## Guides
 
-    docker-compose exec -e MIX_ENV=test application mix ecto.create
-    docker-compose exec application mix test
+For more information on working with Docker for local development, deployment and other
+application development guides visit:
 
-## Helpful Commands
-
-    docker-compose build
-    docker-compose up -d
-    docker-compose exec application mix ecto.create
-    docker-compose exec application mix test
-    docker-compose exec application mix test.watch
-    docker-compose exec application mix ecto.rollback
-    docker-compose exec application bash
-
-## Deployment to staging
-
-    heroku container:push web -r staging
-    heroku container:release web -r staging    
-
-For more information see: [Container Registry & Runtime (Docker Deploys)](https://devcenter.heroku.com/articles/container-registry-and-runtime)
-
-### How to reproduce deployment environment locally
-    # build from the production Dockerfile
-    bin/heroku.docker.build
-
-    # run the Docker image
-    bin/heroku.docker.start
-
-    # stop the Docker container
-    bin/heroku.docker.stop    
-
-For more information see: [Local Development with Docker Compose](https://devcenter.heroku.com/articles/local-development-with-docker-compose)
+    https://github.com/civilcode/magasin-platform/tree/master/guides/app
 
 ## About CivilCode Inc
 

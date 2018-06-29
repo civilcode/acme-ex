@@ -49,7 +49,7 @@ end
 # when running `mix release`, the first release in the file
 # will be used by default
 
-release :magasin do
+release :magasin_platform do
   set(version: "0.1.0")
 
   set(
@@ -57,6 +57,9 @@ release :magasin do
       :runtime_tools,
       magasin: :permanent,
       magasin_web: :permanent
+    ],
+    commands: [
+      migrate: "rel/commands/migrate.sh"
     ]
   )
 end
