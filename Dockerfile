@@ -1,10 +1,11 @@
-### BUILD
+### BUILD STAGE
 FROM bitwalker/alpine-elixir-phoenix:1.6.5 as builder
 RUN mkdir /app
 
 WORKDIR /app
 
-ARG MIX_ENV
+# Provide a default for the MIX_ENV, see heroku.yml for more information
+ARG MIX_ENV=staging
 ENV MIX_ENV ${MIX_ENV}
 RUN echo $MIX_ENV
 
@@ -33,7 +34,7 @@ COPY rel rel
 RUN mix release --env=$MIX_ENV --verbose
 
 
-### RELEASE
+### RELEASE STAGE
 FROM alpine:3.6
 
 # we need bash and openssl for Phoenix
@@ -44,7 +45,8 @@ RUN apk update \
 # EXPOSE is not used by Heroku, it uses the PORT env var and expose the same value
 EXPOSE 4000
 
-ARG MIX_ENV
+# Provide a default for the MIX_ENV, see heroku.yml for more information
+ARG MIX_ENV=staging
 ENV PORT=4000 \
     REPLACE_OS_VARS=true \
     SHELL=/bin/bash
@@ -52,13 +54,13 @@ ENV PORT=4000 \
 RUN mkdir /app
 WORKDIR /app
 
-COPY --from=builder /app/_build/$MIX_ENV/rel/magasin/releases/0.1.0/magasin.tar.gz .
+COPY --from=builder /app/_build/$MIX_ENV/rel/magasin_platform/releases/0.1.0/magasin_platform.tar.gz .
 
-RUN tar xzf magasin.tar.gz && rm magasin.tar.gz
+RUN tar xzf magasin_platform.tar.gz && rm magasin_platform.tar.gz
 
 RUN chown -R root ./releases
 RUN ls /app/bin
 
 USER root
 
-CMD ["/app/bin/magasin", "foreground"]
+CMD ["/app/bin/magasin_platform", "foreground"]

@@ -4,4 +4,6 @@ read -p "Press any key to continue..."
 docker-compose build --no-cache
 docker-compose up -d
 docker-compose exec application mix deps.get
-docker-compose exec application sh -c 'cd /app/apps/magasin_web/assets/node_modules/ && npm install'
+docker-compose exec application sh -c 'cd /app/apps/magasin_web/assets/ && npm install'
+docker-compose exec -e MIX_ENV=test application mix ecto.create
+# docker-compose exec application mix project.setup
