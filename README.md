@@ -1,10 +1,5 @@
 # Magasin - CivilCode's Reference Application and Guides
 
-[New Module](https://github.com/civilcode/magasin/issues/new?template=module.md) |
-[New Ability](https://github.com/civilcode/magasin/issues/new?template=ability.md) |
-[New Task](https://github.com/civilcode/magasin/issues/new?template=task.md) |
-[New Bug](https://github.com/civilcode/magasin/issues/new?template=bug.md)
-
 ## About Magasin
 
 Magasin is CivilCode's reference application and [development guides](./guides). It demonstrates
