@@ -1,22 +1,26 @@
+---
+name: Ability
+about: The user has an ability within a module
+
+---
+
 ## Checklist
 
 - [ ] Obtain related documents
 - [ ] Determine requirements using Event Storming or Story Mapping
-- [ ] Specify the Acceptance Test
 - [ ] Create a data model
 - [ ] Create a [Feature List](https://github.com/civilcode/playbook/blob/master/process/05%20development/fdd/feature-list.md)
 - [ ] Model the state transitions
 - [ ] Determine the business rules
 - [ ] Create the screen wireframes
-- [ ] Review the approach with a team member
 
 ## Statement of Purpose
 
-{what is the purpose of this ability}
+{what is the purpose of this module}
 
-## Tasks
+## To-do
 
-{insert tasks}
+{insert to-do items}
 
 ## Event Storming Model (or Story Mapping)
 
@@ -37,7 +41,3 @@
 ## Wireframes
 
 {insert wireframes}
-
-## Peer review
-
-- [ ] manual acceptance testing

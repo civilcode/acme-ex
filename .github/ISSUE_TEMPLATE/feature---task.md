@@ -1,5 +1,5 @@
 ---
-name: Task
+name: Feature - Task
 about: An ability is comprised of multiple tasks
 
 ---

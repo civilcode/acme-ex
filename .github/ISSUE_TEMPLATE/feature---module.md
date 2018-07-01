@@ -1,5 +1,5 @@
 ---
-name: Module
+name: Feature - Module
 about: A module of the system
 
 ---

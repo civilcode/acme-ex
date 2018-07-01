@@ -1,6 +1,6 @@
 ---
-name: Module
-about: A module of the system
+name: Feature - Ability
+about: The user has an ability within a module
 
 ---
 
