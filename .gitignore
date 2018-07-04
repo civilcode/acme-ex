@@ -25,3 +25,6 @@ config/test.secret.exs
 
 # PostgreSQL Data
 /pgdata/
+
+# Environment
+.env
