@@ -14,5 +14,4 @@ about: An ability is comprised of multiple tasks
 - [ ] review demo seeds
 - [ ] verify feature/exploratory testing (manual)
 - [ ] verify data migration
-- [ ] verify code coverage (i.e. check output from code coverage tool)
 - [ ] verify acceptance test answers the 6W's (why, what, who, when, where, how)
