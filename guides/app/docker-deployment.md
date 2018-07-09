@@ -33,6 +33,7 @@ The Distillery/Docker setup above is based on: [Building and configuring a Phoen
 
 ## Deploy to staging
 
+    heroku container:login
     heroku container:push web -r staging
     heroku container:release web -r staging    
 
