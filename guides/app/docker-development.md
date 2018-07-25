@@ -1,9 +1,5 @@
 # Using Docker for a local development environment
 
-## Setup
-
-- [ ] Copy `/Dockerfile.dev`, `.docker-compose.yml`
-
 ## Running Tests
 
     docker-compose exec -e MIX_ENV=test application mix ecto.create
