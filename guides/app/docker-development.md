@@ -14,3 +14,4 @@
     docker-compose exec application mix test.watch
     docker-compose exec application mix ecto.rollback
     docker-compose exec application zsh
+    docker-compose exec application iex -S mix
