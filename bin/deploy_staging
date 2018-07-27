@@ -1,0 +1,5 @@
+heroku container:login
+heroku container:push web -r staging
+heroku container:release web -r staging
+heroku pg:reset --confirm magasin-platform-staging -r staging
+heroku run /app/bin/magasin_platform migrate -r staging
