@@ -3,6 +3,7 @@ defmodule MagasinPlatform.MixProject do
 
   def project do
     [
+      aliases: aliases(),
       apps_path: "apps",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
@@ -18,6 +19,12 @@ defmodule MagasinPlatform.MixProject do
         plt_add_apps: [:mix],
         ignore_warnings: "dialyzer.ignore-warnings"
       ]
+    ]
+  end
+
+  defp aliases do
+    [
+      "project.seed": ["run apps/magasin/priv/seeds.exs"]
     ]
   end
 
