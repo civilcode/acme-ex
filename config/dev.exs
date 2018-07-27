@@ -1,6 +1,12 @@
 use Mix.Config
 
 ###############################################################################
+# MASTER PROXY
+###############################################################################
+
+config :master_proxy, http: [port: 4000]
+
+###############################################################################
 # MAGASIN WEB
 ###############################################################################
 
@@ -11,7 +17,7 @@ use Mix.Config
 # watchers to your application. For example, we use it
 # with webpack to recompile .js and .css sources.
 config :magasin_web, MagasinWeb.Endpoint,
-  http: [port: 4000],
+  http: [port: 4010],
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
