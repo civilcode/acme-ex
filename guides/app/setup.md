@@ -4,8 +4,8 @@ This guide covers everything that needs to be setup for a new application.
 
 ## GitHub
 
-* [ ] Create repository `{client-name}-platform`
-* [ ] [Generate labels](https://github.com/civilcode/magasin-platform/tree/3c0ec7def06ed304b6b6069edd846d6d3837b5f3/.github/SETUP.md)
+* Create repository `{client-name}-platform`
+* [Generate labels](https://github.com/civilcode/magasin-platform/tree/3c0ec7def06ed304b6b6069edd846d6d3837b5f3/.github/SETUP.md)
 
 ## Elixir application
 
