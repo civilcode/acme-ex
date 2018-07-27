@@ -1,4 +1,6 @@
-# SMACSS - Scalable and Module Architecture for CSS
+# SMACSS
+
+### SMACSS - Scalable and Module Architecture for CSS
 
 Summarized from the [Online Book](https://smacss.com/).
 
@@ -15,18 +17,18 @@ a { color: #039; }
 a:hover { color: #03C; }
 ```
 
-2. Layout: divide the page into sections. Layouts hold one or more modules together.
-3. Module: reusable, modular parts of our design. e.g. callouts, the sidebar sections, the product lists and so on.
-4. State: describe how our modules or layouts will look when in a particular state. e.g. hidden or expanded, active or inactive, home page or the inside page.
-5. Theme: describe how modules or layouts might look, most sites don't need it.
+1. Layout: divide the page into sections. Layouts hold one or more modules together.
+2. Module: reusable, modular parts of our design. e.g. callouts, the sidebar sections, the product lists and so on.
+3. State: describe how our modules or layouts will look when in a particular state. e.g. hidden or expanded, active or inactive, home page or the inside page.
+4. Theme: describe how modules or layouts might look, most sites don't need it.
 
 ## Naming Rules
 
 Prefixes
 
-- Layout: `.l-` and `.grid-`
-- State: `.is-`, e.g. `.is-hidden`, `.is-collapsed`
-- Module: prefix is the name of the module, e.g. `callout`. Related elements within a module use the base name as a prefix. e.g. `.callout-caption`
+* Layout: `.l-` and `.grid-`
+* State: `.is-`, e.g. `.is-hidden`, `.is-collapsed`
+* Module: prefix is the name of the module, e.g. `callout`. Related elements within a module use the base name as a prefix. e.g. `.callout-caption`
 
 ```css
 /* Example Module */
@@ -47,9 +49,9 @@ Prefixes
 
 ## Layout Rules
 
-- Major components identified by ID e.g. `#header, #footer`.
-- Minor components are modules e.g. `.callout`
-- Modified the layout with `.l-flipped` and `.l-fixed`
+* Major components identified by ID e.g. `#header, #footer`.
+* Minor components are modules e.g. `.callout`
+* Modified the layout with `.l-flipped` and `.l-fixed`
 
 Grid module applied to OL or UL:
 
@@ -72,11 +74,11 @@ Grid module applied to OL or UL:
 
 ## Module Rules
 
-The goal of this approach is to  avoid "specificity issues that require adding even more selectors to battle against it or to quickly fall back to using !important."
+The goal of this approach is to avoid "specificity issues that require adding even more selectors to battle against it or to quickly fall back to using !important."
 
-- avoid using IDs and element selectors
-- only class names
-- only include a selector that includes semantics
+* avoid using IDs and element selectors
+* only class names
+* only include a selector that includes semantics
 
 ```css
 <div class="fld">
@@ -106,19 +108,19 @@ The goal of this approach is to  avoid "specificity issues that require adding e
 }
 ```
 
-```html
+```markup
 <div class="pod pod-constrained">...</div>
 <div class="pod pod-callout">...</div>
 ```
 
 ## State Rules
 
-- global
-- can apply to layout and/or module styles
-- indicate a JavaScript dependency
-- made to stand alone
-- are usually built of a single class selector
-- in contrast to sub-module styles, are applied to an element at render time and then are never changed again
+* global
+* can apply to layout and/or module styles
+* indicate a JavaScript dependency
+* made to stand alone
+* are usually built of a single class selector
+* in contrast to sub-module styles, are applied to an element at render time and then are never changed again
 
 ```css
 .is-hidden {
@@ -128,8 +130,8 @@ The goal of this approach is to  avoid "specificity issues that require adding e
 
 Rules for specific modules:
 
-- the state class name should include the module name in it.
-- state rule should also reside with the module rules and not with the rest of the global state rules
+* the state class name should include the module name in it.
+* state rule should also reside with the module rules and not with the rest of the global state rules
 
 ```css
 .tab {
@@ -142,3 +144,4 @@ Rules for specific modules:
     color: black;
 }
 ```
+

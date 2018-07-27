@@ -1,0 +1,19 @@
+# Table of contents
+
+* [Developer Guides](README.md)
+* [Git Guide](git.md)
+* [CSS](css/README.md)
+  * [SMACSS](css/smacss.md)
+* [Testing](testing/README.md)
+  * [Test Style Guide](testing/style.md)
+  * [Test Factories](testing/factories.md)
+* [Elixir](elixir/README.md)
+  * [The Elixir Style Guide Amendments](elixir/style.md)
+* [Application](app/README.md)
+  * [Setup Guide](app/setup.md)
+  * [Using Docker for a local development environment](app/docker-development.md)
+  * [Docker deployment](app/docker-deployment.md)
+  * [S3 Setup Guide](app/s3.md)
+* [Phoenix](phoenix/README.md)
+  * [Elixir Architecture Cheatsheet](phoenix/architecture.md)
+

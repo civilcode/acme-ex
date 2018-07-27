@@ -2,34 +2,30 @@
 
 ## Table of Contents
 
-* [Introduction](#introduction)
-* [The Guide](#the-guide)
-  * [Source Code Layout](#source-code-layout)
-  * [Syntax](#syntax)  
-  * [Typespec](#typespecs)
-  * [Documentation](#documentation)    
+* [Introduction](style.md#introduction)
+* [The Guide](style.md#the-guide)
+  * [Source Code Layout](style.md#source-code-layout)
+  * [Syntax](style.md#syntax)  
+  * [Typespec](style.md#typespecs)
+  * [Documentation](style.md#documentation)    
 
 ## Introduction
 
-This documents outlines amendments to the [Elixir Community Style Guide](https://github.com/christopheradams/elixir_style_guide).
-These amendments are items that are not covered in the Community Guide or in very rare cases where we
-deviate from the community standard.
+This documents outlines amendments to the [Elixir Community Style Guide](https://github.com/christopheradams/elixir_style_guide). These amendments are items that are not covered in the Community Guide or in very rare cases where we deviate from the community standard.
 
 ## The Guide
 
 ### Source Code Layout
 
-* <a name="indentation"></a>
-  Indention kills readability. If the body of the function is indented more than three soft tabs
-  (i.e. 6 spaces), that is a smell that functions should be extracted, reducing the indention.
-  <sup>[[link](#indentation)]</sup>     
+* Indention kills readability. If the body of the function is indented more than three soft tabs
+
+  \(i.e. 6 spaces\), that is a smell that functions should be extracted, reducing the indention.
+
+  \[[link](style.md#indentation)\]     
 
 ### Syntax
 
-* <a name="pipeline"></a>
-  Do not visually "break" the pipeline; i.e. when piping into function that is formatted across
-  multiple lines, extract that into a single line function.
-  <sup>[[link](#pipeline)]</sup>
+*  Do not visually "break" the pipeline; i.e. when piping into function that is formatted across multiple lines, extract that into a single line function. \[[link](style.md#pipeline)\]
 
   ```elixir
   # not preferred
@@ -51,9 +47,7 @@ deviate from the community standard.
   end
   ```
 
-* <a name="with-else"></a>
-  The head of the `with` macro should have single function calls.
-  <sup>[[link](#with-else)]</sup>
+*  The head of the `with` macro should have single function calls. \[[link](style.md#with-else)\]
 
   ```elixir
   with {:ok, foo} <- fetch(opts, :foo),
@@ -66,12 +60,9 @@ deviate from the community standard.
   end
   ```
 
-* <a name="map-put-struct"></a>
-  Do not use `Map.put/3` with a struct as it is possible to put a new key in the struct that
-  that does not exist. Use `Map.replace!/3` instead or the merge syntax.
-  <sup>[[link](#map-put-struct)]</sup>
+*  Do not use `Map.put/3` with a struct as it is possible to put a new key in the struct that that does not exist. Use `Map.replace!/3` instead or the merge syntax. \[[link](style.md#map-put-struct)\]
 
-    ```elixir
+  ```elixir
   # not preferred
   Map.put(my_struct, :bar, "foo")
 
@@ -82,9 +73,7 @@ deviate from the community standard.
   %{my_struct | bar: "foo"}
   ```
 
-* <a name="conditional-macros"></a>
-  When selecting a macro to implement a conditional statement, e.g. `if`, `case`, or `with`, it is easy to select a more complex macro than is required. We should always use the simpliest macro to express our intent.
-  <sup>[[link](#conditional-macros)]</sup>
+*  When selecting a macro to implement a conditional statement, e.g. `if`, `case`, or `with`, it is easy to select a more complex macro than is required. We should always use the simpliest macro to express our intent. \[[link](style.md#conditional-macros)\]
 
   ```elixir
   # not preferred
@@ -123,22 +112,23 @@ deviate from the community standard.
     {:ok, bar} -> baz()
     _ -> qux()
   end
-  ```  
+  ```
 
 ### Naming
 
-* <a name="acronyms"></a>
-    Treat acronyms as words in names (XmlHttpRequest not XMLHTTPRequest), even if the acronym is the entire name (class Html not class HTML).
-    <sup>[[link](#acronyms)]</sup>
+*   Treat acronyms as words in names \(XmlHttpRequest not XMLHTTPRequest\), even if the acronym is the entire name \(class Html not class HTML\).
+
+    \[[link](style.md#acronyms)\]
 
 ## Typespecs
 
-* <a name="typespecs-required"></a>
-  Add typespecs for all public functions.
-  <sup>[[link](#typespecs-required)]</sup>
+* Add typespecs for all public functions.
+
+  \[[link](style.md#typespecs-required)\]
 
 ## Documentation
 
-- do not provide module-level documentation for modules suffixed with their archetype (e.g. `Service`, `Controller`, `Query`, `Repo`)
-- apply `@module false` to these modules.
-- [typespec](http://elixir-lang.org/getting-started/typespecs-and-behaviours.html#types-and-specs) is mandatory for public functions (except in controllers and views)
+* do not provide module-level documentation for modules suffixed with their archetype \(e.g. `Service`, `Controller`, `Query`, `Repo`\)
+* apply `@module false` to these modules.
+* [typespec](http://elixir-lang.org/getting-started/typespecs-and-behaviours.html#types-and-specs) is mandatory for public functions \(except in controllers and views\)
+

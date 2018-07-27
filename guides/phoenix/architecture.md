@@ -5,9 +5,9 @@ The architecture we use is heavily influenced by the [example application](https
 ## The Basics
 
 * favor pure functions over impure
-* impure functions are those who have side-effects (read, write to DB, sending email) -- anything to do with the "outside" world
-* don't call an impure function from a pure function. You've just made it impure :-(
-* use a dedicated function to co-ordinate pure and impure functions (e.g. a public function in a `Service` module)
+* impure functions are those who have side-effects \(read, write to DB, sending email\) -- anything to do with the "outside" world
+* don't call an impure function from a pure function. You've just made it impure :-\(
+* use a dedicated function to co-ordinate pure and impure functions \(e.g. a public function in a `Service` module\)
 * impure functions are used at the boundaries
 
 ## Application/Domain Layer
@@ -21,8 +21,8 @@ TODO: add diagram
 * entry point into the domain is via a `Service` and `Query` modules
 * `Service` modules are for commands/writes
 * `Query` modules are for reads
-* `Service` and `Query` modules are entirely independent of each other (i.e. `Service` does not call a `Query` module)
-* `Query` modules could be reading an entirely different database (i.e. a slave) or an entirely different store all together (i.e. CouchDB)
+* `Service` and `Query` modules are entirely independent of each other \(i.e. `Service` does not call a `Query` module\)
+* `Query` modules could be reading an entirely different database \(i.e. a slave\) or an entirely different store all together \(i.e. CouchDB\)
 * Inspiration from [CQRS](https://martinfowler.com/bliki/CQRS.html)
 
 ### Service modules
@@ -30,10 +30,10 @@ TODO: add diagram
 * the "write" side
 * responsible for processing business use cases
 * contain functions reflecting commands to operate on an aggregate
-* typically following the pattern of `impure` -> `pure` -> `impure` function calls
-* e.g. `read from the repo` -> `call domain logic` -> `write to the repo`
-* `Service` modules hydrate domain concepts from a repo, call a function(s) to perform domain logic and then write the "modified" domain concept to the database.
-* Top level/public `Service` functions should be only a pipeline (either `|>` or `with`) providing a high-level overview of the processing steps.
+* typically following the pattern of `impure` -&gt; `pure` -&gt; `impure` function calls
+* e.g. `read from the repo` -&gt; `call domain logic` -&gt; `write to the repo`
+* `Service` modules hydrate domain concepts from a repo, call a function\(s\) to perform domain logic and then write the "modified" domain concept to the database.
+* Top level/public `Service` functions should be only a pipeline \(either `|>` or `with`\) providing a high-level overview of the processing steps.
 
 **Example**
 
@@ -60,22 +60,22 @@ end
 
 ### Domain modules
 
-* represent domain concepts, e.g. entities (aggregates), values
+* represent domain concepts, e.g. entities \(aggregates\), values
 * manage [aggregates](https://martinfowler.com/bliki/DDD_Aggregate.html)
   * manage transactions
   * enforces invariants
-* e.g. `Order` -> `LineItem`
+* e.g. `Order` -&gt; `LineItem`
   * always work with these as a unit
   * the changeset includes the root `Order` and the children `LineItem`
-  * `Order.add_line_item(order, params)` -> an order changeset with a new line item
+  * `Order.add_line_item(order, params)` -&gt; an order changeset with a new line item
 * contain functions for business logic respecting business rules
 * called by `Service` modules
-* domain modules do not reference the upper layers (i.e. `Service` or `Query`)
+* domain modules do not reference the upper layers \(i.e. `Service` or `Query`\)
 * i.e. all functions are _pure_
 * contain _scopes_, _actions_, and _predicates_
 * _scopes_ return query types
 * _actions_ return changesets
-* use domain focused names for actions (i.e. not `insert_changeset`)
+* use domain focused names for actions \(i.e. not `insert_changeset`\)
 * _predicates_ return a boolean
 
 **Example**
@@ -111,7 +111,6 @@ defmodule MyApp.Order
 
   #...
 end
-
 ```
 
 ## Query modules
@@ -142,21 +141,22 @@ end
 
 ## Transforming Collections
 
-The following guidance is *vitally important*:
+The following guidance is _vitally important_:
 
 * design your functions for processing collection of items as you would a single item
-* that pattern again: `impure` -> `pure` -> `impure` function calls
+* that pattern again: `impure` -&gt; `pure` -&gt; `impure` function calls
 * this allows you to leverage lazy evaluation, streaming SQL calls in the future
 * See [Collection Pipeline](https://martinfowler.com/articles/collection-pipeline/)
 
-## Represent (new) concerns as modules
+## Represent \(new\) concerns as modules
 
-- avoid "god" modules
-- compose the application with small modules representing a specific concern
-- avoid circular dependencies between modules `Approvals` -> `Catalog`
-- when referencing modules from a different name space, use a qualified module name, (e.g. when referencing `Variant` in the `Catalog` module, just alias `MyApp.Catalog`, and reference `Catalog.Variant` in functions). This highlights references to referencing modules outside of the current context
-- create "shadow" modules that represent existing domain concepts in different Concerns
-- e.g. `Catalog.Variant` is an existing domain concept that can be represented in other contexts as `Approvals.Variant`
-- consider creating specific schemas as well
-- ["Optimize for Deletability"](https://vimeo.com/108441214) (i.e. how easy can the module be deleted)
-- think service oriented architecture or micro-services in a monolith
+* avoid "god" modules
+* compose the application with small modules representing a specific concern
+* avoid circular dependencies between modules `Approvals` -&gt; `Catalog`
+* when referencing modules from a different name space, use a qualified module name, \(e.g. when referencing `Variant` in the `Catalog` module, just alias `MyApp.Catalog`, and reference `Catalog.Variant` in functions\). This highlights references to referencing modules outside of the current context
+* create "shadow" modules that represent existing domain concepts in different Concerns
+* e.g. `Catalog.Variant` is an existing domain concept that can be represented in other contexts as `Approvals.Variant`
+* consider creating specific schemas as well
+* ["Optimize for Deletability"](https://vimeo.com/108441214) \(i.e. how easy can the module be deleted\)
+* think service oriented architecture or micro-services in a monolith
+

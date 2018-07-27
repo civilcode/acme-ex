@@ -18,6 +18,7 @@ build(:order, state: "complete", completed_at: DateTime.utc_now)
 
 Benefits:
 
-* encompasses what is required to make the entity a specific state (it might be more than two attributes)
+* encompasses what is required to make the entity a specific state \(it might be more than two attributes\)
 * if the state implmementation changes, it can be refactored in once place
 * it avoids "magic strings" throughout the code base
+
