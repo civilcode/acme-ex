@@ -24,7 +24,8 @@ defmodule MagasinPlatform.MixProject do
 
   defp aliases do
     [
-      "project.seed": ["run apps/magasin/priv/seeds.exs"]
+      "project.seed": ["run apps/magasin/priv/seeds.exs"],
+      "project.setup": ["ecto.drop", "ecto.create", "ecto.migrate", "project.seed"]
     ]
   end
 
