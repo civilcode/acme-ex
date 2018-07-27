@@ -27,7 +27,7 @@ For a Docker-based development environment run the following setup scripts and f
 the instructions:
 
     git clone https://github.com/civilcode/magasin-platform
-    cd magasin-platform    
+    cd magasin-platform
     ./bin/setup.config
     ./bin/setup.docker
 
@@ -43,6 +43,12 @@ To start and shutdown Docker containers:
 
     docker-compose up -d
     docker-compose stop
+
+## Deployment
+
+To deploy to staging:
+
+    bin/deploy_staging
 
 ## Guides
 
