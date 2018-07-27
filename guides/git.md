@@ -12,15 +12,11 @@ civilcode-website
 
 Use the following template:
 
-```text
-{issue-type}/{module}/{description}
-```
+    {issue-type}/{module}/{description}
 
 Example:
 
-```text
-ability/payouts/paying-out-a-merchant
-```
+    ability/payouts/paying-out-a-merchant
 
 ## Branch Management
 
@@ -40,4 +36,3 @@ The strategy for merging is different based on the PR being merged:
 ## Rebase vs Merging master
 
 Branches pushed to a shared repository are never rebased - only merge upstream branches.
-

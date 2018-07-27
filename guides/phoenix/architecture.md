@@ -35,7 +35,7 @@ TODO: add diagram
 * `Service` modules hydrate domain concepts from a repo, call a function\(s\) to perform domain logic and then write the "modified" domain concept to the database.
 * Top level/public `Service` functions should be only a pipeline \(either `|>` or `with`\) providing a high-level overview of the processing steps.
 
-**Example**
+#### Example
 
 ```elixir
 defmodule MyApp.OrderService do
@@ -78,7 +78,7 @@ end
 * use domain focused names for actions \(i.e. not `insert_changeset`\)
 * _predicates_ return a boolean
 
-**Example**
+#### Example
 
 ```elixir
 defmodule MyApp.Order
@@ -121,7 +121,7 @@ end
 * called by `GET` requests in controllers or the equivalent in GraphQL
 * query modules don't call other query modules
 
-**Example**
+#### Example
 
 ```elixir
 defmodule MyApp.OrderQuery do
@@ -159,4 +159,3 @@ The following guidance is _vitally important_:
 * consider creating specific schemas as well
 * ["Optimize for Deletability"](https://vimeo.com/108441214) \(i.e. how easy can the module be deleted\)
 * think service oriented architecture or micro-services in a monolith
-

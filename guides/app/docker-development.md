@@ -2,21 +2,16 @@
 
 ## Running Tests
 
-```text
-docker-compose exec -e MIX_ENV=test application mix ecto.create
-docker-compose exec application mix test
-```
+    docker-compose exec -e MIX_ENV=test application mix ecto.create
+    docker-compose exec application mix test
 
 ## Helpful Commands
 
-```text
-docker-compose build
-docker-compose up -d
-docker-compose exec application mix ecto.create
-docker-compose exec application mix test
-docker-compose exec application mix test.watch
-docker-compose exec application mix ecto.rollback
-docker-compose exec application zsh
-docker-compose exec application iex -S mix
-```
-
+    docker-compose build
+    docker-compose up -d
+    docker-compose exec application mix ecto.create
+    docker-compose exec application mix test
+    docker-compose exec application mix test.watch
+    docker-compose exec application mix ecto.rollback
+    docker-compose exec application zsh
+    docker-compose exec application iex -S mix
