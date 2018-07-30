@@ -54,3 +54,4 @@ jobs:
       - run: mix format --check-formatted
       - run: mix credo --strict
       - run: mix project.seed
+      - run: mix cmd --app magasin_web mix sobelow --compact --exit Low
