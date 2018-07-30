@@ -13,5 +13,6 @@
     docker-compose exec application mix test
     docker-compose exec application mix test.watch
     docker-compose exec application mix ecto.rollback
-    docker-compose exec application zsh
+    docker-compose exec application zsh    
     docker-compose exec application iex -S mix
+    docker-compose exec application mix cmd --app child-app mix test.watch

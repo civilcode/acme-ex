@@ -45,8 +45,18 @@ defmodule CivilCode.Aggregate do
 
   defmacro __using__(_) do
     quote do
-      defstruct [:state, :events]
       import Kernel, except: [apply: 2]
+      import CivilCode.Entity
+
+      @type t :: %CivilCode.Entity{}
+
+      def new(attrs) do
+        CivilCode.Entity.new(__MODULE__, attrs)
+      end
+
+      def error(entity, type) do
+        %CivilCode.BusinessRuleViolation{entity: entity, type: type}
+      end
     end
   end
 end

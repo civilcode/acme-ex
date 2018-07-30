@@ -12,7 +12,9 @@ defmodule Magasin.Sales.Application.OrderRepository do
     |> Repo.insert()
   end
 
-  def get(guid) do
-    Repo.get(Order.State, guid)
+  def get(order_id) do
+    build(Order, fn ->
+      Repo.get(Order.State, order_id)
+    end)
   end
 end
