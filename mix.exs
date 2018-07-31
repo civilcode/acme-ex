@@ -18,7 +18,12 @@ defmodule MagasinPlatform.MixProject do
         plt_add_deps: :transitive,
         plt_add_apps: [:mix],
         ignore_warnings: "dialyzer.ignore-warnings"
-      ]
+      ],
+      preferred_cli_env: [
+        coveralls: :test,
+        "coveralls.html": :test
+      ],
+      test_coverage: [tool: ExCoveralls]
     ]
   end
 
@@ -38,7 +43,8 @@ defmodule MagasinPlatform.MixProject do
     [
       {:distillery, "~> 1.5", runtime: false},
       {:dialyxir, "~> 0.5", only: [:dev], runtime: false},
-      {:credo, "~> 0.9.1", only: [:dev, :test], runtime: false}
+      {:credo, "~> 0.9.1", only: [:dev, :test], runtime: false},
+      {:excoveralls, "~> 0.8", only: :test}
     ]
   end
 end

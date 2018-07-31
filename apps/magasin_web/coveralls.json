@@ -1,0 +1,11 @@
+{
+  "skip_files": [
+    "test",
+    "lib/magasin_web/application.ex",
+    "lib/magasin_web/endpoint.ex",
+    "lib/magasin_web/router.ex",
+    "lib/magasin_web/channels",
+    "lib/magasin_web/views/error_helpers.ex",
+    "lib/magasin_web.ex"
+  ]
+}

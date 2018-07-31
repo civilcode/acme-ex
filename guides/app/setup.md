@@ -30,7 +30,7 @@ This guide covers everything that needs to be setup for a new application.
 
 * [Setup S3](s3.md) \(if required\)
 * Configure [CircleCI](http://circleci.com)
-* Configure [Coveralls](https://coveralls.io)
+* Configure [Coveralls](setup-coveralls.md)
 * [Setup Docker](https://github.com/civilcode/magasin-platform/tree/3c0ec7def06ed304b6b6069edd846d6d3837b5f3/guides/app/docker.md) \(if required\)
 
 ## Heroku Deployment with Docker

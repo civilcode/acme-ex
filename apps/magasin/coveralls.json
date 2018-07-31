@@ -1,0 +1,11 @@
+{
+  "skip_files": [
+    "test",
+    "lib/civilcode",
+    "lib/magasin/application.ex",
+    "lib/magasin/release_tasks.ex",
+    "lib/magasin/repo.ex",
+    "lib/magasin/schema.ex",
+    "lib/magasin.ex"
+  ]
+}
