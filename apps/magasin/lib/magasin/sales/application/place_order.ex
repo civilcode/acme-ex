@@ -2,7 +2,7 @@ defmodule Magasin.Sales.Application.PlaceOrder do
   @moduledoc false
 
   alias Magasin.Catalog.Domain, as: Catalog
-  alias Magasin.{Email, Quantity}
+  alias Magasin.{Address, Email, Quantity}
   alias Magasin.Sales.Domain.OrderId
 
   use CivilCode.Command,
@@ -10,9 +10,10 @@ defmodule Magasin.Sales.Application.PlaceOrder do
       order_id: OrderId,
       email: Email,
       product_id: Catalog.ProductId,
-      quantity: Quantity
+      quantity: Quantity,
+      shipping_address: Address
     }
 
-  @enforce_keys [:order_id, :email, :product_id, :quantity]
-  defstruct [:order_id, :email, :product_id, :quantity]
+  @enforce_keys [:order_id, :email, :product_id, :quantity, :shipping_address]
+  defstruct [:order_id, :email, :product_id, :quantity, :shipping_address]
 end

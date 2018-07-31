@@ -14,13 +14,19 @@ defmodule Magasin.Sales.Application.PlacingAnOrderTest do
         order_id: order_id.value,
         email: "foo@bar.com",
         product_id: product_id.value,
-        quantity: 1
+        quantity: 1,
+        shipping_address: %{
+          street_address: "1 Main St",
+          city: "Montreal",
+          postal_code: "H2T1S6"
+        }
       }
 
       _result = OrderApplicationService.handle(command)
 
       placed_order = OrderRepository.get(order_id)
       state = CivilCode.Entity.get_state(placed_order)
+      assert state
       assert state.id == order_id
       assert state.product_id == product_id
       assert state.email == Email.new!("foo@bar.com")
@@ -37,7 +43,11 @@ defmodule Magasin.Sales.Application.PlacingAnOrderTest do
         order_id: order_id.value,
         email: nil,
         product_id: product_id.value,
-        quantity: 1
+        quantity: 1,
+        shipping_address: %{
+          street_address: "1 Main St",
+          city: "Montreal"
+        }
       }
 
       result = OrderApplicationService.handle(command)
@@ -55,7 +65,11 @@ defmodule Magasin.Sales.Application.PlacingAnOrderTest do
         order_id: order_id.value,
         email: "foo@bar.com",
         product_id: product_id.value,
-        quantity: 1
+        quantity: 1,
+        shipping_address: %{
+          street_address: "1 Main St",
+          city: "Montreal"
+        }
       }
 
       OrderApplicationService.handle(command)
