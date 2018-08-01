@@ -15,6 +15,7 @@ defmodule Magasin.Sales.Application.PlacingAnOrderTest do
         email: "foo@bar.com",
         product_id: product_id.value,
         quantity: 1,
+        line_items: [],
         shipping_address: %{
           street_address: "1 Main St",
           city: "Montreal",
@@ -44,6 +45,7 @@ defmodule Magasin.Sales.Application.PlacingAnOrderTest do
         email: nil,
         product_id: product_id.value,
         quantity: 1,
+        line_items: [],
         shipping_address: %{
           street_address: "1 Main St",
           city: "Montreal"
@@ -66,6 +68,7 @@ defmodule Magasin.Sales.Application.PlacingAnOrderTest do
         email: "foo@bar.com",
         product_id: product_id.value,
         quantity: 1,
+        line_items: [],
         shipping_address: %{
           street_address: "1 Main St",
           city: "Montreal"

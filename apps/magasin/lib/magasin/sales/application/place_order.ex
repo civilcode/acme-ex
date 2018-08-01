@@ -11,9 +11,10 @@ defmodule Magasin.Sales.Application.PlaceOrder do
       email: Email,
       product_id: Catalog.ProductId,
       quantity: Quantity,
-      shipping_address: Address
+      shipping_address: Address,
+      line_items: [%{product_id: Catalog.ProductId, quantity: Quantity}]
     }
 
-  @enforce_keys [:order_id, :email, :product_id, :quantity, :shipping_address]
-  defstruct [:order_id, :email, :product_id, :quantity, :shipping_address]
+  @enforce_keys [:order_id, :email, :product_id, :quantity, :shipping_address, :line_items]
+  defstruct [:order_id, :email, :product_id, :quantity, :shipping_address, :line_items]
 end
