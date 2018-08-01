@@ -4,6 +4,8 @@
 
 The labels to use are in the file `labels.json`.
 
-Then follow instructions [here](https://github.com/popomore/github-labels).  For example:
+Then follow instructions [here](https://github.com/popomore/github-labels).
+You will need to create a github personal access token (`Settings > Developer Settings > Personal access tokens`)
 
-    labels -c guides/github/labels.json civilcode/a-repo-to-configure -t 8h89ahu4h89fhdkahj
+For example:
+    `labels -c ./github/labels.json civilcode/a-repo-to-configure -t <github_personal_access_token>`

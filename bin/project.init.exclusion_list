@@ -1,0 +1,9 @@
+/.git
+/apps/magasin/priv/repo/migrations/*
+/apps/magasin/lib/magasin/catalog
+/apps/magasin/lib/magasin/inventory
+/apps/magasin/lib/magasin/sales
+/apps/magasin/lib/magasin/schema.ex
+/apps/magasin/lib/magasin/shared/shared
+/apps/magasin/test/magasin
+/guides

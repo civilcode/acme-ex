@@ -8,22 +8,10 @@ This guide covers everything that needs to be setup for a new application.
 * [Generate labels](https://github.com/civilcode/magasin-platform/tree/3c0ec7def06ed304b6b6069edd846d6d3837b5f3/.github/SETUP.md)
 
 ## Elixir application
-
-* Generate Elixir application `mix new {client-name}-platform`, e.g. `mix new civilcode_platform`
-* Generate "library" application, e.g. `mix new {client-name}_ex`
-* Configure "library" application
-  * Dialyzer
-  * Credo
-* Configure `mix project.check`
-* Generate "command" application configure with Ecto
-* Generate Phoenix application
-* Remove all generated comments
+* Clone the reference app `git clone https://github.com/civilcode/magasin-platform`
+* Run `./bin/project.init`
 * Add CSS template
-* Add \[GitHub Issue Templates\]\(\(../../.github/ISSUE\_TEMPLATES.md\)\)
-* Update README.md based on the [reference application](https://github.com/civilcode/magasin-platform/tree/3c0ec7def06ed304b6b6069edd846d6d3837b5f3/README.md)
-* Add [Glossary](https://github.com/civilcode/magasin-platform/tree/3c0ec7def06ed304b6b6069edd846d6d3837b5f3/GLOSSARY.md)
-* [Centralize configuration](https://github.com/civilcode/magasin-platform/tree/3c0ec7def06ed304b6b6069edd846d6d3837b5f3/config/README.md)
-* Create staging environment configuration
+* Add \[GitHub Issue Templates\]\(\(../../.github/SETUP.md\)\)
 * Add Basic Authentication to staging environment
 
 ## Services

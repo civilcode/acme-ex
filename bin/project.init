@@ -1,0 +1,208 @@
+#!/bin/bash
+
+set -e
+
+##################
+# This script will setup a new project structure based on the current project.
+# It will also setup docker and git on the newly created project.
+
+# Notice: bin/project.init -a <app-name> -g <github_repo> -r <root_path>"
+#
+# Examples:
+#   bin/project.init -a magasin -g civilcode/magasin_platform -r ."
+#   bin/project.init -a my-magasin -g civilcode/my_magasin_repo -r path/to/current/root/project"
+#
+# Options:
+#   -a app-name - Can contain a dash, not an underscore (eg rock-roll or foo)
+#   -g github_repo - Githug repo (eg: civilcode/rock_and_roll)
+#   -r root path - Root path of the reference application (eg: .)
+#   -Y force yes (optional) - Answer yes to any questions asked
+#   -Q quick (optional) - Will only create the structure, but not setup docker, nor github
+#
+# Prerequisites:
+# - Make sure no other docker-compose is running
+# - Setup a github repo before hand and pass it with the `-g` option
+#
+##################
+
+function dash_case_to_camel_case () {
+    #Copied from https://stackoverflow.com/questions/50668585/bash-dash-case-to-camel-case
+    echo $1 | awk 'BEGIN{FS="";RS="-";ORS=""} {$0=toupper(substr($0,1,1)) substr($0,2)} 1'
+}
+
+function dash_case_to_upper_case () {
+    echo $1 | awk '{print toupper($0)}'
+}
+
+function dash_case_to_underscore_case () {
+    echo $1 | sed 's/-/_/g'
+}
+
+function print_notice () {
+    echo "Notice: bin/project.init -a <app-name> -g <github_repo> -r <root_path>"
+    echo "Example: bin/project.init -a magasin -g civilcode/magasin-platform -r ."
+}
+
+## Parse arguments passed to the command line
+
+while getopts ":a:r:g:YQ" option; do
+    case "$option" in
+    a)
+        APP_NAME=$OPTARG
+        APP_NAME_CAMEL=$(dash_case_to_camel_case $APP_NAME)
+        APP_NAME_UPPERCASE=$(dash_case_to_upper_case $APP_NAME)
+        APP_NAME_UNDERSCORE=$(dash_case_to_underscore_case $APP_NAME)
+        ;;
+    g)
+        GITHUB_REPO=$OPTARG
+        ;;
+    r)
+        ROOT_PATH=$OPTARG
+        ;;
+    Y)
+        CONFIRM=true
+        ;;
+    Q)
+        STRUCTURE_ONLY=true
+        ;;
+    \?)
+        echo "Invalid option: $OPTARG"
+        echo ""
+        print_notice
+        exit 1
+        ;;
+    :)
+        echo "Option -$OPTARG requires an argument." >&2
+        exit 1
+        ;;
+    esac
+done
+
+if (( $# == 0 )); then
+    print_notice
+    exit 1
+fi
+
+if [[ ! $APP_NAME ]]; then
+    echo "The option (-a <app-name>) must be passed"
+    exit 1
+fi
+
+if [[ ! $GITHUB_REPO ]]; then
+    echo "The option (-g <repository>) must be passed"
+    exit 1
+fi
+
+if [[ ! $ROOT_PATH ]]; then
+    echo "The option (-r <repository>) must be passed"
+    exit 1
+fi
+
+
+## Prepare project setup
+rm -rf $ROOT_PATH/_build
+rm -rf $ROOT_PATH/deps
+rm -rf $ROOT_PATH/pgdata
+rm -rf $ROOT_PATH/apps/magasin_web/assets/node_modules
+
+## Detect current OS
+echo "Detecting current OS (only supports Linux or OSX)"
+PLATFORM_OS='unknown'
+unamestr=`uname`
+if [[ "$unamestr" == 'Linux' ]]; then
+    PLATFORM_OS='linux'
+elif [[ "$unamestr" == 'Darwin' ]]; then
+    PLATFORM_OS='darwin'
+fi
+
+## Create new project directory
+NEW_PROJECT_ROOT=$ROOT_PATH/../$APP_NAME-platform
+echo "Creating new project directory at $NEW_PROJECT_ROOT"
+rm -rf $NEW_PROJECT_ROOT
+mkdir $NEW_PROJECT_ROOT
+
+
+## Copy everything to the new project directory
+echo "Copying everything..."
+rsync -a --exclude-from="$ROOT_PATH/bin/project.init.exclusion_list" $ROOT_PATH $NEW_PROJECT_ROOT/
+
+# Copy and replace files and directories with "magasin"
+echo "Copying and replacing magasin files..."
+file_list=`find $NEW_PROJECT_ROOT -name "*magasin*" | sort`
+for file_path in $file_list
+do
+    new_path=`echo $file_path | sed -e "s/magasin/$APP_NAME_UNDERSCORE/g"`
+    cp -R $file_path $new_path
+done
+
+# Delete files and directory having "magasin"
+echo "Deleting magasin files and directories..."
+file_list=`find $NEW_PROJECT_ROOT -name "*magasin*" | sort -r`
+for file_path in $file_list
+do
+    rm -rf $file_path
+done
+
+# Delete Cover files
+dir_list=`find $NEW_PROJECT_ROOT -name "cover" -type d`
+for dir_path in $dir_list
+do
+    rm -rf $dir_path
+done
+
+# Replace all magasin occurences
+echo "Replacing occurences of \"magasin\"..."
+file_list=`find $NEW_PROJECT_ROOT -type f`
+for file_path in $file_list
+do
+    if [ "$PLATFORM_OS" = "darwin" ]; then
+        LANG=C LC_CTYPE=C LC_ALL=C sed -i '' -e "s/Magasin/$APP_NAME_CAMEL/g" $file_path
+        LANG=C LC_CTYPE=C LC_ALL=C sed -i '' -e "s/magasin/$APP_NAME_UNDERSCORE/g" $file_path
+        LANG=C LC_CTYPE=C LC_ALL=C sed -i '' -e "s/MAGASIN/$APP_NAME_UPPERCASE/g" $file_path
+    else
+        LANG=C LC_CTYPE=C LC_ALL=C sed -i -e "s/Magasin/$APP_NAME_CAMEL/g" $file_path
+        LANG=C LC_CTYPE=C LC_ALL=C sed -i -e "s/magasin/$APP_NAME_UNDERSCORE/g" $file_path
+        LANG=C LC_CTYPE=C LC_ALL=C sed -i -e "s/MAGASIN/$APP_NAME_UPPERCASE/g" $file_path
+    fi
+done
+
+# Setup Docker
+if [ "$STRUCTURE_ONLY" = true ]; then
+    echo "SUCCESS !"
+    echo "Your new project has been generated here: $NEW_PROJECT_ROOT"
+    echo "Note: you passed the -Q (structure only flag)"
+    exit 0
+fi
+
+echo "Setting up docker..."
+
+cd $NEW_PROJECT_ROOT
+docker-compose down -v
+./bin/setup.config
+if [ "$CONFIRM" = true ]; then
+    ./bin/setup.docker -Y
+else
+    ./bin/setup.docker
+fi
+docker-compose exec application mix test
+
+# Setup git repo
+echo "Setting up git..."
+git init .
+git add .
+git commit -m "🌱"
+git remote add origin https://github.com/$GITHUB_REPO.git
+
+#Return to the original project
+cd -
+
+echo "SUCCESS !"
+echo "Your new project has been generated here: $NEW_PROJECT_ROOT"
+echo ""
+echo "You can then go that directory, and run:"
+echo "  docker-compose exec application mix phx.server"
+echo "or if you have the alias configured,"
+echo "  dea mix phx.server"
+echo "Happy coding!"
+
+exit 0

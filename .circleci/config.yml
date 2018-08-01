@@ -56,3 +56,17 @@ jobs:
       - run: mix credo --strict
       - run: mix project.seed
       - run: mix cmd --app magasin_web mix sobelow --compact --exit Low
+      - run: sudo apt-get install -y rsync
+      - run:
+           command: |
+              ./bin/project.init -a rock-roll -g civilcode/rock_and_roll -Y -Q -r .
+              cd ../rock-roll-platform
+              echo "use Mix.Config
+              config :rock_roll, RockRoll.Repo,
+                adapter: Ecto.Adapters.Postgres,
+                database: \"magasin_test\",
+                hostname: \"localhost\",
+                username: \"postgres\",
+                password: \"postgres\",
+                pool: Ecto.Adapters.SQL.Sandbox" > config/test.secret.exs
+              mix do deps.get, test
