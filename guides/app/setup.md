@@ -1,31 +1,30 @@
-# Setup Guide
+# Platform Setup Guide
 
-This guide covers everything that needs to be setup for a new application.
+This guide specifies the steps required to setup a new application.
 
 ## GitHub
 
-* Create repository `{client-name}-platform`
-* [Generate labels](https://github.com/civilcode/magasin-platform/tree/3c0ec7def06ed304b6b6069edd846d6d3837b5f3/.github/SETUP.md)
+1. Create the GitHub repository `{client-name}-platform`
+2. [Generate labels](github.md)
 
-## Elixir application
-* Clone the reference app `git clone https://github.com/civilcode/magasin-platform`
-* Run `./bin/project.init`
-* Add CSS template
-* Add \[GitHub Issue Templates\]\(\(../../.github/SETUP.md\)\)
-* Add Basic Authentication to staging environment
+## Elixir Application
+
+1. Clone the reference app `git clone https://github.com/civilcode/magasin-platform`
+2. Run `./bin/project.init`
+3. Add CSS template to the web application
+4. Configure Basic Authentication on the staging environment
 
 ## Services
 
-* [Setup S3](s3.md) \(if required\)
+* [Setup S3](s3.md), if required
 * Configure [CircleCI](http://circleci.com)
-* Configure [Coveralls](setup-coveralls.md)
-* [Setup Docker](https://github.com/civilcode/magasin-platform/tree/3c0ec7def06ed304b6b6069edd846d6d3837b5f3/guides/app/docker.md) \(if required\)
+* Configure [Coveralls](coveralls.md)
 
 ## Heroku Deployment with Docker
 
-* Setup `production` application
 * Setup `staging` application
 * Configure `staging` application with [Review Apps](https://devcenter.heroku.com/articles/github-integration-review-apps)
+* Setup `production` application
 * Enable backups on PostgreSQL
 
 ## Remote Pairing
