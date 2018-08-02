@@ -10,7 +10,7 @@ This guide specifies the steps required to setup a new application.
 ## Elixir Application
 
 1. Clone the reference app `git clone https://github.com/civilcode/magasin-platform`
-2. Run `./bin/project.init`
+2. Run `./bin/project.new`
 3. Add CSS template to the web application
 4. Configure Basic Authentication on the staging environment
 

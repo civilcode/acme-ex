@@ -6,14 +6,15 @@ set -e
 # This script will setup a new project structure based on the current project.
 # It will also setup docker and git on the newly created project.
 
-# Notice: bin/project.init -a <app-name> -g <github_repo> -r <root_path>"
+# Notice: bin/project.new -c <client-name> a <app-name> -g <github_repo> -r <root_path>"
 #
 # Examples:
-#   bin/project.init -a magasin -g civilcode/magasin_platform -r ."
-#   bin/project.init -a my-magasin -g civilcode/my_magasin_repo -r path/to/current/root/project"
+#   bin/project.new -a magasin -g civilcode/magasin_platform -r ."
+#   bin/project.new -a my-magasin -g civilcode/my_magasin_repo -r path/to/current/root/project"
 #
 # Options:
-#   -a app-name - Can contain a dash, not an underscore (eg rock-roll or foo)
+#   -c client-name- New project client name. Can contains dashes, not underscores (eg: acme, music-label)
+#   -a app-name - Application names. Can contain dashes, not underscores (eg: rock-roll, magasin)
 #   -g github_repo - Githug repo (eg: civilcode/rock_and_roll)
 #   -r root path - Root path of the reference application (eg: .)
 #   -Y force yes (optional) - Answer yes to any questions asked
@@ -39,19 +40,25 @@ function dash_case_to_underscore_case () {
 }
 
 function print_notice () {
-    echo "Notice: bin/project.init -a <app-name> -g <github_repo> -r <root_path>"
-    echo "Example: bin/project.init -a magasin -g civilcode/magasin-platform -r ."
+    echo "Notice: bin/project.new -a <app-name> -g <github_repo> -r <root_path>"
+    echo "Example: bin/project.new -a magasin -g civilcode/magasin-platform -r ."
 }
 
 ## Parse arguments passed to the command line
 
-while getopts ":a:r:g:YQ" option; do
+while getopts ":c:a:r:g:YQ" option; do
     case "$option" in
     a)
         APP_NAME=$OPTARG
         APP_NAME_CAMEL=$(dash_case_to_camel_case $APP_NAME)
         APP_NAME_UPPERCASE=$(dash_case_to_upper_case $APP_NAME)
         APP_NAME_UNDERSCORE=$(dash_case_to_underscore_case $APP_NAME)
+        ;;
+    c)
+        CLIENT_NAME=$OPTARG
+        CLIENT_NAME_CAMEL=$(dash_case_to_camel_case $CLIENT_NAME)
+        CLIENT_NAME_UPPERCASE=$(dash_case_to_upper_case $CLIENT_NAME)
+        CLIENT_NAME_UNDERSCORE=$(dash_case_to_underscore_case $CLIENT_NAME)
         ;;
     g)
         GITHUB_REPO=$OPTARG
@@ -80,6 +87,11 @@ done
 
 if (( $# == 0 )); then
     print_notice
+    exit 1
+fi
+
+if [[ ! $CLIENT_NAME ]]; then
+    echo "The option (-c <client-name>) must be passed"
     exit 1
 fi
 
@@ -116,7 +128,7 @@ elif [[ "$unamestr" == 'Darwin' ]]; then
 fi
 
 ## Create new project directory
-NEW_PROJECT_ROOT=$ROOT_PATH/../$APP_NAME-platform
+NEW_PROJECT_ROOT=$ROOT_PATH/../$CLIENT_NAME-platform
 echo "Creating new project directory at $NEW_PROJECT_ROOT"
 rm -rf $NEW_PROJECT_ROOT
 mkdir $NEW_PROJECT_ROOT
@@ -124,7 +136,7 @@ mkdir $NEW_PROJECT_ROOT
 
 ## Copy everything to the new project directory
 echo "Copying everything..."
-rsync -a --exclude-from="$ROOT_PATH/bin/project.init.exclusion_list" $ROOT_PATH $NEW_PROJECT_ROOT/
+rsync -a --exclude-from="$ROOT_PATH/bin/project.new.exclusion_list" $ROOT_PATH $NEW_PROJECT_ROOT/
 
 # Copy and replace files and directories with "magasin"
 echo "Copying and replacing magasin files..."
@@ -156,10 +168,18 @@ file_list=`find $NEW_PROJECT_ROOT -type f`
 for file_path in $file_list
 do
     if [ "$PLATFORM_OS" = "darwin" ]; then
+        LANG=C LC_CTYPE=C LC_ALL=C sed -i '' -e "s/Acme/$CLIENT_NAME_CAMEL/g" $file_path
+        LANG=C LC_CTYPE=C LC_ALL=C sed -i '' -e "s/acme/$CLIENT_NAME_UNDERSCORE/g" $file_path
+        LANG=C LC_CTYPE=C LC_ALL=C sed -i '' -e "s/ACME/$CLIENT_NAME_UPPERCASE/g" $file_path
+
         LANG=C LC_CTYPE=C LC_ALL=C sed -i '' -e "s/Magasin/$APP_NAME_CAMEL/g" $file_path
         LANG=C LC_CTYPE=C LC_ALL=C sed -i '' -e "s/magasin/$APP_NAME_UNDERSCORE/g" $file_path
         LANG=C LC_CTYPE=C LC_ALL=C sed -i '' -e "s/MAGASIN/$APP_NAME_UPPERCASE/g" $file_path
     else
+        LANG=C LC_CTYPE=C LC_ALL=C sed -i -e "s/Acme/$CLIENT_NAME_CAMEL/g" $file_path
+        LANG=C LC_CTYPE=C LC_ALL=C sed -i -e "s/acme/$CLIENT_NAME_UNDERSCORE/g" $file_path
+        LANG=C LC_CTYPE=C LC_ALL=C sed -i -e "s/ACME/$CLIENT_NAME_UPPERCASE/g" $file_path
+
         LANG=C LC_CTYPE=C LC_ALL=C sed -i -e "s/Magasin/$APP_NAME_CAMEL/g" $file_path
         LANG=C LC_CTYPE=C LC_ALL=C sed -i -e "s/magasin/$APP_NAME_UNDERSCORE/g" $file_path
         LANG=C LC_CTYPE=C LC_ALL=C sed -i -e "s/MAGASIN/$APP_NAME_UPPERCASE/g" $file_path

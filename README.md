@@ -1,4 +1,4 @@
-# Magasin - CivilCode's Reference Application and Guides
+# Acme - CivilCode's Reference Application and Guides
 
 ## About Magasin
 
@@ -12,9 +12,9 @@ The application implements a basic ordering system.
 
 * implemented as an Elixir umbrella application
 * with a Phoenix HTML interface
-* deployed on [Heroku](https://magasin-platform.herokuapp.com) with [Docker](https://www.docker.com)
+* deployed on [Heroku](https://acme-platform.herokuapp.com) with [Docker](https://www.docker.com)
 * persists data in [PostgreSQL](https://www.postgresql.org) RDBMS
-* an open source application with the source code hosted on [GitHub](https://github.com/civilcode/magasin)
+* an open source application with the source code hosted on [GitHub](https://github.com/civilcode/acme)
 
 ## Development Setup
 
@@ -26,8 +26,8 @@ outlined here:
 For a Docker-based development environment run the following setup scripts and follow
 the instructions:
 
-    git clone https://github.com/civilcode/magasin-platform
-    cd magasin-platform
+    git clone https://github.com/civilcode/acme-platform
+    cd acme-platform
     ./bin/setup.config
     ./bin/setup.docker
 
@@ -55,7 +55,7 @@ To deploy to staging:
 For more information on working with Docker for local development, deployment and other
 application development guides visit:
 
-    https://github.com/civilcode/magasin-platform/tree/master/guides/app
+    https://github.com/civilcode/acme-platform/tree/master/guides/app
 
 ## About CivilCode Inc
 

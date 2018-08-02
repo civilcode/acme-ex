@@ -1,4 +1,4 @@
-defmodule MagasinPlatform.MixProject do
+defmodule AcmePlatform.MixProject do
   use Mix.Project
 
   def project do

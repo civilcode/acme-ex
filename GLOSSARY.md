@@ -1,4 +1,4 @@
-Magasin GLOSSARY
+Acme GLOSSARY
 -----
 
 **TERM**:

@@ -1,7 +1,7 @@
 {
-  "name": "Magasin platform",
+  "name": "ACME platform",
   "description": "Civilcode's Reference Application",
-  "repository": "https://github.com/civilcode/magasin",
+  "repository": "https://github.com/civilcode/acme",
   "addons": [
     "heroku-postgresql:hobby-dev",
     "papertrail:choklad"
@@ -21,6 +21,6 @@
     }
   },
   "scripts": {
-    "postdeploy": "/app/bin/magasin_platform migrate"
+    "postdeploy": "/app/bin/acme_platform migrate"
   }
 }

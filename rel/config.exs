@@ -49,7 +49,7 @@ end
 # when running `mix release`, the first release in the file
 # will be used by default
 
-release :magasin_platform do
+release :acme_platform do
   set(version: "0.1.0")
 
   set(

@@ -1,1 +1,1 @@
-docker build --no-cache --build-arg MIX_ENV=staging -t magasin-platform -f Dockerfile .
+docker build --no-cache --build-arg MIX_ENV=staging -t acme-platform -f Dockerfile .

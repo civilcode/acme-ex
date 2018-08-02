@@ -1,3 +1,3 @@
 #!/bin/sh
 
-$RELEASE_ROOT_DIR/bin/magasin_platform command Elixir.Magasin.ReleaseTasks seed
+$RELEASE_ROOT_DIR/bin/acme_platform command Elixir.Magasin.ReleaseTasks seed

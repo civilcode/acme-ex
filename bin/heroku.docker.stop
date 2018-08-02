@@ -1,1 +1,1 @@
-docker stop magasin-platform
+docker stop acme-platform

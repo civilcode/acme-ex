@@ -1,6 +1,6 @@
 DATABASE_URL=$(heroku config:get DATABASE_URL -r staging)
-docker run -i --name magasin-platform -t --rm -p 4000:4000 \
+docker run -i --name acme-platform -t --rm -p 4000:4000 \
   -e DATABASE_POOL_SIZE=5 \
   -e DATABASE_URL=$DATABASE_URL \
   -e SECRET_KEY_BASE="76kdAGeJAyvTbuKTqcWRzN5v1WR/Th7rDOPnlHCxZwc4KRxg5qe3ooDiZirHf/WI" \
-  magasin-platform /app/bin/magasin_platform foreground
+  acme-platform /app/bin/acme_platform foreground

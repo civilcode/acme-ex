@@ -50,13 +50,13 @@ ENV PORT=4000 \
 RUN mkdir /app
 WORKDIR /app
 
-COPY --from=builder /app/_build/$MIX_ENV/rel/magasin_platform/releases/0.1.0/magasin_platform.tar.gz .
+COPY --from=builder /app/_build/$MIX_ENV/rel/acme_platform/releases/0.1.0/acme_platform.tar.gz .
 
-RUN tar xzf magasin_platform.tar.gz && rm magasin_platform.tar.gz
+RUN tar xzf acme_platform.tar.gz && rm acme_platform.tar.gz
 
 RUN chown -R root ./releases
 RUN ls /app/bin
 
 USER root
 
-CMD ["/app/bin/magasin_platform", "foreground"]
+CMD ["/app/bin/acme_platform", "foreground"]
