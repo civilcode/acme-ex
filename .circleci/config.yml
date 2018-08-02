@@ -8,7 +8,7 @@ jobs:
       # Use CircleCI specific images:
       # - provide `dockerize` used command below
       # - for more information see https://circleci.com/docs/2.0/circleci-images/
-      - image: circleci/elixir:1.7.1
+      - image: circleci/elixir:1.6.6
       - image: circleci/postgres:10.4
         environment:
           POSTGRES_USER: postgres
