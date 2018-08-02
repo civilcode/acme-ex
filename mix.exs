@@ -21,7 +21,9 @@ defmodule AcmePlatform.MixProject do
       ],
       preferred_cli_env: [
         coveralls: :test,
-        "coveralls.html": :test
+        "coveralls.html": :test,
+        "project.check": :test,
+        dialyzer: :test
       ],
       test_coverage: [tool: ExCoveralls]
     ]
@@ -30,7 +32,13 @@ defmodule AcmePlatform.MixProject do
   defp aliases do
     [
       "project.seed": ["run apps/magasin/priv/seeds.exs"],
-      "project.setup": ["ecto.drop", "ecto.create", "ecto.migrate", "project.seed"]
+      "project.setup": ["ecto.drop", "ecto.create", "ecto.migrate", "project.seed"],
+      "project.check": [
+        "compile --force --warnings-as-errors",
+        "coveralls --umbrella --timeout 1000",
+        "credo --strict",
+        "dialyzer"
+      ]
     ]
   end
 
@@ -42,7 +50,7 @@ defmodule AcmePlatform.MixProject do
   defp deps do
     [
       {:distillery, "~> 1.5", runtime: false},
-      {:dialyxir, "~> 0.5", only: [:dev], runtime: false},
+      {:dialyxir, "~> 0.5", only: [:dev, :test], runtime: false},
       {:credo, "~> 0.9.1", only: [:dev, :test], runtime: false},
       {:excoveralls, "~> 0.8", only: :test}
     ]
