@@ -39,6 +39,10 @@ function dash_case_to_underscore_case () {
     echo $1 | sed 's/-/_/g'
 }
 
+function escape_dashes () {
+    echo $1 | sed -e "s/\//\\\\\//"
+}
+
 function print_notice () {
     echo "Notice: bin/project.new -a <app-name> -g <github_repo> -r <root_path>"
     echo "Example: bin/project.new -a magasin -g civilcode/magasin-platform -r ."
@@ -62,6 +66,7 @@ while getopts ":c:a:r:g:YQ" option; do
         ;;
     g)
         GITHUB_REPO=$OPTARG
+        GITHUB_REPO_ESCAPED=$(escape_dashes $GITHUB_REPO)
         ;;
     r)
         ROOT_PATH=$OPTARG
@@ -168,6 +173,9 @@ file_list=`find $NEW_PROJECT_ROOT -type f`
 for file_path in $file_list
 do
     if [ "$PLATFORM_OS" = "darwin" ]; then
+        LANG=C LC_CTYPE=C LC_ALL=C sed -i '' -e "s/github.com\/civilcode\/acme-platform/github.com\/$GITHUB_REPO_ESCAPED/g" $file_path
+        LANG=C LC_CTYPE=C LC_ALL=C sed -i '' -e "s/github\/civilcode\/acme-platform/github\/${GITHUB_REPO_ESCAPED}/g" $file_path
+        LANG=C LC_CTYPE=C LC_ALL=C sed -i '' -e "s/acme-platform/${CLIENT_NAME}-platform/g" $file_path
         LANG=C LC_CTYPE=C LC_ALL=C sed -i '' -e "s/Acme/$CLIENT_NAME_CAMEL/g" $file_path
         LANG=C LC_CTYPE=C LC_ALL=C sed -i '' -e "s/acme/$CLIENT_NAME_UNDERSCORE/g" $file_path
         LANG=C LC_CTYPE=C LC_ALL=C sed -i '' -e "s/ACME/$CLIENT_NAME_UPPERCASE/g" $file_path
@@ -176,6 +184,9 @@ do
         LANG=C LC_CTYPE=C LC_ALL=C sed -i '' -e "s/magasin/$APP_NAME_UNDERSCORE/g" $file_path
         LANG=C LC_CTYPE=C LC_ALL=C sed -i '' -e "s/MAGASIN/$APP_NAME_UPPERCASE/g" $file_path
     else
+        LANG=C LC_CTYPE=C LC_ALL=C sed -i -e "s/github.com\/civilcode\/acme-platform/github.com\/$GITHUB_REPO_ESCAPED/g" $file_path
+        LANG=C LC_CTYPE=C LC_ALL=C sed -i -e "s/github\/civilcode\/acme-platform/github\/${GITHUB_REPO_ESCAPED}/g" $file_path
+        LANG=C LC_CTYPE=C LC_ALL=C sed -i -e "s/acme-platform/${CLIENT_NAME}-platform/g" $file_path
         LANG=C LC_CTYPE=C LC_ALL=C sed -i -e "s/Acme/$CLIENT_NAME_CAMEL/g" $file_path
         LANG=C LC_CTYPE=C LC_ALL=C sed -i -e "s/acme/$CLIENT_NAME_UNDERSCORE/g" $file_path
         LANG=C LC_CTYPE=C LC_ALL=C sed -i -e "s/ACME/$CLIENT_NAME_UPPERCASE/g" $file_path

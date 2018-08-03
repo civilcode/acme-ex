@@ -59,7 +59,7 @@ jobs:
       - run: sudo apt-get install -y rsync
       - run:
            command: |
-              ./bin/project.new -c starbucks -a physical-store -g civilcode/star_bucks -Y -Q -r .
+              ./bin/project.new -c starbucks -a physical-store -g civilcode/star-bucks-platform -Y -Q -r .
               cd ../starbucks-platform
               echo "use Mix.Config
               config :physical_store, PhysicalStore.Repo,

@@ -1,4 +1,4 @@
-# Acme - CivilCode's Reference Application and Guides
+# Acme - CivilCode's Reference Application and Guides [![Coverage Status](https://coveralls.io/repos/github/civilcode/acme-platform/badge.svg?branch=master)](https://coveralls.io/github/civilcode/acme-platform?branch=master)
 
 ## About Magasin
 
@@ -14,7 +14,7 @@ The application implements a basic ordering system.
 * with a Phoenix HTML interface
 * deployed on [Heroku](https://acme-platform.herokuapp.com) with [Docker](https://www.docker.com)
 * persists data in [PostgreSQL](https://www.postgresql.org) RDBMS
-* an open source application with the source code hosted on [GitHub](https://github.com/civilcode/acme)
+* an open source application with the source code hosted on [GitHub](https://github.com/civilcode/acme-platform)
 
 ## Development Setup
 
