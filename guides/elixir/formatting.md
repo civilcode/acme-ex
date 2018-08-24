@@ -12,11 +12,11 @@ default package used at CivilCode is Facebook's [Watchman](https://facebook.gith
 ## Dotfiles
 
 Our [dotfiles](https://github.com/civilcode/dotfiles) has an alias configured to format files
-simple with `elixir-format`. See the alias for the actual implementation.
+with the alias `elixir-format`. See the alias for the actual implementation.
 
 ## Configuration
 
-`watchman` is configured to ignore directorys via `.watcmanconfig` which is automatically when
+`watchman` is configured to ignore directorys via `.watcmanconfig` which is automatically used when
 a command is invoked.
 
 ## Cheatsheet
