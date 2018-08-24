@@ -9,6 +9,7 @@
   * [Test Factories](testing/factories.md)
 * [Elixir](elixir/README.md)
   * [The Elixir Style Guide Amendments](elixir/style.md)
+  * [Formatting](elixir/formatting.md)
 * [Application](app/README.md)
   * [Setup Guide](app/setup.md)
   * [Using Docker for a local development environment](app/docker-development.md)
@@ -16,4 +17,3 @@
   * [S3 Setup Guide](app/s3.md)
 * [Phoenix](phoenix/README.md)
   * [Elixir Architecture Cheatsheet](phoenix/architecture.md)
-
