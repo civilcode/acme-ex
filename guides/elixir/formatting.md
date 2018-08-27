@@ -16,8 +16,18 @@ with the alias `elixir-format`. See the alias for the actual implementation.
 
 ## Configuration
 
-`watchman` is configured to ignore directorys via `.watcmanconfig` which is automatically used when
+`watchman` is configured to ignore directories via `.watcmanconfig` which is automatically used when
 a command is invoked.
+
+## Run
+
+Triggers can be defined on the command line or via a file. Our standard is to configure via a file:
+
+    watchman -j < .watchman/format.json
+
+## Docker
+
+Our custom Docker development environments run this automatically for us.
 
 ## Cheatsheet
 
