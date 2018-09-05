@@ -9,7 +9,7 @@ defmodule MagasinWeb.Application do
     # List all child processes to be supervised
     children = [
       # Start the endpoint when the application starts
-      MagasinWeb.Endpoint,
+      MagasinWeb.Endpoint
       # Starts a worker by calling: MagasinWeb.Worker.start_link(arg)
       # {MagasinWeb.Worker, arg},
     ]
