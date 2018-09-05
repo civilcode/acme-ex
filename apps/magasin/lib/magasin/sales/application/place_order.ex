@@ -1,20 +1,48 @@
 defmodule Magasin.Sales.Application.PlaceOrder do
   @moduledoc false
 
+  use Ecto.Schema
+  use CivilCode.Command
+
+  alias CivilCode.Validation
   alias Magasin.Catalog.Domain, as: Catalog
   alias Magasin.{Address, Email, Quantity}
   alias Magasin.Sales.Domain.OrderId
 
-  use CivilCode.Command,
-    schema: %{
-      order_id: OrderId,
-      email: Email,
-      product_id: Catalog.ProductId,
-      quantity: Quantity,
-      shipping_address: Address,
-      line_items: [%{product_id: Catalog.ProductId, quantity: Quantity}]
-    }
+  embedded_schema do
+    field(:order_id, OrderId)
+    field(:email, Email)
+    field(:product_id, Catalog.ProductId)
+    field(:quantity, Quantity)
+    embeds_one(:shipping_address, Address)
 
-  @enforce_keys [:order_id, :email, :product_id, :quantity, :shipping_address, :line_items]
-  defstruct [:order_id, :email, :product_id, :quantity, :shipping_address, :line_items]
+    embeds_many :line_items, LineItem do
+      field(:product_id, Catalog.ProductId)
+      field(:quantity, Quantity)
+    end
+  end
+
+  import Ecto.Changeset
+
+  @fields [:order_id, :product_id, :email, :quantity]
+
+  @spec to_domain(t) :: {:ok, map} | {:error, Validation.t()}
+  def to_domain(command) do
+    __MODULE__
+    |> struct
+    |> cast(to_map(command), @fields)
+    |> cast_embed(:shipping_address)
+    |> cast_embed(:line_items, with: &line_item_changeset/2)
+    |> validate
+    |> Validation.validate(command)
+    |> Result.map(&to_map/1)
+  end
+
+  defp validate(schema), do: validate_required(schema, [:email])
+
+  defp to_map(struct), do: Map.delete(struct, :__struct__)
+
+  defp line_item_changeset(struct, params) do
+    cast(struct, params, [:product_id, :quantity])
+  end
 end

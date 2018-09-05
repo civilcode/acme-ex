@@ -5,10 +5,6 @@ defmodule Magasin.Quantity do
 
   defstruct [:value]
 
-  def new(nil) do
-    {:error, "is required"}
-  end
-
   def new(value) when value < 0 do
     {:error, "cannot be negative"}
   end
@@ -25,8 +21,6 @@ defmodule Magasin.Quantity do
   def subtract(a, b) do
     new(a.value - b.value)
   end
-
-  def parse(_value), do: 0
 
   defmodule Ecto.Type do
     @moduledoc false

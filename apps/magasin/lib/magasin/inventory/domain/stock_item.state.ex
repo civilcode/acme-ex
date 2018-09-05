@@ -18,8 +18,4 @@ defmodule Magasin.Inventory.Domain.StockItem.State do
   def apply(state, %StockItemAdjusted{} = event) do
     change(state, count_on_hand: event.new_count_on_hand)
   end
-
-  def apply(state, _) do
-    change(state)
-  end
 end

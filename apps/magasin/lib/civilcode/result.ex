@@ -10,4 +10,7 @@ defmodule Result do
   end
 
   def unwrap({_, value}), do: value
+
+  def map({:ok, payload}, func), do: Result.ok(func.(payload))
+  def map(result, _func), do: result
 end

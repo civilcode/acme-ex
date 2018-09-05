@@ -5,7 +5,7 @@ defmodule Magasin.PostalCode do
 
   defstruct [:value]
 
-  def new(nil), do: Result.error("is required")
+  def new(":invalid:"), do: Result.error(:invalid)
 
   def new(value) do
     {:ok, struct(__MODULE__, value: value)}

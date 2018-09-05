@@ -17,8 +17,6 @@ defmodule Magasin.Sales.Domain.OrderId do
     struct(__MODULE__, value: value)
   end
 
-  def parse(_value), do: nil
-
   defmodule Ecto.Type do
     @moduledoc false
 

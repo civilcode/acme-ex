@@ -1,21 +1,44 @@
 defmodule CivilCode.Validation do
   @moduledoc false
+  @type t :: %__MODULE__{}
 
-  defstruct [:data, :errors]
+  defstruct data: nil, errors?: false, errors: []
 
-  alias CivilCode.ResultMap
+  import Ecto.Changeset
 
-  def new(domain_primitive_results_by_key, data) do
-    errors =
-      domain_primitive_results_by_key
-      |> Enum.filter(&error?/1)
-      |> ResultMap.unwrap()
-
-    struct(__MODULE__, data: data, errors: errors)
+  @spec validate(Ecto.Changeset.t(), map) :: {:ok, map} | {:error, t}
+  def validate(changeset, command \\ nil) do
+    if changeset.valid? do
+      changeset
+      |> apply_changes
+      |> Result.ok()
+    else
+      changeset
+      |> new(command)
+      |> Result.error()
+    end
   end
 
-  defp error?({_key, {:error, _domain_primitive}}), do: true
-  defp error?(_term), do: false
+  defp new(changeset, command) do
+    struct(
+      __MODULE__,
+      data: command || changeset.data,
+      errors?: true,
+      errors: build_errors(changeset)
+    )
+  end
 
-  def errors?(validation), do: Enum.any?(validation.errors)
+  defp build_errors(changeset) do
+    changeset
+    |> traverse_errors(&translate_error/1)
+    |> Enum.map(&format_errors/1)
+    |> Enum.into(%{})
+  end
+
+  defp translate_error({msg, _opts}), do: msg
+
+  defp format_errors({key, errors}) when is_list(errors), do: {key, List.first(errors)}
+
+  defp format_errors({key, struct}) when is_map(struct),
+    do: {key, Enum.map(struct, &format_errors/1)}
 end

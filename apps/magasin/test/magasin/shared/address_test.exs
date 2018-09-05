@@ -4,11 +4,6 @@ defmodule Magasin.AddressTest do
   alias Magasin.{Address, PostalCode}
 
   describe "new" do
-    test "missing params returns an error" do
-      result = Address.new(nil)
-      assert {:error, "is required"} == result
-    end
-
     test "valid params returns a new address" do
       valid_params = %{
         street_address: "1 Main St",
@@ -34,8 +29,8 @@ defmodule Magasin.AddressTest do
 
       {:error, errors} = Address.new(invalid_params)
 
-      assert {:street_address, "is required"} in errors
-      assert {:postal_code, "is required"} in errors
+      assert {:street_address, "can't be blank"} in errors
+      assert {:postal_code, "can't be blank"} in errors
     end
   end
 end

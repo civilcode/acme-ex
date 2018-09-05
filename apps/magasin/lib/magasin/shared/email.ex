@@ -6,11 +6,7 @@ defmodule Magasin.Email do
   defstruct [:value]
 
   def new(value) do
-    if is_nil(value) do
-      {:error, "is required"}
-    else
-      {:ok, struct(__MODULE__, value: value)}
-    end
+    {:ok, struct(__MODULE__, value: value)}
   end
 
   def new!(value) do
