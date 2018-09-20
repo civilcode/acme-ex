@@ -27,4 +27,5 @@ config/test.secret.exs
 /pgdata/
 
 # Environment
-.env
+.envrc
+
