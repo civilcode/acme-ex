@@ -1,0 +1,40 @@
+doctype html
+html lang="en"
+  head
+    meta content="text/html; charset=UTF-8" http-equiv="Content-Type"
+    meta charset="utf-8"
+    meta content="IE=edge" http-equiv="X-UA-Compatible"
+    meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"
+    meta content="," name="keyword"
+    link href=Routes.static_path(@conn,"/images/favicon.png") rel="shortcut icon"
+    title Magasin
+    link href=Routes.static_path(@conn,"/css/app.css") rel="stylesheet"
+  body.app.header-fixed.sidebar-fixed.aside-menu-fixed.aside-menu-hidden
+    = render MagasinWeb.LayoutView, "header.html", assigns
+    .app-body
+      .sidebar
+        nav.sidebar-nav
+          ul.nav
+            li.nav-item
+              a.nav-link href="/"
+                i.icon-home
+                | Home
+        button.sidebar-minimizer.brand-minimizer type="button"
+      main.main
+        ol.breadcrumb
+          li.breadcrumb-item Home
+          li.breadcrumb-item.active Dashboard
+        .container-fluid
+          = render @view_module, @view_template, assigns
+    footer.app-footer
+      span
+        b Magasin
+        | &nbsp;
+        | ©2018
+        | &nbsp;
+        a href="http://www.magasin.com/" Magasin
+      span.ml-auto
+        | Powered by
+        | &nbsp;
+        a href="https://coreui.io" target="template"  CoreUI
+    script src=Routes.static_path(@conn,"/js/app.js")

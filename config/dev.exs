@@ -56,7 +56,7 @@ config :magasin_web, MagasinWeb.Endpoint,
       ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},
       ~r{priv/gettext/.*(po)$},
       ~r{lib/magasin_web/views/.*(ex)$},
-      ~r{lib/magasin_web/templates/.*(eex)$}
+      ~r{lib/magasin_web/templates/.*(eex|slim|slime)$}
     ]
   ]
 
