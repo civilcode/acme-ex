@@ -50,16 +50,20 @@ end
 # will be used by default
 
 release :acme_platform do
-  set(version: "0.1.0")
-
   set(
+    version: "0.1.0",
     applications: [
       :runtime_tools,
       magasin: :permanent,
       magasin_web: :permanent
     ],
-    commands: [
-      migrate: "rel/commands/migrate.sh"
-    ]
+    commands: [migrate: "rel/commands/migrate.sh"],
+    config_providers: [
+      {
+        Mix.Releases.Config.Providers.Elixir,
+        ["${RELEASE_ROOT_DIR}/etc/config.exs"]
+      }
+    ],
+    overlays: [{:copy, "rel/config/config.exs", "etc/config.exs"}]
   )
 end

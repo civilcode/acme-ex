@@ -44,7 +44,6 @@ EXPOSE 4000
 # Provide a default for the MIX_ENV, see heroku.yml for more information
 ARG MIX_ENV=staging
 ENV PORT=4000 \
-    REPLACE_OS_VARS=true \
     SHELL=/bin/bash
 
 RUN mkdir /app
