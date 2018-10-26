@@ -1,4 +1,0 @@
-# Requires environment switcher: https://github.com/direnv/direnv
-
-# Explicitly define instead of using the directory to generate the container name
-export COMPOSE_PROJECT_NAME=acme-platform
