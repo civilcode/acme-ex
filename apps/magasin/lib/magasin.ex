@@ -1,17 +1,6 @@
 defmodule Magasin do
-  @moduledoc """
-  Documentation for Magasin.
-  """
+  @moduledoc false
 
-  @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> Magasin.hello
-      :world
-
-  """
   def hello do
     :world
   end

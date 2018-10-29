@@ -17,11 +17,9 @@ defmodule MagasinWeb.ConnCase do
 
   using do
     quote do
-      # Import conveniences for testing with connections
       use Phoenix.ConnTest
       alias MagasinWeb.Router.Helpers, as: Routes
 
-      # The default endpoint for testing
       @endpoint MagasinWeb.Endpoint
     end
   end
