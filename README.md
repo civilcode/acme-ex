@@ -28,8 +28,7 @@ the instructions:
 
     git clone https://github.com/civilcode/acme-platform
     cd acme-platform
-    ./bin/setup.config
-    ./bin/setup.docker
+    make setup
 
 To run the server:
 
@@ -41,14 +40,14 @@ To view the application with your browser visit:
 
 To start and shutdown Docker containers:
 
-    docker-compose up -d
-    docker-compose stop
+    make start
+    make stop
 
 ## Deployment
 
 To deploy to staging:
 
-    bin/deploy_staging
+    make -f deploy/staging/Makefile
 
 ## Guides
 

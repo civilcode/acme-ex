@@ -13,22 +13,15 @@ The application has been setup for a [Distillery](distillery.md) release.
 
 ## Deploy to staging
 
-    heroku container:login
-    heroku container:push web -r staging
-    heroku container:release web -r staging    
+    make -f deploy/staging/Makefile
 
 For more information see: [Container Registry & Runtime \(Docker Deploys\)](https://devcenter.heroku.com/articles/container-registry-and-runtime)
 
 ## How to reproduce deployment environment locally
 
-    # build from the production Dockerfile
-    bin/heroku.docker.build
-
-    # run the Docker image
-    bin/heroku.docker.start
-
-    # stop the Docker container
-    bin/heroku.docker.stop    
+    make -f deploy/local/Makefile build
+    make -f deploy/local/Makefile run
+    make -f deploy/local/Makefile stop
 
 For more information see: [Local Development with Docker Compose](https://devcenter.heroku.com/articles/local-development-with-docker-compose)
 

@@ -1,0 +1,7 @@
+.PHONY: deploy
+deploy:
+	heroku container:login
+	heroku container:push web -r staging
+	heroku container:release web -r staging
+	heroku pg:reset --confirm acme-platform-staging -r staging
+	heroku run /app/bin/acme_platform migrate -r staging
