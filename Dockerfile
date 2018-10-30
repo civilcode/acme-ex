@@ -1,8 +1,11 @@
 ### BUILD STAGE
-FROM bitwalker/alpine-elixir-phoenix:1.6.6 as builder
+FROM bitwalker/alpine-elixir-phoenix:1.7.3 as builder
 RUN mkdir /app
 
 WORKDIR /app
+
+RUN mix local.hex --force
+RUN mix local.rebar --force
 
 # Provide a default for the MIX_ENV, see heroku.yml for more information
 ARG MIX_ENV=staging
