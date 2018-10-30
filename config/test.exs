@@ -1,17 +1,9 @@
 use Mix.Config
 
 ###############################################################################
-# MASTER PROXY
-###############################################################################
-
-config :master_proxy, http: [port: 4001]
-
-###############################################################################
 # MAGASIN WEB
 ###############################################################################
 
-config :magasin_web, MagasinWeb.Endpoint,
-  http: [port: 4011],
-  server: false
+config :magasin_web, MagasinWeb.Endpoint, server: false
 
 import_config "test.secret.exs"

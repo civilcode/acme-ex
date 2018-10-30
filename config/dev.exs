@@ -1,20 +1,13 @@
 use Mix.Config
 
 ###############################################################################
-# MASTER PROXY
-###############################################################################
-
-config :master_proxy, http: [port: 4000]
-
-###############################################################################
 # MAGASIN WEB
 ###############################################################################
 
 config :magasin_web, MagasinWeb.Endpoint,
-  http: [port: 4010],
-  debug_errors: true,
-  code_reloader: true,
   check_origin: false,
+  code_reloader: true,
+  debug_errors: true,
   watchers: [
     node: [
       "node_modules/webpack/bin/webpack.js",
