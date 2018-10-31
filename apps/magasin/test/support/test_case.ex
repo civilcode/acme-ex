@@ -23,4 +23,9 @@ defmodule Magasin.TestCase do
 
     :ok
   end
+
+  def build_entity(factory_name, attrs \\ []) do
+    entity = Magasin.Factory.build(factory_name)
+    %{entity | state: struct(entity.state, attrs)}
+  end
 end

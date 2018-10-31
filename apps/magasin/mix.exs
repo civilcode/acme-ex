@@ -32,10 +32,12 @@ defmodule Magasin.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:postgrex, ">= 0.0.0"},
       {:ecto, "~> 2.1"},
-      {:uuid, "~> 1.1"},
-      {:mix_test_watch, "~> 0.5", only: :dev, runtime: false}
+      {:ex_machina, "~> 2.2", only: :test},
+      {:faker, "~> 0.11.1", only: :test},
+      {:mix_test_watch, "~> 0.5", only: :dev, runtime: false},
+      {:postgrex, ">= 0.0.0"},
+      {:uuid, "~> 1.1"}
     ]
   end
 
