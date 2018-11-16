@@ -10,6 +10,7 @@
 * [Elixir](elixir/README.md)
   * [The Elixir Style Guide Amendments](elixir/style.md)
   * [Formatting](elixir/formatting.md)
+  * [Dependencies](elixir/dependencies.md)
 * [Application](app/README.md)
   * [Setup Guide](app/setup.md)
   * [Using Docker for a local development environment](app/docker-development.md)
