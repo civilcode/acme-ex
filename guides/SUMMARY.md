@@ -16,5 +16,6 @@
   * [Using Docker for a local development environment](app/docker-development.md)
   * [Docker deployment](app/docker-deployment.md)
   * [S3 Setup Guide](app/s3.md)
+  * [Heroku](app/heroku.md)
 * [Phoenix](phoenix/README.md)
   * [Elixir Architecture Cheatsheet](phoenix/architecture.md)

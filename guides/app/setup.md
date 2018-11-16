@@ -26,6 +26,7 @@ This guide specifies the steps required to setup a new application.
 * Configure `staging` application with [Review Apps](https://devcenter.heroku.com/articles/github-integration-review-apps)
 * Setup `production` application
 * Enable backups on PostgreSQL
+* [Enable SSL](heroku.md)
 
 ## Remote Pairing
 
