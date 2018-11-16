@@ -5,6 +5,8 @@ defmodule Magasin.Sales.Application.PlacingAnOrderTest do
   alias Magasin.Sales.Domain.OrderId
   alias Magasin.Catalog.Domain, as: Catalog
 
+  @moduletag timeout: 1_000
+
   describe "given valid command" do
     test "an order placed" do
       order_id = OrderId.new!()

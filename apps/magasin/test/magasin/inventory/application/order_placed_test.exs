@@ -8,6 +8,8 @@ defmodule Magasin.Inventory.Application.OrderPlacedTest do
   alias Magasin.Inventory.Application.{StockItemApplicationService, StockItemRepository}
   alias Magasin.Inventory.Domain.{StockItem, StockItemId}
 
+  @moduletag timeout: 1_000
+
   setup do
     order_id = OrderId.new!()
     product_id = Catalog.ProductId.new!()
