@@ -19,3 +19,5 @@
   * [Heroku](app/heroku.md)
 * [Phoenix](phoenix/README.md)
   * [Elixir Architecture Cheatsheet](phoenix/architecture.md)
+* [Code](code/README.md)
+  * [Naming Conventions](code/naming.md)
