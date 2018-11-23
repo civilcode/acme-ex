@@ -1,7 +1,7 @@
 build:
 	echo "Please ensure no Docker containers are running with the same ports as this docker-compose.yml file"
 	read -p "Press any key to continue..."
-	docker-compose build --no-cache
+	docker-compose build --force-rm --no-cache
 	docker-compose up -d
 	docker-compose exec application mix deps.get
 	docker-compose exec application sh -c 'cd /app/apps/magasin_web/assets/ && npm install'
