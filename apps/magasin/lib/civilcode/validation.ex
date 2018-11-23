@@ -6,7 +6,7 @@ defmodule CivilCode.Validation do
 
   import Ecto.Changeset
 
-  @spec validate(Ecto.Changeset.t(), map) :: {:ok, map} | {:error, t}
+  @spec validate(Ecto.Changeset.t(), map | nil) :: {:ok, map} | {:error, t}
   def validate(changeset, command \\ nil) do
     if changeset.valid? do
       changeset

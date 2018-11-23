@@ -29,6 +29,10 @@ jobs:
             - v4-build-and-mix-cache-{{ .Branch }}
             - v4-build-and-mix-cache
       - run: mix do deps.get, compile --warnings-as-errors
+      - run:
+          name: "Dialyzer PLT"
+          command: mix dialyzer --plt
+          no_output_timeout: "20m"
       - save_cache: # save dependencies to cache
           key: v4-dep-cache-{{ checksum "mix.lock" }}
           paths: "deps"
@@ -53,6 +57,7 @@ jobs:
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run: mix hex.audit
       - run: mix format --check-formatted
+      - run: mix dialyzer --halt-exit-status
       - run: mix ecto.migrate
       - run: mix coveralls.circle --umbrella
       - run: mix credo --strict

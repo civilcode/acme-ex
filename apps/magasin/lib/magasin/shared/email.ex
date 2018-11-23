@@ -5,16 +5,18 @@ defmodule Magasin.Email do
 
   defstruct [:value]
 
+  @spec new(String.t()) :: {:ok, t} | {:error, :must_be_string}
+  def new(value) when is_nil(value), do: {:error, :must_be_string}
+
   def new(value) do
     {:ok, struct(__MODULE__, value: value)}
   end
 
+  @spec new!(String.t()) :: t
   def new!(value) do
     {:ok, quantity} = new(value)
     quantity
   end
-
-  def parse(_value), do: 0
 
   defmodule Ecto.Type do
     @moduledoc false
@@ -23,20 +25,20 @@ defmodule Magasin.Email do
 
     @behaviour Elixir.Ecto.Type
 
-    @spec type :: :string
+    @impl true
     def type, do: :string
 
-    @spec cast(Email.t()) :: {:ok, Email.t()}
+    @impl true
     def cast(val)
 
     def cast(%Email{} = quantity), do: {:ok, quantity}
 
     def cast(_), do: :error
 
-    @spec load(String.t()) :: {:ok, Email.t()}
+    @impl true
     def load(value) when is_binary(value), do: Email.new(value)
 
-    @spec dump(Email.t()) :: {:ok, String.t()}
+    @impl true
     def dump(%Email{} = m), do: {:ok, m.value}
     def dump(_), do: :error
   end

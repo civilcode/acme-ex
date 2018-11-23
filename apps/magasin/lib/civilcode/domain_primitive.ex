@@ -14,9 +14,9 @@ defmodule CivilCode.DomainPrimitive do
         end
       end
 
-      def type, do: :no_implemented
-      def load(_), do: :no_implemented
-      def dump(_), do: :no_implemented
+      def type, do: :error
+      def load(_), do: :error
+      def dump(_), do: :error
     end
   end
 end
