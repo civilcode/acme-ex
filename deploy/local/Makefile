@@ -1,5 +1,8 @@
 DATABASE_URL := $(shell heroku config:get DATABASE_URL -r staging)
 
+.PHONY: deploy
+deploy: build run
+
 build:
 	docker build --no-cache --build-arg MIX_ENV=staging -t acme-platform -f Dockerfile .
 
