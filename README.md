@@ -28,7 +28,8 @@ the instructions:
 
     git clone https://github.com/civilcode/acme-platform
     cd acme-platform
-    make setup
+    make config
+    make build
 
 To run the server:
 
