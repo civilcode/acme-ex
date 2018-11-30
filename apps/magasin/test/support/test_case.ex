@@ -25,7 +25,6 @@ defmodule Magasin.TestCase do
   end
 
   def build_entity(factory_name, attrs \\ []) do
-    entity = Magasin.Factory.build(factory_name)
-    %{entity | state: struct(entity.state, attrs)}
+    Magasin.Factory.build(factory_name, attrs)
   end
 end

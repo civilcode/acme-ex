@@ -47,8 +47,7 @@ defmodule CivilCode.Aggregate do
     quote do
       import Kernel, except: [apply: 2]
       import CivilCode.Entity
-
-      @type t :: %CivilCode.Entity{}
+      use TypedStruct
 
       def new(attrs) do
         CivilCode.Entity.new(__MODULE__, attrs)

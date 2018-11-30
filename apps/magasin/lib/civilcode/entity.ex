@@ -16,51 +16,70 @@ defmodule CivilCode.Entity do
   ```
   """
 
-  defstruct [:type, :state, :events]
+  defmodule Metadata do
+    @moduledoc false
+
+    @type t :: %__MODULE__{}
+
+    defstruct events: [], changes: [], assigns: %{}
+  end
+
+  @type t :: %{optional(atom) => any, __struct__: atom, __entity__: Metadata.t()}
 
   defmacro __using__(_) do
   end
 
-  def new(module, attrs \\ []) do
-    struct(__MODULE__, type: module, state: struct(Module.concat(module, State), attrs))
+  @spec new(module, Keyword.t()) :: t
+  def(new(module, attrs \\ [])) do
+    struct!(module, attrs ++ [__entity__: struct!(Metadata)])
   end
 
   def build(module, state) do
-    struct(__MODULE__, type: module, state: state)
+    fields = state |> Map.from_struct() |> Enum.into([])
+    struct(module, fields ++ [__entity__: struct!(Metadata)])
   end
 
-  def get_changes(%{state: %Ecto.Changeset{} = changeset}) do
-    changeset
+  def get_changes(struct) do
+    struct.__entity__.changes
   end
 
-  def get_changes(entity) do
-    Ecto.Changeset.change(entity.state)
+  def get_state(struct) do
+    struct
   end
 
-  def get_state(%{state: %Ecto.Changeset{}} = entity) do
-    Ecto.Changeset.apply_changes(entity.state)
+  def put_assigns(struct, key, value) do
+    new_assigns = Map.put(struct.__entity__.assigns, key, value)
+    new_entity = struct!(struct.__entity__, assigns: new_assigns)
+    struct!(struct, __entity__: new_entity)
   end
 
-  def get_state(entity) do
-    entity.state
+  def get_assigns(struct, key) do
+    struct.__entity__.assigns[key]
   end
 
-  def apply_event(entity, func) do
-    state = get_state(entity)
-
-    case func.(state) do
-      {:error, violation} ->
-        {:error, violation}
-
-      {:ok, event} ->
-        new_state = Module.concat(entity.type, State).apply(state, event)
-        new_entity = struct(__MODULE__, type: entity.type, state: new_state, events: [event])
-        {:ok, new_entity}
-
-      event ->
-        new_state = Module.concat(entity.type, State).apply(state, event)
-        new_entity = struct(__MODULE__, type: entity.type, state: new_state, events: [event])
-        {:ok, new_entity}
+  def apply_event(struct, func) do
+    case func.(struct) do
+      {:error, violation} -> {:error, violation}
+      {:ok, event} -> do_apply_event(struct, event)
+      event -> do_apply_event(struct, event)
     end
+  end
+
+  def get_fields(struct, fields) do
+    struct
+    |> Map.from_struct()
+    |> Map.take(fields)
+  end
+
+  defp do_apply_event(struct, event) do
+    new_state = apply(struct.__struct__, :apply, [struct, event])
+    new_struct = struct!(new_state, __entity__: struct!(new_state.__entity__, events: [event]))
+
+    {:ok, new_struct}
+  end
+
+  @spec put_changes(struct, Keyword.t()) :: struct
+  def put_changes(struct, changes) do
+    struct!(struct, changes ++ [__entity__: struct!(struct.__entity__, changes: changes)])
   end
 end

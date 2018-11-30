@@ -37,6 +37,7 @@ defmodule Magasin.MixProject do
       {:faker, "~> 0.11.1", only: :test},
       {:mix_test_watch, "~> 0.5", only: :dev, runtime: false},
       {:postgrex, ">= 0.0.0"},
+      {:typed_struct, "~> 0.1.3"},
       {:uuid, "~> 1.1"}
     ]
   end

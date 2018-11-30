@@ -6,8 +6,11 @@ defmodule CivilCode.Repository do
       alias CivilCode.Entity
 
       def build(module, func) do
-        state = func.()
-        Entity.build(module, state)
+        record = func.()
+
+        module
+        |> Entity.build(record)
+        |> Entity.put_assigns(:record, record)
       end
     end
   end

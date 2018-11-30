@@ -6,7 +6,7 @@ defmodule Magasin.Inventory.Application.OrderPlacedTest do
   alias Magasin.Sales.Domain.{OrderId, OrderPlaced}
 
   alias Magasin.Inventory.Application.{StockItemApplicationService, StockItemRepository}
-  alias Magasin.Inventory.Domain.{StockItem, StockItemId}
+  alias Magasin.Inventory.Domain.StockItemId
 
   @moduletag timeout: 1_000
 
@@ -29,7 +29,7 @@ defmodule Magasin.Inventory.Application.OrderPlacedTest do
   describe "a product in stock" do
     test "decreases the count on hand", %{order_placed_event: order_placed_event} do
       previous_stock_item =
-        Repo.insert!(%StockItem.State{
+        Repo.insert!(%StockItemRepository.Schema{
           id: StockItemId.new!(),
           count_on_hand: Quantity.new!(1),
           product_id: order_placed_event.product_id.value
@@ -46,7 +46,7 @@ defmodule Magasin.Inventory.Application.OrderPlacedTest do
   describe "a product out of stock" do
     test "notifies the product is out of stock", %{order_placed_event: order_placed_event} do
       previous_stock_item =
-        Repo.insert!(%StockItem.State{
+        Repo.insert!(%StockItemRepository.Schema{
           id: StockItemId.new!(),
           count_on_hand: Quantity.new!(1),
           product_id: order_placed_event.product_id.value
