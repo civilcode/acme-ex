@@ -2,8 +2,10 @@
 deploy: push release reset
 
 push:
+	git fetch --all --tags
+	git checkout tags/$(RELEASE_TAG)
 	heroku container:login
-	heroku container:push web -r staging
+	heroku container:push web -r staging --arg RELEASE_TAG=$(RELEASE_TAG)
 
 release:
 	heroku container:release web -r staging

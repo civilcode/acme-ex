@@ -1,4 +1,5 @@
-Path.join(["rel", "plugins", "*.exs"])
+["rel", "plugins", "*.exs"]
+|> Path.join()
 |> Path.wildcard()
 |> Enum.map(&Code.eval_file(&1))
 
@@ -29,9 +30,9 @@ environment :staging do
   )
 end
 
-release :acme_platform do
+release :acme_platform_staging do
   set(
-    version: "0.1.0",
+    version: "0.0.0",
     applications: [
       :runtime_tools,
       magasin: :permanent,

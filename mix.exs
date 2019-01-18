@@ -7,6 +7,7 @@ defmodule AcmePlatform.MixProject do
       apps_path: "apps",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
+      version: "0.0.0",
       dialyzer: [
         flags: [
           :unmatched_returns,

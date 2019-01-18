@@ -4,7 +4,9 @@ use Mix.Config
 # MAGASIN
 ###############################################################################
 
-config :magasin, ecto_repos: [Magasin.Repo]
+config :magasin,
+  ecto_repos: [Magasin.Repo],
+  release: [tag: System.get_env("RELEASE_TAG")]
 
 config :magasin, Magasin.Repo, adapter: Ecto.Adapters.Postgres
 

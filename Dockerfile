@@ -12,6 +12,11 @@ ARG MIX_ENV=staging
 ENV MIX_ENV ${MIX_ENV}
 RUN echo $MIX_ENV
 
+# Provide the release tag
+ARG RELEASE_TAG
+ENV RELEASE_TAG ${RELEASE_TAG}
+RUN echo $RELEASE_TAG
+
 # Umbrella
 COPY mix.exs mix.lock ./
 COPY config config
@@ -30,8 +35,7 @@ RUN mix phx.digest
 
 WORKDIR /app
 COPY rel rel
-RUN mix release --env=$MIX_ENV --verbose
-
+RUN mix release --env=$MIX_ENV --verbose --name=acme_platform_$MIX_ENV
 
 ### RELEASE STAGE
 FROM alpine:3.6
@@ -52,9 +56,10 @@ ENV PORT=4000 \
 RUN mkdir /app
 WORKDIR /app
 
-COPY --from=builder /app/_build/$MIX_ENV/rel/acme_platform/releases/0.1.0/acme_platform.tar.gz .
+COPY --from=builder /app/_build/$MIX_ENV/rel/acme_platform_$MIX_ENV/releases/0.0.0/acme_platform_$MIX_ENV.tar.gz .
 
-RUN tar xzf acme_platform.tar.gz && rm acme_platform.tar.gz
+RUN tar xzf acme_platform_$MIX_ENV.tar.gz && rm acme_platform_$MIX_ENV.tar.gz
+RUN ln -s /app/bin/acme_platform_$MIX_ENV /app/bin/acme_platform
 
 RUN chown -R root ./releases
 RUN ls /app/bin

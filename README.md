@@ -45,10 +45,21 @@ To start and shutdown Docker containers:
     make stop
 
 ## Deployment
+### Managing Releases
+
+Before deploying to staging or production, you must create a release.
+
+This should be done on GitHub to avoid concurrency issues.
+
+Go to the repo -> "Releases" -> "Draft a New Release"
+
+The tag format is: release-<YYYYMMDD><patch>
+
+### Deployment to staging
 
 To deploy to staging:
 
-    make -f deploy/staging/Makefile
+    make -f deploy/staging/Makefile RELEASE_TAG=<git_tag>
 
 ## Guides
 
