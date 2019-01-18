@@ -34,3 +34,10 @@ start:
 
 stop:
 	docker-compose stop
+
+.PHONY: observer
+observer:
+	docker-compose exec -e DISPLAY=host.docker.internal:0 erlang erl -sname observer -hidden -setcookie secret -run observer
+
+console:
+	docker-compose exec application iex --name vm@application --cookie secret -S mix phx.server

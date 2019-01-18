@@ -33,6 +33,11 @@ services:
       - db
     tty: true
 
+  erlang:
+    # For using observer through X11 (xquartz on Mac)
+    image: erlang:latest
+    command: sleep infinity
+
 # volumes defined for use in above configuration
 volumes:
   build:
