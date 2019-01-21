@@ -9,6 +9,11 @@ about: An ability is comprised of multiple tasks
 - [ ] Plan the solution for this feature
 - [ ] Review the solution with the in-house product owner
 
+## Solution
+
+<!--- Document the general solution to implementing this feature. Review this feature with the
+      in-house product owner. --->
+
 ## Iterations
 
 <!--- Identify how this feature can be broken down into multiple iterations so you can get feedback
@@ -18,11 +23,6 @@ about: An ability is comprised of multiple tasks
 
 - [ ] {iteration one}
 - [ ] {iteration two}
-
-## Solution
-
-<!--- Document the general solution to implementing this feature. Review this feature with the
-      in-house product owner. --->
 
 ## Peer Checklist
 
