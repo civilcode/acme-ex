@@ -17,6 +17,11 @@ clean:
 	docker-compose up -d
 	docker-compose exec application mix deps.get
 
+docs:
+	docker-compose exec application mix docs
+	docker-compose exec application cp GLOSSARY.md apps/magasin_web/priv/static/
+	docker-compose exec application cp -R doc apps/magasin_web/priv/static/
+
 .PHONY: config
 config:
 	cp config/dev.secret.exs.sample config/dev.secret.exs

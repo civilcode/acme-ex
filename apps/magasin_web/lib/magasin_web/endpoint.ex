@@ -9,7 +9,7 @@ defmodule MagasinWeb.Endpoint do
     at: "/",
     from: :magasin_web,
     gzip: false,
-    only: ~w(css fonts images js favicon.ico robots.txt)
+    only: ~w(css fonts images js favicon.ico robots.txt doc)
 
   if code_reloading? do
     socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket

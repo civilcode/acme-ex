@@ -53,6 +53,7 @@ defmodule AcmePlatform.MixProject do
       {:distillery, "~> 2.0", runtime: false},
       {:dialyxir, "~> 0.5", only: [:dev, :test], runtime: false},
       {:credo, "~> 0.9.1", only: [:dev, :test], runtime: false},
+      {:ex_doc, "~> 0.19", runtime: false},
       {:excoveralls, "~> 0.8", only: :test}
     ]
   end

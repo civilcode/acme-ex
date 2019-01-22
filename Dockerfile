@@ -25,6 +25,10 @@ COPY config config
 COPY apps apps
 RUN mix do deps.get, deps.compile
 
+RUN mix docs
+RUN mkdir -p apps/magasin_web/priv/static
+RUN cp -r doc apps/magasin_web/priv/static/.
+
 # Build assets in production mode:
 WORKDIR /app/apps/magasin_web/assets
 
