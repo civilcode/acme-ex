@@ -1,3 +1,10 @@
+# Configuration
+
+APP := acme-platform
+BINARY := acme_platform
+
+# Targets
+
 .PHONY: deploy
 deploy: push release reset
 
@@ -11,5 +18,5 @@ release:
 	heroku container:release web -r staging
 
 reset:
-	heroku pg:reset --confirm acme-platform-staging -r staging
-	heroku run /app/bin/acme_platform migrate -r staging
+	heroku pg:reset --confirm $(APP)-staging -r staging
+	heroku run /app/bin/$(BINARY) migrate -r staging
