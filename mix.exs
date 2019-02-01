@@ -26,7 +26,14 @@ defmodule AcmePlatform.MixProject do
         "project.check": :test,
         dialyzer: :test
       ],
-      test_coverage: [tool: ExCoveralls]
+      test_coverage: [tool: ExCoveralls],
+      # Docs
+      name: "Acme - Magasin",
+      source_url: "https://github.com/civilcode/acme-platform",
+      homepage_url: "https://www.civilcode.io",
+      docs: [
+        extras: ["README.md"]
+      ]
     ]
   end
 

@@ -25,6 +25,8 @@ COPY config config
 COPY apps apps
 RUN mix do deps.get, deps.compile
 
+# Docs
+COPY README.md README.md
 RUN mix docs
 RUN mkdir -p apps/magasin_web/priv/static
 RUN cp -r doc apps/magasin_web/priv/static/.
