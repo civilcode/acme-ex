@@ -32,6 +32,7 @@ defmodule Magasin.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
+      {:civilcode, github: "civilcode/civilcode"},
       {:ecto, "~> 2.1"},
       {:ex_machina, "~> 2.2", only: :test},
       {:faker, "~> 0.11.1", only: :test},

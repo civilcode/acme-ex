@@ -34,6 +34,7 @@ release :acme_platform_staging do
   set(
     version: "0.0.0",
     applications: [
+      :civilcode,
       :runtime_tools,
       magasin: :permanent,
       magasin_web: :permanent,
