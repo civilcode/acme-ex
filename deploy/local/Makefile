@@ -1,6 +1,6 @@
 # Configuration - Local
 
-APP := acme-platform
+APP := acme-platform-local
 BINARY := acme_platform
 
 # Configuration - Heroku

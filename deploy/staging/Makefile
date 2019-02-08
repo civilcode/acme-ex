@@ -1,6 +1,6 @@
 # Configuration
 
-APP := acme-platform
+APP := acme-platform-staging
 BINARY := acme_platform
 
 # Targets
@@ -18,5 +18,5 @@ release:
 	heroku container:release web -r staging
 
 reset:
-	heroku pg:reset --confirm $(APP)-staging -r staging
+	heroku pg:reset --confirm $(APP) -r staging
 	heroku run /app/bin/$(BINARY) migrate -r staging
