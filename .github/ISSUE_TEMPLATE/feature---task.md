@@ -3,6 +3,21 @@ name: Feature - Task
 about: An ability is comprised of multiple tasks
 ---
 
+## Requirements
+
+<!--- Explain what needs to be done, not how it should be done. --->
+
+## Guide
+
+- Keep it simple:
+  - Get something working first
+  - Make notes for improvements that can be addressed after the review or in a different PR
+  - Get a review
+  - Then polish
+- Consider large refactorings in a separate PR, e.g.:
+  - renames across multiple files
+  - architecture changes
+
 ## To-do List
 
 - [ ] Break this feature down into multiple iterations
