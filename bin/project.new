@@ -209,12 +209,8 @@ echo "Setting up docker..."
 
 cd $NEW_PROJECT_ROOT
 docker-compose down -v
-./bin/setup.config
-if [ "$CONFIRM" = true ]; then
-    ./bin/setup.docker -Y
-else
-    ./bin/setup.docker
-fi
+make clean
+docker-compose exec -e MIX_ENV=test application mix do ecto.create, ecto.migrate
 docker-compose exec application mix test
 
 # Setup git repo
