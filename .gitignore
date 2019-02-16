@@ -23,9 +23,6 @@ erl_crash.dump
 config/dev.secret.exs
 config/test.secret.exs
 
-# PostgreSQL Data
-/pgdata/
-
 # Environment
 .env
 

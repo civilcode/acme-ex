@@ -9,7 +9,7 @@ services:
       POSTGRES_USER: postgres
       PGDATA: /pgdata
     volumes:
-      - ./pgdata:/pgdata
+      - pgdata:/pgdata
 
   application:
     build:
