@@ -11,10 +11,10 @@ determine_minor() {
 # Retrieve previous release tag
 PREVIOUS_RELEASE_TAG=`hub release -L 1`
 
-# Determine new release tag
+# Determine new release tag (format: "release-20190315a")
 TODAY=$(date +"%Y%m%d")
-PREVIOUS_RELEASE_DATE=${PREVIOUS_RELEASE_TAG:7:7}
-PREVIOUS_RELEASE_MINOR=${PREVIOUS_RELEASE_TAG:14}
+PREVIOUS_RELEASE_DATE=${PREVIOUS_RELEASE_TAG:8:8}
+PREVIOUS_RELEASE_MINOR=${PREVIOUS_RELEASE_TAG:16}
 NEW_MINOR=$(determine_minor $TODAY $PREVIOUS_RELEASE_DATE $PREVIOUS_RELEASE_MINOR)
 RELEASE_TAG="release-${TODAY}${NEW_MINOR}"
 
