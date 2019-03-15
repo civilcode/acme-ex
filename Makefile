@@ -52,3 +52,6 @@ observer:
 
 console:
 	docker-compose exec application iex --name vm@application --cookie secret -S mix phx.server
+
+generate_release:
+	bin/generate_release

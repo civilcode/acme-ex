@@ -1,0 +1,36 @@
+#!/bin/bash
+
+determine_minor() {
+    if [ "$1" == "$2" ]; then
+        echo "$3" | tr "a-z" "b-z"
+    else
+        echo "a"
+    fi
+}
+
+# Retrieve previous release tag
+PREVIOUS_RELEASE_TAG=`hub release -L 1`
+
+# Determine new release tag
+TODAY=$(date +"%Y%m%d")
+PREVIOUS_RELEASE_DATE=${PREVIOUS_RELEASE_TAG:7:7}
+PREVIOUS_RELEASE_MINOR=${PREVIOUS_RELEASE_TAG:14}
+NEW_MINOR=$(determine_minor $TODAY $PREVIOUS_RELEASE_DATE $PREVIOUS_RELEASE_MINOR)
+RELEASE_TAG="release-${TODAY}${NEW_MINOR}"
+
+# Create a new empty release
+hub release create -m "${RELEASE_TAG}" $RELEASE_TAG
+
+git fetch --all --tags
+git checkout master
+git pull -f
+
+# Edit current release message
+echo "${RELEASE_TAG}" > RELEASE_NOTES
+echo "" >> RELEASE_NOTES
+git log --pretty="%h: %s (%an)" ${PREVIOUS_RELEASE_TAG}..HEAD >> RELEASE_NOTES
+hub release edit -d -F RELEASE_NOTES "${RELEASE_TAG}"
+rm RELEASE_NOTES
+
+echo ""
+echo "Your release is ready: ${RELEASE_TAG}"
