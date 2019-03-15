@@ -29,7 +29,7 @@ git pull -f
 echo "${RELEASE_TAG}" > RELEASE_NOTES
 echo "" >> RELEASE_NOTES
 git log --pretty="%h: %s (%an)" ${PREVIOUS_RELEASE_TAG}..HEAD >> RELEASE_NOTES
-hub release edit -d -F RELEASE_NOTES "${RELEASE_TAG}"
+hub release edit -F RELEASE_NOTES "${RELEASE_TAG}"
 rm RELEASE_NOTES
 
 echo ""
