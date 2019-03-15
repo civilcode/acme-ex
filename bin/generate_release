@@ -28,7 +28,7 @@ git pull -f
 # Edit current release message
 echo "${RELEASE_TAG}" > RELEASE_NOTES
 echo "" >> RELEASE_NOTES
-git log --pretty="%h: %s (%an)" ${PREVIOUS_RELEASE_TAG}..HEAD >> RELEASE_NOTES
+git log --pretty="%h: %s (%an)" ${PREVIOUS_RELEASE_TAG}...HEAD >> RELEASE_NOTES
 hub release edit -F RELEASE_NOTES "${RELEASE_TAG}"
 rm RELEASE_NOTES
 
