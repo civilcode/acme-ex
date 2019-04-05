@@ -27,6 +27,7 @@ Note: Upgrade message can be copied from the output of `mix deps.update`.
   these in a PR with previous version (i.e. fix with the new version, then the last commit
   roll backs to the previous version). This can be convenient if the package update cannot
   be done immediately, e.g. issues with `dialyzer`.
+- Major updates may require a cache boost for `.circle.ci/config.yml` to avoid issues with Dialyzer. For example, the upgrade for `Ecto 2.x => 3.x` required this, especially when there are other branches build on CI that are using older versions.
 
 ## Overriding dependencies in an Umbrella Application
 
