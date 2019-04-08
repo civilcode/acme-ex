@@ -21,34 +21,34 @@ jobs:
       - run: mix do local.hex --force, local.rebar --force
       - restore_cache: # restore saved dependency cache
           keys:
-            - v4-dep-cache-{{ checksum "mix.lock" }}
-            - v4-dep-cache-{{ .Branch }}
-            - v4-dep-cache
+            - v5-dep-cache-{{ checksum "mix.lock" }}
+            - v5-dep-cache-{{ .Branch }}
+            - v5-dep-cache
       - restore_cache:  # restores saved build cache
           keys:
-            - v4-build-and-mix-cache-{{ .Branch }}
-            - v4-build-and-mix-cache
+            - v5-build-and-mix-cache-{{ .Branch }}
+            - v5-build-and-mix-cache
       - run: mix do deps.get, compile --warnings-as-errors
       - run:
           name: "Dialyzer PLT"
           command: mix dialyzer --plt
           no_output_timeout: "20m"
       - save_cache: # save dependencies to cache
-          key: v4-dep-cache-{{ checksum "mix.lock" }}
+          key: v5-dep-cache-{{ checksum "mix.lock" }}
           paths: "deps"
       - save_cache: # save dependencies to cache
-          key: v4-dep-cache-{{ .Branch }}
+          key: v5-dep-cache-{{ .Branch }}
           paths: "deps"
       - save_cache: # save dependencies to cache
-          key: v4-dep-cache
+          key: v5-dep-cache
           paths: "deps"
       - save_cache: # save build cache
-          key: v4-build-and-mix-cache-{{ .Branch }}
+          key: v5-build-and-mix-cache-{{ .Branch }}
           paths:
             - _build
             - ~/.mix
       - save_cache: # save build cache
-          key: v4-build-and-mix-cache
+          key: v5-build-and-mix-cache
           paths:
             - _build
             - ~/.mix
