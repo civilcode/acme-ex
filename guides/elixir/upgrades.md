@@ -48,7 +48,7 @@ made in the `magasin_web` application.
 
 ## Upgrade Elixir
 
-1. Update base images for Dockerfiles
+1. Update base images for Dockerfiles, including release stage image (Alpine version), if applicable
 2. Increment the cache in `.circle.ci/config.yml`
 3. Commit with:
     git commit -m "chore: Upgrade Elixir 1.7.3 => 1.8.1"
