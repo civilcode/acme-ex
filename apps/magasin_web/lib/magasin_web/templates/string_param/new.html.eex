@@ -1,0 +1,7 @@
+<h1>Testing string parameter values</h1>
+
+<%= form_for @conn, "/nesting/1/reproduce_form_string_params", [], fn f -> %>
+  <%= hidden_input f, :id, value: 1 %>
+  <%= checkbox f, :some_bool %>
+  <%= submit "Submit" %>
+<% end %>

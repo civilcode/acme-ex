@@ -28,5 +28,9 @@ defmodule MagasinWeb.Router do
     pipe_through(:browser)
 
     get("/", PageController, :index)
+
+    resources("/nesting", NestedController) do
+      resources("/reproduce_form_string_params", StringParamController)
+    end
   end
 end
