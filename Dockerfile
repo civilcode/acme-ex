@@ -1,5 +1,5 @@
 ### BUILD STAGE
-FROM bitwalker/alpine-elixir-phoenix:1.8.0 as builder
+FROM bitwalker/alpine-elixir-phoenix:1.8.1 as builder
 RUN mkdir /app
 
 WORKDIR /app
@@ -44,12 +44,12 @@ COPY rel rel
 RUN mix release --env=$MIX_ENV --verbose --name=acme_platform_$MIX_ENV
 
 ### RELEASE STAGE
-FROM alpine:3.6
+FROM alpine:3.9
 
-# we need bash and openssl for Phoenix
-RUN apk update \
+# we need bash and openssl for Phoenix, and curl for heroku
+RUN apk update && \
     apk upgrade --no-cache && \
-    apk add --no-cache bash openssl
+    apk add --no-cache bash openssl curl
 
 # EXPOSE is not used by Heroku, it uses the PORT env var and expose the same value
 EXPOSE 4000
