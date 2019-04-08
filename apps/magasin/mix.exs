@@ -24,7 +24,7 @@ defmodule Magasin.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger],
+      extra_applications: [:logger, :ecto_sql],
       mod: {Magasin.Application, []}
     ]
   end
@@ -33,7 +33,8 @@ defmodule Magasin.MixProject do
   defp deps do
     [
       {:civilcode, github: "civilcode/civilcode-ex"},
-      {:ecto, "~> 2.1"},
+      {:ecto, "~> 3.1.1", override: true},
+      {:ecto_sql, "~> 3.1.0"},
       {:ex_machina, "~> 2.2", only: :test},
       {:faker, "~> 0.11.1", only: :test},
       {:mix_test_watch, "~> 0.5", only: :dev, runtime: false},

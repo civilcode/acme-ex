@@ -11,7 +11,8 @@ defmodule Magasin.ReleaseTasks do
     :crypto,
     :ssl,
     :postgrex,
-    :ecto
+    :ecto,
+    :ecto_sql
   ]
 
   # CHANGE: Hardcode the application name rather than use `Application.get_application(__MODULE__)`
