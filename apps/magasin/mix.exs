@@ -33,6 +33,7 @@ defmodule Magasin.MixProject do
   defp deps do
     [
       {:civilcode, github: "civilcode/civilcode-ex"},
+      # civilcode-ex uses Ecto 2.x
       {:ecto, "~> 3.1.1", override: true},
       {:ecto_sql, "~> 3.1.0"},
       {:ex_machina, "~> 2.2", only: :test},
