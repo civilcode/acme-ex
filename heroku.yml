@@ -21,3 +21,9 @@ build:
     RELEASE_TAG: staging
   docker:
     web: Dockerfile
+release:
+  image: web
+  command:
+    - /app/bin/acme_platform migrate
+run:
+  web: /app/bin/acme_platform foreground

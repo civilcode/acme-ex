@@ -1,7 +1,7 @@
 {
   "name": "ACME platform",
-  "description": "Civilcode's Reference Application",
-  "repository": "https://github.com/civilcode/acme",
+  "description": "CivilCode's Reference Application",
+  "repository": "https://github.com/civilcode/acme_platform",
   "addons": [
     "heroku-postgresql:hobby-dev",
     "papertrail:choklad"
@@ -19,8 +19,5 @@
       "description": "Who initiated this setup",
       "value": "CivilCode Inc"
     }
-  },
-  "scripts": {
-    "postdeploy": "/app/bin/acme_platform migrate"
   }
 }
