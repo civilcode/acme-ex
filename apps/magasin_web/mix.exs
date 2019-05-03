@@ -31,16 +31,16 @@ defmodule MagasinWeb.MixProject do
 
   defp deps do
     [
-      {:phoenix, github: "phoenixframework/phoenix", override: true},
-      {:phoenix_pubsub, "~> 1.0"},
-      {:phoenix_html, "~> 2.11"},
+      {:phoenix, "~> 1.4"},
+      {:phoenix_pubsub, "~> 1.1"},
+      {:phoenix_html, "~> 2.13"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
-      {:phoenix_slime, "~> 0.9.0"},
+      {:phoenix_slime, "~> 0.12.0"},
       {:gettext, "~> 0.11"},
       {:magasin, in_umbrella: true},
       {:jason, "~> 1.0"},
-      {:cowboy, "~> 1.0"},
-      {:sobelow, "~> 0.7.1", only: [:dev, :test]}
+      {:sobelow, "~> 0.7.1", only: [:dev, :test]},
+      {:plug_cowboy, "~> 2.0"}
     ]
   end
 

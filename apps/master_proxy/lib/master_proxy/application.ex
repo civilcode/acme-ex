@@ -8,7 +8,7 @@ defmodule MasterProxy.Application do
     :ok = Logger.info("Running proxy")
 
     http_config = Application.get_env(:master_proxy, :http)
-    cowboy = Plug.Adapters.Cowboy.child_spec(:http, MasterProxy.Plug, [], http_config)
+    cowboy = Plug.Cowboy.child_spec(scheme: :http, plug: MasterProxy.Plug, options: http_config)
 
     children = [
       # Starts a worker by calling: Proxy.Worker.start_link(arg)
