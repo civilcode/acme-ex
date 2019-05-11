@@ -16,3 +16,5 @@ config :magasin_web, MagasinWeb.Endpoint,
   # force_ssl: [rewrite_on: [:x_forwarded_proto]],
   root: ".",
   version: Application.spec(:magasin_web, :vsn)
+
+config :phoenix, :serve_endpoints, true

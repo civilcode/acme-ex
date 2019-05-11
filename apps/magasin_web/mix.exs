@@ -34,7 +34,7 @@ defmodule MagasinWeb.MixProject do
       {:phoenix, "~> 1.4"},
       {:phoenix_pubsub, "~> 1.1"},
       {:phoenix_html, "~> 2.13"},
-      {:phoenix_live_reload, "~> 1.0", only: :dev},
+      {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:phoenix_slime, "~> 0.12.0"},
       {:gettext, "~> 0.11"},
       {:magasin, in_umbrella: true},
