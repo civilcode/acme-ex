@@ -21,3 +21,5 @@
   * [Elixir Architecture Cheatsheet](phoenix/architecture.md)
 * [Code](code/README.md)
   * [Naming Conventions](code/naming.md)
+* [Ecto](ecto/README.md)
+  * [Migrations](ecto/migrations.md)
