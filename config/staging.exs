@@ -4,7 +4,7 @@ use Mix.Config
 # MAGASIN
 ###############################################################################
 
-config :magasin, Magasin.Repo, ssl: true
+config :magasin, Magasin.Repo, ssl: true, queue_interval: 100, queue_target: 2000
 
 ###############################################################################
 # MAGASIN WEB
