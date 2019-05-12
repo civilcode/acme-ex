@@ -1,7 +1,5 @@
 defmodule Magasin do
-  @moduledoc false
-
-  def hello do
-    :world
-  end
+  @moduledoc """
+  The business logic for Magasin Application.
+  """
 end

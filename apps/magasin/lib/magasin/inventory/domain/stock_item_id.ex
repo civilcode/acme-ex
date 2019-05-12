@@ -1,5 +1,7 @@
 defmodule Magasin.Inventory.StockItemId do
-  @moduledoc false
+  @moduledoc """
+  The ID of a stock item entity.
+  """
 
   use CivilCode.DomainPrimitive
 

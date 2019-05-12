@@ -1,5 +1,7 @@
 defmodule Magasin.Inventory.StockItemApplicationService do
-  @moduledoc false
+  @moduledoc """
+  The command handler for commands on a stock item aggregate.
+  """
 
   use CivilCode.ApplicationService
 

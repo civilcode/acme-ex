@@ -1,5 +1,7 @@
 defmodule Magasin.Inventory.StockItem do
-  @moduledoc false
+  @moduledoc """
+  The entity stock item.
+  """
 
   use CivilCode.Aggregate
 

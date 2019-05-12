@@ -1,4 +1,6 @@
 defmodule MagasinWeb.Router do
+  @moduledoc false
+
   use MagasinWeb, :router
 
   secure_headers =

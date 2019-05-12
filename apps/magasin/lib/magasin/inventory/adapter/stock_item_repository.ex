@@ -1,5 +1,7 @@
 defmodule Magasin.Inventory.StockItemRepository do
-  @moduledoc false
+  @moduledoc """
+  A collection of stock item aggregates.
+  """
 
   use CivilCode.Repository
 

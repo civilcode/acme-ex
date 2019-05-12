@@ -1,5 +1,7 @@
 defmodule Magasin.Sales.OrderApplicationService do
-  @moduledoc false
+  @moduledoc """
+  The command handler for commands on an order aggregate.
+  """
 
   use CivilCode.ApplicationService
 

@@ -1,4 +1,6 @@
 defmodule MagasinWeb.UserSocket do
+  @moduledoc false
+
   use Phoenix.Socket
 
   def connect(_params, socket) do

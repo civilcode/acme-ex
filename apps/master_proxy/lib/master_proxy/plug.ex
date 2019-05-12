@@ -1,7 +1,7 @@
 defmodule MasterProxy.Plug do
-  @moduledoc """
-  This plug will route the traffic to the corresponding umbrella applications
-  """
+  @moduledoc false
+
+  # This plug will route the traffic to the corresponding umbrella applications
 
   def init(options) do
     options

@@ -1,5 +1,7 @@
 defmodule Magasin.Sales.PlaceOrder do
-  @moduledoc false
+  @moduledoc """
+  A command to place an order.
+  """
 
   use Ecto.Schema
   use CivilCode.Command

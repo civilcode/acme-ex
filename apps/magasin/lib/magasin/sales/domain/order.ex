@@ -1,5 +1,7 @@
 defmodule Magasin.Sales.Order do
-  @moduledoc false
+  @moduledoc """
+  A order entity.
+  """
 
   use CivilCode.Aggregate
 

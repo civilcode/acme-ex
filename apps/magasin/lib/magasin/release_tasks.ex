@@ -1,11 +1,11 @@
 defmodule Magasin.ReleaseTasks do
-  @moduledoc """
-  Based on the Distillery Guide [1]. Some modifications have been made to deal with exceptions
-  and running mix tasks from the seeding script. The differences have been noted inline
-  below as a `CHANGE`.
+  @moduledoc false
 
-  [1] https://hexdocs.pm/distillery/running-migrations.html
-  """
+  # Based on the Distillery Guide [1]. Some modifications have been made to deal with exceptions
+  # and running mix tasks from the seeding script. The differences have been noted inline
+  # below as a `CHANGE`.
+  #
+  # [1] https://hexdocs.pm/distillery/running-migrations.html
 
   @start_apps [
     :crypto,

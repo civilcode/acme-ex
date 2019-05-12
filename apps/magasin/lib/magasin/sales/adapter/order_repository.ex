@@ -1,5 +1,7 @@
 defmodule Magasin.Sales.OrderRepository do
-  @moduledoc false
+  @moduledoc """
+  A collection of order aggregates.
+  """
 
   use CivilCode.Repository
 

@@ -1,5 +1,7 @@
 defmodule Magasin.Sales.OrderId do
-  @moduledoc false
+  @moduledoc """
+  The ID of a order entity.
+  """
 
   use CivilCode.DomainPrimitive
 

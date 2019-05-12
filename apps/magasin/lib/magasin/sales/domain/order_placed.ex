@@ -1,5 +1,7 @@
 defmodule Magasin.Sales.OrderPlaced do
-  @moduledoc false
+  @moduledoc """
+  A domain event representing the fact when a order has been placed.
+  """
 
   use CivilCode.DomainEvent
 

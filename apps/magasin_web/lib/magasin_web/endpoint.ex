@@ -1,4 +1,6 @@
 defmodule MagasinWeb.Endpoint do
+  @moduledoc false
+
   use Phoenix.Endpoint, otp_app: :magasin_web
 
   socket "/socket", MagasinWeb.UserSocket,

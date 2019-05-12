@@ -1,5 +1,7 @@
 defmodule Magasin.Catalog.ProductId do
-  @moduledoc false
+  @moduledoc """
+  The ID of a product entity.
+  """
 
   use CivilCode.DomainPrimitive
 

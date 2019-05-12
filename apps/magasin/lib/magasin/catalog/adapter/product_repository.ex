@@ -1,6 +1,6 @@
 defmodule Magasin.Catalog.ProductRepository do
   @moduledoc """
-  This is not a complete implementation of a repository as all we need for this example
+  This is not a complete implementation of a repository as we only need in this example
   application is the `product_id`.
   """
 

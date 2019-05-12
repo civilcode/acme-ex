@@ -1,5 +1,7 @@
 defmodule Magasin.Inventory.StockItemAdjusted do
-  @moduledoc false
+  @moduledoc """
+  A domain event representing the fact when a stock item is adjusted.
+  """
 
   use CivilCode.DomainEvent
 
