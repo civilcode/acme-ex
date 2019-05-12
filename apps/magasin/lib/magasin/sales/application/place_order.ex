@@ -10,15 +10,15 @@ defmodule Magasin.Sales.Application.PlaceOrder do
   alias Magasin.Sales.Domain.OrderId
 
   embedded_schema do
-    field(:order_id, OrderId.Ecto.Type)
-    field(:email, Email.Ecto.Type)
-    field(:product_id, Catalog.ProductId.Ecto.Type)
-    field(:quantity, Quantity.Ecto.Type)
-    embeds_one(:shipping_address, Address)
+    field :order_id, OrderId.Ecto.Type
+    field :email, Email.Ecto.Type
+    field :product_id, Catalog.ProductId.Ecto.Type
+    field :quantity, Quantity.Ecto.Type
+    embeds_one :shipping_address, Address
 
     embeds_many :line_items, LineItem do
-      field(:product_id, Catalog.ProductId.Ecto.Type)
-      field(:quantity, Quantity.Ecto.Type)
+      field :product_id, Catalog.ProductId.Ecto.Type
+      field :quantity, Quantity.Ecto.Type
     end
   end
 

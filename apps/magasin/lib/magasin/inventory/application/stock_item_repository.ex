@@ -15,8 +15,8 @@ defmodule Magasin.Inventory.Application.StockItemRepository do
     @primary_key {:id, StockItemId.Ecto.Type, autogenerate: false}
 
     schema "magasin_inventory_stock_items" do
-      field(:count_on_hand, Quantity.Ecto.Type)
-      field(:product_id, :binary_id)
+      field :count_on_hand, Quantity.Ecto.Type
+      field :product_id, :binary_id
 
       field :__entity__, :string, virtual: true
 
