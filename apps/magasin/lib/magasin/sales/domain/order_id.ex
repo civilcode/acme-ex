@@ -14,10 +14,6 @@ defmodule Magasin.Sales.Domain.OrderId do
     {:ok, struct(__MODULE__, value: value)}
   end
 
-  def new!() do
-    new!(UUID.uuid4())
-  end
-
   defmodule Ecto.Type do
     @moduledoc false
 

@@ -7,20 +7,20 @@ defmodule Magasin.Sales.Application.OrderRepositoryTest do
 
   @moduletag timeout: 1_000
 
-  describe "adding an order" do
+  describe "saving an order" do
     test "valid order returns an order id" do
       valid_order = build_entity(:sales_order)
-      {:ok, order_id} = OrderRepository.add(valid_order)
+      {:ok, order_id} = OrderRepository.save(valid_order)
       assert %OrderId{} = order_id
     end
 
     test "duplicate order id returns a repository error" do
-      duplicate_order_id = OrderId.new!()
+      duplicate_order_id = OrderRepository.next_id()
       order_1 = build_entity(:sales_order, id: duplicate_order_id)
-      {:ok, _order_id} = OrderRepository.add(order_1)
+      {:ok, _order_id} = OrderRepository.save(order_1)
 
       order_2 = build_entity(:sales_order, id: duplicate_order_id)
-      {:error, repository_error} = OrderRepository.add(order_2)
+      {:error, repository_error} = OrderRepository.save(order_2)
 
       assert %RepositoryError{} = repository_error
       assert :id == repository_error.field_name

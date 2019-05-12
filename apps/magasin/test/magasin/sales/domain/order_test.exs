@@ -1,14 +1,13 @@
 defmodule Magasin.Sales.Domain.OrderTest do
   use Magasin.TestCase
 
-  alias Magasin.Catalog.Domain, as: Catalog
   alias Magasin.{Email, Quantity}
-  alias Magasin.Sales.Domain.{Order, OrderId}
+  alias Magasin.Sales.Domain.Order
 
   describe "placing an order" do
     test "order is placed" do
-      product_id = Catalog.ProductId.new!()
-      order_id = OrderId.new!()
+      product_id = Magasin.Catalog.Application.ProductRepository.next_id()
+      order_id = Magasin.Sales.Application.OrderRepository.next_id()
       quantity = Quantity.new!(1)
       email = Email.new!("foo@bar.com")
 

@@ -3,12 +3,14 @@ defmodule Magasin.Inventory.Application.StockItemRepository do
 
   use CivilCode.Repository
 
-  alias Magasin.Inventory.Domain.StockItem
+  alias CivilCode.RepositoryError
+  alias Magasin.Inventory.Domain.{StockItem, StockItemId}
   alias Magasin.Repo
 
   defmodule Schema do
     @moduledoc false
     use Magasin.Schema
+
     alias Magasin.Inventory.Domain.StockItemId
     alias Magasin.Quantity
 
@@ -24,6 +26,12 @@ defmodule Magasin.Inventory.Application.StockItemRepository do
     end
   end
 
+  @impl true
+  def next_id do
+    StockItemId.new!(UUID.uuid4())
+  end
+
+  @impl true
   def get(stock_item_id) do
     build(StockItem, fn ->
       Repo.get(Schema, stock_item_id)
@@ -36,12 +44,16 @@ defmodule Magasin.Inventory.Application.StockItemRepository do
     end)
   end
 
-  def update(entity) do
-    build(StockItem, fn ->
-      entity
-      |> Entity.get_assigns(:record)
-      |> Ecto.Changeset.change(Entity.get_fields(entity, [:count_on_hand]))
-      |> Repo.update!()
-    end)
+  @impl true
+  def save(entity) do
+    result =
+      entity.__entity__.assigns.record
+      |> Ecto.Changeset.change(Entity.get_fields(entity, [:id, :count_on_hand]))
+      |> Repo.insert_or_update()
+
+    case result do
+      {:ok, entity_state} -> Result.ok(entity_state.id)
+      {:error, changeset} -> RepositoryError.validate(changeset)
+    end
   end
 end

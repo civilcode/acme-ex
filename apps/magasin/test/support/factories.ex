@@ -5,7 +5,6 @@ defmodule Magasin.Factory do
 
   alias Magasin.{Email, Quantity}
 
-  alias Magasin.Catalog.Domain, as: Catalog
   alias Magasin.Sales.Domain, as: Sales
 
   def quantity_factory do
@@ -17,11 +16,11 @@ defmodule Magasin.Factory do
   end
 
   def sales_order_id_factory do
-    Sales.OrderId.new!()
+    Magasin.Sales.Application.OrderRepository.next_id()
   end
 
   def catalog_product_id_factory do
-    Catalog.ProductId.new!()
+    Magasin.Catalog.Application.ProductRepository.next_id()
   end
 
   def sales_order_factory do

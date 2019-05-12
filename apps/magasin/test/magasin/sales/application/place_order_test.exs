@@ -2,15 +2,13 @@ defmodule Magasin.Sales.Application.PlaceOrderTest do
   use Magasin.TestCase
 
   alias CivilCode.Validation
-  alias Magasin.Catalog.Domain, as: Catalog
   alias Magasin.{Address, Email, PostalCode, Quantity}
-  alias Magasin.Sales.Application.PlaceOrder
-  alias Magasin.Sales.Domain.OrderId
+  alias Magasin.Sales.Application.{OrderRepository, PlaceOrder}
 
   describe "to_domain" do
     test "valid command returns domain values" do
-      order_id = OrderId.new!()
-      product_id = Catalog.ProductId.new!()
+      order_id = OrderRepository.next_id()
+      product_id = Magasin.Catalog.Application.ProductRepository.next_id()
 
       command = %PlaceOrder{
         order_id: order_id.value,
@@ -40,8 +38,8 @@ defmodule Magasin.Sales.Application.PlaceOrderTest do
     end
 
     test "invalid command returns validation error" do
-      order_id = OrderId.new!()
-      product_id = Catalog.ProductId.new!()
+      order_id = OrderRepository.next_id()
+      product_id = Magasin.Catalog.Application.ProductRepository.next_id()
 
       command = %PlaceOrder{
         order_id: order_id.value,

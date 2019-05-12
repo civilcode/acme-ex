@@ -26,3 +26,6 @@ config/test.secret.exs
 # Environment
 .env
 
+# Local Development on CivilCode
+
+civilcode-ex

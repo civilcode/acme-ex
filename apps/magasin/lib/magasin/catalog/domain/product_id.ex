@@ -14,10 +14,6 @@ defmodule Magasin.Catalog.Domain.ProductId do
     {:ok, struct(__MODULE__, value: value)}
   end
 
-  def new!() do
-    new!(UUID.uuid4())
-  end
-
   def parse(_value), do: nil
 
   defmodule Ecto.Type do

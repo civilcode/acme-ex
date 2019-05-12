@@ -23,7 +23,7 @@ defmodule Magasin.Inventory.Application.StockItemApplicationService do
   end
 
   defp persist({:ok, stock_item}) do
-    StockItemRepository.update(stock_item)
+    StockItemRepository.save(stock_item)
   end
 
   defp persist(result), do: result

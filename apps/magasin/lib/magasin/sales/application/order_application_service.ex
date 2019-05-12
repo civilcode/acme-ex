@@ -12,7 +12,7 @@ defmodule Magasin.Sales.Application.OrderApplicationService do
   def handle(%PlaceOrder{} = place_order) do
     with {:ok, params} <- PlaceOrder.to_domain(place_order),
          {:ok, order} <- Order.place(params) do
-      OrderRepository.add(order)
+      OrderRepository.save(order)
     end
   end
 end

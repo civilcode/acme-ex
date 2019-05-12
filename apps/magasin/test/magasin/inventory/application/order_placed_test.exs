@@ -1,18 +1,17 @@
 defmodule Magasin.Inventory.Application.OrderPlacedTest do
   use Magasin.TestCase
 
-  alias Magasin.Catalog.Domain, as: Catalog
   alias Magasin.{Email, Quantity}
-  alias Magasin.Sales.Domain.{OrderId, OrderPlaced}
+  alias Magasin.Sales.Application.OrderRepository
+  alias Magasin.Sales.Domain.OrderPlaced
 
   alias Magasin.Inventory.Application.{StockItemApplicationService, StockItemRepository}
-  alias Magasin.Inventory.Domain.StockItemId
 
   @moduletag timeout: 1_000
 
   setup do
-    order_id = OrderId.new!()
-    product_id = Catalog.ProductId.new!()
+    order_id = OrderRepository.next_id()
+    product_id = Magasin.Catalog.Application.ProductRepository.next_id()
     email = Email.new!("foo@bar.com")
     quantity = Quantity.new!(1)
 
@@ -30,7 +29,7 @@ defmodule Magasin.Inventory.Application.OrderPlacedTest do
     test "decreases the count on hand", %{order_placed_event: order_placed_event} do
       previous_stock_item =
         Repo.insert!(%StockItemRepository.Schema{
-          id: StockItemId.new!(),
+          id: StockItemRepository.next_id(),
           count_on_hand: Quantity.new!(1),
           product_id: order_placed_event.product_id.value
         })
@@ -47,7 +46,7 @@ defmodule Magasin.Inventory.Application.OrderPlacedTest do
     test "notifies the product is out of stock", %{order_placed_event: order_placed_event} do
       previous_stock_item =
         Repo.insert!(%StockItemRepository.Schema{
-          id: StockItemId.new!(),
+          id: StockItemRepository.next_id(),
           count_on_hand: Quantity.new!(1),
           product_id: order_placed_event.product_id.value
         })
