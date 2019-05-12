@@ -3,9 +3,7 @@ defmodule Magasin.Factory do
 
   use ExMachina
 
-  alias Magasin.{Email, Quantity}
-
-  alias Magasin.Sales.Domain, as: Sales
+  alias Magasin.{Catalog, Email, Quantity, Sales}
 
   def quantity_factory do
     Quantity.new!(Enum.random(1..1000))
@@ -16,11 +14,11 @@ defmodule Magasin.Factory do
   end
 
   def sales_order_id_factory do
-    Magasin.Sales.Application.OrderRepository.next_id()
+    Sales.OrderRepository.next_id()
   end
 
   def catalog_product_id_factory do
-    Magasin.Catalog.Application.ProductRepository.next_id()
+    Catalog.ProductRepository.next_id()
   end
 
   def sales_order_factory do

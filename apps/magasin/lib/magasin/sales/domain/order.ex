@@ -1,11 +1,10 @@
-defmodule Magasin.Sales.Domain.Order do
+defmodule Magasin.Sales.Order do
   @moduledoc false
 
   use CivilCode.Aggregate
 
-  alias Magasin.{Email, Quantity}
-  alias Magasin.Catalog.Domain, as: Catalog
-  alias Magasin.Sales.Domain.{OrderId, OrderPlaced}
+  alias Magasin.{Catalog, Email, Quantity}
+  alias Magasin.Sales.{OrderId, OrderPlaced}
 
   typedstruct do
     field :id, OrderId.t()

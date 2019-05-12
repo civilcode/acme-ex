@@ -1,4 +1,4 @@
-defmodule Magasin.Inventory.Domain.StockItemId do
+defmodule Magasin.Inventory.StockItemId do
   @moduledoc false
 
   use CivilCode.DomainPrimitive
@@ -17,7 +17,7 @@ defmodule Magasin.Inventory.Domain.StockItemId do
   defmodule Ecto.Type do
     @moduledoc false
 
-    alias Magasin.Inventory.Domain.StockItemId, as: EntityId
+    alias Magasin.Inventory.StockItemId, as: EntityId
 
     @behaviour Elixir.Ecto.Type
 

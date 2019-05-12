@@ -1,17 +1,17 @@
-defmodule Magasin.Inventory.Application.StockItemRepository do
+defmodule Magasin.Inventory.StockItemRepository do
   @moduledoc false
 
   use CivilCode.Repository
 
   alias CivilCode.RepositoryError
-  alias Magasin.Inventory.Domain.{StockItem, StockItemId}
+  alias Magasin.Inventory.{StockItem, StockItemId}
   alias Magasin.Repo
 
   defmodule Schema do
     @moduledoc false
     use Magasin.Schema
 
-    alias Magasin.Inventory.Domain.StockItemId
+    alias Magasin.Inventory.StockItemId
     alias Magasin.Quantity
 
     @primary_key {:id, StockItemId.Ecto.Type, autogenerate: false}

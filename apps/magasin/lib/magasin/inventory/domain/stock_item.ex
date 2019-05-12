@@ -1,10 +1,10 @@
-defmodule Magasin.Inventory.Domain.StockItem do
+defmodule Magasin.Inventory.StockItem do
   @moduledoc false
 
   use CivilCode.Aggregate
 
-  alias Magasin.Catalog.Domain, as: Catalog
-  alias Magasin.Inventory.Domain.{OutOfStock, StockItemAdjusted, StockItemId}
+  alias Magasin.Catalog
+  alias Magasin.Inventory.{OutOfStock, StockItemAdjusted, StockItemId}
   alias Magasin.Quantity
 
   typedstruct do

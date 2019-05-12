@@ -1,15 +1,15 @@
-defmodule Magasin.Sales.Application.PlacingAnOrderTest do
+defmodule Magasin.Sales.PlacingAnOrderTest do
   use Magasin.TestCase
 
-  alias Magasin.{Email, Quantity}
-  alias Magasin.Sales.Application.{OrderApplicationService, OrderRepository, PlaceOrder}
+  alias Magasin.{Catalog, Email, Quantity}
+  alias Magasin.Sales.{OrderApplicationService, OrderRepository, PlaceOrder}
 
   @moduletag timeout: 1_000
 
   describe "given valid command" do
     test "an order placed" do
       order_id = OrderRepository.next_id()
-      product_id = Magasin.Catalog.Application.ProductRepository.next_id()
+      product_id = Catalog.ProductRepository.next_id()
 
       command = %PlaceOrder{
         order_id: order_id.value,
@@ -39,7 +39,7 @@ defmodule Magasin.Sales.Application.PlacingAnOrderTest do
   describe "given invalid command" do
     test "returns an error" do
       order_id = OrderRepository.next_id()
-      product_id = Magasin.Catalog.Application.ProductRepository.next_id()
+      product_id = Catalog.ProductRepository.next_id()
 
       command = %PlaceOrder{
         order_id: order_id.value,
@@ -62,7 +62,7 @@ defmodule Magasin.Sales.Application.PlacingAnOrderTest do
   describe "given duplicate keys" do
     test "returns an error" do
       order_id = OrderRepository.next_id()
-      product_id = Magasin.Catalog.Application.ProductRepository.next_id()
+      product_id = Catalog.ProductRepository.next_id()
 
       command = %PlaceOrder{
         order_id: order_id.value,

@@ -1,19 +1,19 @@
-defmodule Magasin.Sales.Application.OrderRepository do
+defmodule Magasin.Sales.OrderRepository do
   @moduledoc false
 
   use CivilCode.Repository
 
   alias CivilCode.RepositoryError
+
   alias Magasin.Repo
-  alias Magasin.Sales.Domain.{Order, OrderId}
+  alias Magasin.Sales.{Order, OrderId}
 
   defmodule Schema do
     @moduledoc false
     use Magasin.Schema
 
-    alias Magasin.{Email, Quantity}
-    alias Magasin.Catalog.Domain, as: Catalog
-    alias Magasin.Sales.Domain.OrderId
+    alias Magasin.{Catalog, Email, Quantity}
+    alias Magasin.Sales.OrderId
 
     @primary_key {:id, OrderId.Ecto.Type, autogenerate: false}
 

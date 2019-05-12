@@ -1,7 +1,7 @@
-defmodule Magasin.Inventory.Application.StockItemTest do
+defmodule Magasin.Inventory.StockItemTest do
   use Magasin.TestCase
 
-  alias Magasin.Inventory.Domain.{OutOfStock, StockItem}
+  alias Magasin.Inventory.{OutOfStock, StockItem}
   alias Magasin.Quantity
 
   describe "deplenishing a stock item in stock" do

@@ -1,11 +1,10 @@
-defmodule Magasin.Sales.Application.OrderApplicationService do
+defmodule Magasin.Sales.OrderApplicationService do
   @moduledoc false
 
   use CivilCode.ApplicationService
 
   alias CivilCode.{RepositoryError, Validation}
-  alias Magasin.Sales.Application.{OrderRepository, PlaceOrder}
-  alias Magasin.Sales.Domain.{Order, OrderId}
+  alias Magasin.Sales.{Order, OrderId, OrderRepository, PlaceOrder}
 
   @type result :: {:ok, OrderId.t()} | {:error, Validation.t() | RepositoryError.t()}
   @spec handle(PlaceOrder.t()) :: result

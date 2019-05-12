@@ -1,9 +1,8 @@
-defmodule Magasin.Sales.Application.OrderRepositoryTest do
+defmodule Magasin.Sales.OrderRepositoryTest do
   use Magasin.TestCase
 
   alias CivilCode.RepositoryError
-  alias Magasin.Sales.Application.OrderRepository
-  alias Magasin.Sales.Domain.OrderId
+  alias Magasin.Sales.{OrderId, OrderRepository}
 
   @moduletag timeout: 1_000
 

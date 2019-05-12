@@ -1,13 +1,13 @@
-defmodule Magasin.Sales.Application.PlaceOrder do
+defmodule Magasin.Sales.PlaceOrder do
   @moduledoc false
 
   use Ecto.Schema
   use CivilCode.Command
 
   alias CivilCode.{Result, Validation}
-  alias Magasin.Catalog.Domain, as: Catalog
-  alias Magasin.{Address, Email, Quantity}
-  alias Magasin.Sales.Domain.OrderId
+
+  alias Magasin.{Address, Catalog, Email, Quantity}
+  alias Magasin.Sales.OrderId
 
   embedded_schema do
     field :order_id, OrderId.Ecto.Type

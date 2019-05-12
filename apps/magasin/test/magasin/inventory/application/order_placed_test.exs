@@ -1,17 +1,17 @@
-defmodule Magasin.Inventory.Application.OrderPlacedTest do
+defmodule Magasin.Inventory.OrderPlacedTest do
   use Magasin.TestCase
 
   alias Magasin.{Email, Quantity}
-  alias Magasin.Sales.Application.OrderRepository
-  alias Magasin.Sales.Domain.OrderPlaced
 
-  alias Magasin.Inventory.Application.{StockItemApplicationService, StockItemRepository}
+  alias Magasin.Catalog
+  alias Magasin.Inventory.{StockItemApplicationService, StockItemRepository}
+  alias Magasin.Sales.{OrderPlaced, OrderRepository}
 
   @moduletag timeout: 1_000
 
   setup do
     order_id = OrderRepository.next_id()
-    product_id = Magasin.Catalog.Application.ProductRepository.next_id()
+    product_id = Catalog.ProductRepository.next_id()
     email = Email.new!("foo@bar.com")
     quantity = Quantity.new!(1)
 

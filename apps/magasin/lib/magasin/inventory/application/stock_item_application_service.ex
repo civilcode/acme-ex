@@ -1,13 +1,12 @@
-defmodule Magasin.Inventory.Application.StockItemApplicationService do
+defmodule Magasin.Inventory.StockItemApplicationService do
   @moduledoc false
 
   use CivilCode.ApplicationService
 
-  alias Magasin.Inventory.Application.StockItemRepository
-  alias Magasin.Inventory.Domain.StockItem
+  alias Magasin.Inventory.{StockItem, StockItemRepository}
   alias Magasin.Sales
 
-  def handle(%Sales.Domain.OrderPlaced{product_id: product_id, quantity: quantity}) do
+  def handle(%Sales.OrderPlaced{product_id: product_id, quantity: quantity}) do
     product_id
     |> fetch_stock_item
     |> deplenish_inventory(quantity)

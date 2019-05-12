@@ -1,4 +1,4 @@
-defmodule Magasin.Catalog.Domain.ProductId do
+defmodule Magasin.Catalog.ProductId do
   @moduledoc false
 
   use CivilCode.DomainPrimitive
@@ -19,7 +19,7 @@ defmodule Magasin.Catalog.Domain.ProductId do
   defmodule Ecto.Type do
     @moduledoc false
 
-    alias Magasin.Catalog.Domain.ProductId, as: EntityId
+    alias Magasin.Catalog.ProductId, as: EntityId
 
     @behaviour Elixir.Ecto.Type
 
