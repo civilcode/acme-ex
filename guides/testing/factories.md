@@ -22,3 +22,8 @@ Benefits:
 * if the state implmementation changes, it can be refactored in once place
 * it avoids "magic strings" throughout the code base
 
+## Naming conventions
+
+The prefix (i.e. module) should be in the singular form which helps to make the factory name read
+better (very much like we do with table names). Since this will result in
+`benchmark_benchmark_security_factory` we can eliminate the duplication: `benchmark_security_factory`.
