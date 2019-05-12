@@ -3,19 +3,15 @@ defmodule Magasin.Email do
 
   use CivilCode.DomainPrimitive
 
-  defstruct [:value]
+  typedstruct enforce: true do
+    field :value, String.t()
+  end
 
   @spec new(String.t()) :: {:ok, t} | {:error, :must_be_string}
   def new(value) when is_nil(value), do: {:error, :must_be_string}
 
   def new(value) do
     {:ok, struct(__MODULE__, value: value)}
-  end
-
-  @spec new!(String.t()) :: t
-  def new!(value) do
-    {:ok, quantity} = new(value)
-    quantity
   end
 
   defmodule Ecto.Type do
@@ -32,6 +28,10 @@ defmodule Magasin.Email do
     def cast(val)
 
     def cast(%Email{} = quantity), do: {:ok, quantity}
+
+    def cast(value) when is_binary(value) do
+      Email.new(value)
+    end
 
     def cast(_), do: :error
 

@@ -4,21 +4,21 @@ defmodule Magasin.Sales.Application.PlaceOrder do
   use Ecto.Schema
   use CivilCode.Command
 
-  alias CivilCode.Validation
+  alias CivilCode.{Result, Validation}
   alias Magasin.Catalog.Domain, as: Catalog
   alias Magasin.{Address, Email, Quantity}
   alias Magasin.Sales.Domain.OrderId
 
   embedded_schema do
-    field(:order_id, OrderId)
-    field(:email, Email)
-    field(:product_id, Catalog.ProductId)
-    field(:quantity, Quantity)
+    field(:order_id, OrderId.Ecto.Type)
+    field(:email, Email.Ecto.Type)
+    field(:product_id, Catalog.ProductId.Ecto.Type)
+    field(:quantity, Quantity.Ecto.Type)
     embeds_one(:shipping_address, Address)
 
     embeds_many :line_items, LineItem do
-      field(:product_id, Catalog.ProductId)
-      field(:quantity, Quantity)
+      field(:product_id, Catalog.ProductId.Ecto.Type)
+      field(:quantity, Quantity.Ecto.Type)
     end
   end
 

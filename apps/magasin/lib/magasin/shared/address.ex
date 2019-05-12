@@ -7,7 +7,7 @@ defmodule Magasin.Address do
   embedded_schema do
     field(:street_address, :string)
     field(:city, :string)
-    field(:postal_code, PostalCode)
+    field(:postal_code, PostalCode.Ecto.Type)
   end
 
   @required [:street_address, :city, :postal_code]

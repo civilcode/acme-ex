@@ -3,7 +3,9 @@ defmodule Magasin.Inventory.Domain.StockItemId do
 
   use CivilCode.DomainPrimitive
 
-  defstruct [:value]
+  typedstruct enforce: true do
+    field :value, String.t()
+  end
 
   @spec new(String.t()) :: {:ok, t} | {:error, :must_be_uuid}
   def new(value) when is_nil(value), do: {:error, :must_be_uuid}
@@ -14,11 +16,6 @@ defmodule Magasin.Inventory.Domain.StockItemId do
 
   def new!() do
     new!(UUID.uuid4())
-  end
-
-  def new!(value) do
-    {:ok, order_id} = new(value)
-    order_id
   end
 
   defmodule Ecto.Type do

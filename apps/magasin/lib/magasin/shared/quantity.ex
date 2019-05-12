@@ -3,7 +3,9 @@ defmodule Magasin.Quantity do
 
   use CivilCode.DomainPrimitive
 
-  defstruct [:value]
+  typedstruct enforce: true do
+    field :value, non_neg_integer
+  end
 
   def new(value) when value < 0 do
     {:error, "cannot be negative"}
@@ -11,11 +13,6 @@ defmodule Magasin.Quantity do
 
   def new(value) do
     {:ok, struct(__MODULE__, value: value)}
-  end
-
-  def new!(value) do
-    {:ok, quantity} = new(value)
-    quantity
   end
 
   def subtract(a, b) do
@@ -36,6 +33,13 @@ defmodule Magasin.Quantity do
     def cast(val)
 
     def cast(%Quantity{} = quantity), do: {:ok, quantity}
+
+    def cast(value) when is_number(value) do
+      case Quantity.new(value) do
+        {:ok, quantity} -> {:ok, quantity}
+        {:error, _reason} -> :error
+      end
+    end
 
     def cast(_), do: :error
 

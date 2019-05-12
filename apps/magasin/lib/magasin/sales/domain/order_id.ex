@@ -3,7 +3,9 @@ defmodule Magasin.Sales.Domain.OrderId do
 
   use CivilCode.DomainPrimitive
 
-  defstruct [:value]
+  typedstruct enforce: true do
+    field :value, String.t()
+  end
 
   @spec new(String.t()) :: {:ok, t} | {:error, :must_be_uuid}
   def new(value) when is_nil(value), do: {:error, :must_be_uuid}
@@ -14,11 +16,6 @@ defmodule Magasin.Sales.Domain.OrderId do
 
   def new!() do
     new!(UUID.uuid4())
-  end
-
-  def new!(value) do
-    {:ok, order_id} = new(value)
-    order_id
   end
 
   defmodule Ecto.Type do
@@ -35,6 +32,10 @@ defmodule Magasin.Sales.Domain.OrderId do
     def cast(val)
 
     def cast(%EntityId{} = e), do: {:ok, e}
+
+    def cast(value) when is_binary(value) do
+      EntityId.new(value)
+    end
 
     def cast(_), do: :error
 

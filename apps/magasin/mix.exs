@@ -38,6 +38,7 @@ defmodule Magasin.MixProject do
       {:ecto_sql, "~> 3.1.0"},
       {:ex_machina, "~> 2.2", only: :test},
       {:faker, "~> 0.11.1", only: :test},
+      {:jason, "~> 1.1"},
       {:mix_test_watch, "~> 0.5", only: :dev, runtime: false},
       {:postgrex, ">= 0.0.0"},
       {:typed_struct, "~> 0.1.3"},
