@@ -17,6 +17,10 @@ git commit -m "chore: Upgrade {package-name} 0.1.0 => 0.2.0"
 
 Note: Upgrade message can be copied from the output of `mix deps.update`.
 
+After doing a batch of updates you SHOULD run the following command to remove any used packages:
+
+    `mix deps.unlock --unused`
+
 ## MINOR and MAJOR updates with version change in `mix.exs`
 
 - For these updates you SHOULD consider a separate PR, especially MAJOR updates to key packages
