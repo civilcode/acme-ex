@@ -16,8 +16,11 @@ services:
       context: .
       dockerfile: Dockerfile.dev
     volumes:
-      # Mount the application: allows us to update files on the host without copying them into the image
-      - .:/app
+      # Allow docker-sync to handle syncing source code
+      # The external name `acme_source` should be unique for each client platform
+      # since it is used for the syncing container name. This name is also
+      # used in the docker-sync.yml.
+      - acme_source:/app:nocopy
       # Let Docker persist dependencies and builds:
       # * if we blow away Docker this can be easily recreated
       # * it keeps all build concerns separate from the host operating system
@@ -45,3 +48,5 @@ volumes:
   node_modules:
   pgdata:
   static:
+  acme_source:
+    external: true

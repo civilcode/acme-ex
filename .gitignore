@@ -25,6 +25,7 @@ config/test.secret.exs
 
 # Environment
 .env
+.docker-sync
 
 # Local Development on CivilCode
 

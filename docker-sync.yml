@@ -1,0 +1,11 @@
+version: "2"
+
+options:
+  verbose: false
+syncs:
+  acme_source:
+    src: '.'
+    sync_excludes: ['.git', '_build', 'deps', 'apps/magasin_web/assets/node_modules', 'apps/magasin_web/priv/static']
+    monit_enable: true
+    monit_interval: 5
+    monit_high_cpu_cycles: 2

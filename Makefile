@@ -8,6 +8,7 @@ build:
 	echo "Please ensure no Docker containers are running with the same ports as this docker-compose.yml file"
 	read -p "Press any key to continue..."
 	docker-compose build --force-rm --no-cache
+	docker-sync start
 	docker-compose up -d
 	docker-compose exec application mix deps.get
 	docker-compose exec application sh -c 'cd /app/apps/$(WEB_APP)/assets/ && npm install'
@@ -15,13 +16,8 @@ build:
 	docker-compose exec application mix project.setup
 
 clean:
-	docker-compose stop
-	rm -rf deps
-	rm -rf _build
-	rm -rf apps/magasin_web/assets/node_modules
-	rm -rf apps/magasin_web/priv/static
-	docker-compose up -d
-	docker-compose exec application mix deps.get
+	docker-compose down
+	docker-sync clean
 
 docs:
 	docker-compose exec application mix docs
@@ -41,10 +37,14 @@ setup:
 	./bin/setup.docker
 
 start:
-	docker-compose up -d
+	docker-sync start
+	docker-compose up --detach
 
 stop:
 	docker-compose stop
+	docker-sync stop
+
+restart: stop start
 
 .PHONY: observer
 observer:
