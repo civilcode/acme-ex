@@ -1,6 +1,7 @@
 ---
 name: Chore
 about: An issue that does not add or change a feature
+labels: type:chore
 
 ---
 

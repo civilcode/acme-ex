@@ -1,6 +1,7 @@
 ---
 name: Feature - Ability
 about: The user has an ability within a module
+labels: type:ability
 
 ---
 
