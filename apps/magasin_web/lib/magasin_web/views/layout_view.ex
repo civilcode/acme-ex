@@ -4,7 +4,7 @@ defmodule MagasinWeb.LayoutView do
   use MagasinWeb, :view
 
   def release_tag do
-    :magasin
+    :magasin_core
     |> Application.get_env(:release)
     |> Keyword.get(:tag)
   end

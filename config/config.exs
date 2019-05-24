@@ -1,14 +1,14 @@
 use Mix.Config
 
 ###############################################################################
-# MAGASIN
+# MAGASIN DATA
 ###############################################################################
 
-config :magasin,
-  ecto_repos: [Magasin.Repo],
+config :magasin_core,
+  ecto_repos: [MagasinData.Repo],
   release: [tag: System.get_env("RELEASE_TAG")]
 
-config :magasin, Magasin.Repo, adapter: Ecto.Adapters.Postgres
+config :magasin_data, MagasinData.Repo, adapter: Ecto.Adapters.Postgres
 
 ###############################################################################
 # MAGASIN WEB

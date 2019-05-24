@@ -36,7 +36,7 @@ release :acme_platform_staging do
     applications: [
       :civilcode,
       :runtime_tools,
-      magasin: :permanent,
+      magasin_data: :permanent,
       magasin_web: :permanent,
       master_proxy: :permanent
     ],

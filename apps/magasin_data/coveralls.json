@@ -1,0 +1,13 @@
+{
+  "custom_stop_words": [
+    "embedded_schema",
+    "schema"
+  ],
+  "skip_files": [
+    "test",
+    "lib/magasin_data/application.ex",
+    "lib/magasin_data/release_tasks.ex",
+    "lib/magasin_data/schema.ex",
+    "lib/magasin_data.ex"
+  ]
+}

@@ -21,34 +21,34 @@ jobs:
       - run: mix do local.hex --force, local.rebar --force
       - restore_cache: # restore saved dependency cache
           keys:
-            - v5-dep-cache-{{ checksum "mix.lock" }}
-            - v5-dep-cache-{{ .Branch }}
-            - v5-dep-cache
+            - v6-dep-cache-{{ checksum "mix.lock" }}
+            - v6-dep-cache-{{ .Branch }}
+            - v6-dep-cache
       - restore_cache:  # restores saved build cache
           keys:
-            - v5-build-and-mix-cache-{{ .Branch }}
-            - v5-build-and-mix-cache
+            - v6-build-and-mix-cache-{{ .Branch }}
+            - v6-build-and-mix-cache
       - run: mix do deps.get, compile --warnings-as-errors
       - run:
           name: "Dialyzer PLT"
           command: mix dialyzer --plt
           no_output_timeout: "20m"
       - save_cache: # save dependencies to cache
-          key: v5-dep-cache-{{ checksum "mix.lock" }}
+          key: v6-dep-cache-{{ checksum "mix.lock" }}
           paths: "deps"
       - save_cache: # save dependencies to cache
-          key: v5-dep-cache-{{ .Branch }}
+          key: v6-dep-cache-{{ .Branch }}
           paths: "deps"
       - save_cache: # save dependencies to cache
-          key: v5-dep-cache
+          key: v6-dep-cache
           paths: "deps"
       - save_cache: # save build cache
-          key: v5-build-and-mix-cache-{{ .Branch }}
+          key: v6-build-and-mix-cache-{{ .Branch }}
           paths:
             - _build
             - ~/.mix
       - save_cache: # save build cache
-          key: v5-build-and-mix-cache
+          key: v6-build-and-mix-cache
           paths:
             - _build
             - ~/.mix
@@ -69,7 +69,7 @@ jobs:
               ./bin/project.new -c starbucks -a physical-store -g civilcode/star-bucks-platform -Y -Q -r .
               cd ../starbucks-platform
               echo "use Mix.Config
-              config :physical_store, PhysicalStore.Repo,
+              config :physical_store_data, PhysicalStoreData.Repo,
                 adapter: Ecto.Adapters.Postgres,
                 database: \"acme_test\",
                 hostname: \"localhost\",

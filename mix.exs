@@ -39,7 +39,7 @@ defmodule AcmePlatform.MixProject do
 
   defp aliases do
     [
-      "project.seed": ["run apps/magasin/priv/seeds.exs"],
+      "project.seed": ["run apps/magasin_data/priv/seeds.exs"],
       "project.setup": ["ecto.drop", "ecto.create", "ecto.migrate", "project.seed"],
       "project.check": [
         "compile --force --warnings-as-errors",
@@ -58,7 +58,7 @@ defmodule AcmePlatform.MixProject do
   defp deps do
     [
       {:distillery, "~> 2.0", runtime: false},
-      {:dialyxir, "~> 0.5", only: [:dev, :test], runtime: false},
+      {:dialyxir, "~> 1.0.0-rc.4", only: [:test], runtime: false},
       {:credo, "~> 0.9.1", only: [:dev, :test], runtime: false},
       {:civil_credo,
        github: "civilcode/civil-credo", branch: "master", only: [:dev, :test], runtime: false},

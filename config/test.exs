@@ -4,7 +4,7 @@ use Mix.Config
 # MAGASIN
 ###############################################################################
 
-config :magasin,
+config :magasin_core,
   release: [tag: "Test"]
 
 ###############################################################################
@@ -12,5 +12,7 @@ config :magasin,
 ###############################################################################
 
 config :magasin_web, MagasinWeb.Endpoint, server: false
+
+config :logger, level: :warn
 
 import_config "test.secret.exs"
