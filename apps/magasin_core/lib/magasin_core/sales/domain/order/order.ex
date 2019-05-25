@@ -9,7 +9,7 @@ defmodule MagasinCore.Sales.Order do
   alias MagasinData.{Catalog, Email, Quantity}
   alias MagasinData.Sales.OrderId
 
-  entity_schema do
+  typedstruct do
     field :id, OrderId.t()
     field :email, Email.t()
     field :product_id, Catalog.ProductId.t()

@@ -10,7 +10,7 @@ defmodule MagasinCore.Inventory.StockItem do
   alias MagasinData.Inventory.StockItemId
   alias MagasinData.Quantity
 
-  entity_schema do
+  typedstruct do
     field :id, StockItemId.t()
     field :count_on_hand, Quantity.t()
     field :product_id, ProductId.t()

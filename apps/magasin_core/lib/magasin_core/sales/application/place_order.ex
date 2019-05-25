@@ -8,7 +8,7 @@ defmodule MagasinCore.Sales.PlaceOrder do
   alias MagasinData.{Address, Catalog, Email, Quantity}
   alias MagasinData.Sales.OrderId
 
-  command_schema do
+  embedded_schema do
     field :order_id, OrderId
     field :email, Email
     field :product_id, Catalog.ProductId
