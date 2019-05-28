@@ -26,15 +26,21 @@ defmodule MagasinCore.Sales.OrderRepository do
   end
 
   @impl true
-  def save(order) do
+  def save(struct_or_changeset) do
+    fields =
+      struct_or_changeset
+      |> Ecto.Changeset.change()
+      |> Ecto.Changeset.apply_changes()
+      |> Map.take([:id, :email, :product_id, :quantity])
+
     result =
       %Record{}
-      |> Ecto.Changeset.change(Entity.get_fields(order, [:id, :email, :product_id, :quantity]))
+      |> Ecto.Changeset.change(fields)
       |> Ecto.Changeset.unique_constraint(:id, name: :magasin_sale_orders_pkey)
       |> Repo.insert_or_update()
 
     case result do
-      {:ok, order_state} -> Result.ok(order_state.id)
+      {:ok, record} -> Result.ok(record.id)
       {:error, changeset} -> RepositoryError.validate(changeset)
     end
   end

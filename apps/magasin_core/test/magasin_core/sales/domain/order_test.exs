@@ -13,13 +13,10 @@ defmodule MagasinCore.Sales.OrderTest do
       quantity = Quantity.new!(1)
       email = Email.new!("foo@bar.com")
 
-      {:ok, placed_order} =
-        Order.place(%{
-          order_id: order_id,
-          email: email,
-          product_id: product_id,
-          quantity: quantity
-        })
+      placed_order =
+        order_id
+        |> Order.place(email, product_id, quantity)
+        |> apply_changes
 
       assert placed_order.id == order_id
       assert placed_order.email == email

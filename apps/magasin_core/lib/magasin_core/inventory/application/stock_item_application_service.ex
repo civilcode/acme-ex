@@ -25,8 +25,8 @@ defmodule MagasinCore.Inventory.StockItemApplicationService do
     StockItem.deplenish(stock_item, quantity)
   end
 
-  defp persist({:ok, stock_item}) do
-    StockItemRepository.save(stock_item)
+  defp persist({:ok, changeset}) do
+    StockItemRepository.save(changeset)
   end
 
   defp persist(result), do: result

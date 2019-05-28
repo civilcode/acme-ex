@@ -8,7 +8,7 @@ defmodule MagasinCore.TestCase do
       alias MagasinData.Repo
 
       import Ecto
-      import Ecto.Changeset
+      import Ecto.Changeset, except: [apply_changes: 1]
       import Ecto.Query
       import MagasinCore.TestCase
     end
@@ -26,6 +26,10 @@ defmodule MagasinCore.TestCase do
 
   def build_entity(factory_name, attrs \\ []) do
     MagasinCore.Factory.build(factory_name, attrs)
+  end
+
+  def apply_changes({:ok, changeset}) do
+    Ecto.Changeset.apply_changes(changeset)
   end
 
   @doc """

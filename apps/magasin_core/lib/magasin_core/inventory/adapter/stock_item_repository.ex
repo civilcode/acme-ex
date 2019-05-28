@@ -33,15 +33,18 @@ defmodule MagasinCore.Inventory.StockItemRepository do
   end
 
   @impl true
-  def save(entity) do
+  def save(changeset) do
+    stock_item = Ecto.Changeset.apply_changes(changeset)
+    fields = Map.take(stock_item, [:id, :count_on_hand])
+
     result =
-      entity
+      stock_item
       |> Entity.get_assigns(:record)
-      |> Ecto.Changeset.change(Entity.get_fields(entity, [:id, :count_on_hand]))
+      |> Ecto.Changeset.change(fields)
       |> Repo.insert_or_update()
 
     case result do
-      {:ok, entity_state} -> Result.ok(entity_state.id)
+      {:ok, record} -> Result.ok(record.id)
       {:error, changeset} -> RepositoryError.validate(changeset)
     end
   end

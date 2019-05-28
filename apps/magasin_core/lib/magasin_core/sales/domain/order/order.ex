@@ -9,35 +9,27 @@ defmodule MagasinCore.Sales.Order do
   alias MagasinData.{Catalog, Email, Quantity}
   alias MagasinData.Sales.OrderId
 
-  typedstruct do
-    field :id, OrderId.t()
-    field :email, Email.t()
-    field :product_id, Catalog.ProductId.t()
-    field :quantity, Quantity.t()
+  embedded_schema do
+    field :id, OrderId
+    field :email, Email
+    field :product_id, Catalog.ProductId
+    field :quantity, Quantity
   end
 
-  # Public API
+  @spec place(OrderId.t(), Email.t(), Catalog.ProductId.t(), Quantity.t()) ::
+          {:ok, Ecto.Changeset.t(t)}
+  def place(order_id, email, product_id, quantity) do
+    fields = [
+      id: order_id,
+      email: email,
+      product_id: product_id,
+      quantity: quantity
+    ]
 
-  @spec place(%{
-          order_id: OrderId.t(),
-          email: Email.t(),
-          product_id: Catalog.ProductId.t(),
-          quantity: Quantity.t()
-        }) :: {:ok, t}
-  def place(params) do
-    update(entity(__MODULE__), fn _state -> OrderPlaced.new(params) end)
-  end
+    order_placed = OrderPlaced.new(fields)
 
-  # State mutators
-
-  @doc false
-  @spec apply(t, OrderPlaced.t()) :: t
-  def apply(entity, %OrderPlaced{} = event) do
-    put_changes(entity,
-      id: event.order_id,
-      email: event.email,
-      product_id: event.product_id,
-      quantity: event.quantity
-    )
+    new()
+    |> change(order_placed, fields)
+    |> Result.ok()
   end
 end

@@ -43,9 +43,4 @@ defmodule MagasinCore.Sales.PlaceOrder do
   defp line_item_changeset(struct, params) do
     cast(struct, params, [:product_id, :quantity])
   end
-
-  @spec to_domain(t) :: Result.ok(map)
-  def to_domain(command) do
-    command |> Map.from_struct() |> Result.ok()
-  end
 end

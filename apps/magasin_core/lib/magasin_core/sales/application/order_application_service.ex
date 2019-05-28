@@ -11,12 +11,15 @@ defmodule MagasinCore.Sales.OrderApplicationService do
   @type result ::
           {:ok, OrderId.t()} | {:error, Ecto.Changeset.t(PlaceOrder.t()) | RepositoryError.t()}
   @spec handle(PlaceOrder.t()) :: result
-  def handle(%PlaceOrder{} = place_order) do
+  def handle(%PlaceOrder{} = command) do
     OrderRepository.transaction(fn ->
-      with {:ok, params} <- PlaceOrder.to_domain(place_order),
-           {:ok, order} <- Order.place(params) do
-        OrderRepository.save(order)
+      with {:ok, changeset} <- place_order(command) do
+        OrderRepository.save(changeset)
       end
     end)
+  end
+
+  defp place_order(command) do
+    Order.place(command.order_id, command.email, command.product_id, command.quantity)
   end
 end

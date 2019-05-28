@@ -10,31 +10,24 @@ defmodule MagasinCore.Inventory.StockItem do
   alias MagasinData.Inventory.StockItemId
   alias MagasinData.Quantity
 
-  typedstruct do
-    field :id, StockItemId.t()
-    field :count_on_hand, Quantity.t()
-    field :product_id, ProductId.t()
+  embedded_schema do
+    field :id, StockItemId
+    field :count_on_hand, Quantity
+    field :product_id, ProductId
   end
-
-  # Public API
 
   def deplenish(stock_item, quantity) do
-    update(stock_item, fn state ->
-      case Quantity.subtract(state.count_on_hand, quantity) do
-        {:ok, new_count_on_hand} ->
-          {:ok,
-           StockItemAdjusted.new(stock_item_id: state.id, new_count_on_hand: new_count_on_hand)}
+    case Quantity.subtract(stock_item.count_on_hand, quantity) do
+      {:ok, new_count_on_hand} ->
+        stock_item_adjusted =
+          StockItemAdjusted.new(stock_item_id: stock_item.id, new_count_on_hand: new_count_on_hand)
 
-        {:error, _} ->
-          {:error, OutOfStock.new(entity: stock_item)}
-      end
-    end)
-  end
+        stock_item
+        |> change(stock_item_adjusted, count_on_hand: new_count_on_hand)
+        |> Result.ok()
 
-  # State Mutators
-
-  @doc false
-  def apply(stock_item, %StockItemAdjusted{} = event) do
-    put_changes(stock_item, count_on_hand: event.new_count_on_hand)
+      {:error, _} ->
+        {:error, OutOfStock.new(entity: stock_item)}
+    end
   end
 end
