@@ -8,14 +8,11 @@ defmodule MagasinCore.Sales.OrderApplicationService do
   alias MagasinCore.Sales.{Order, OrderRepository, PlaceOrder}
   alias MagasinData.Sales.OrderId
 
-  @type result ::
-          {:ok, OrderId.t()} | {:error, Ecto.Changeset.t(PlaceOrder.t()) | RepositoryError.t()}
-  @spec handle(PlaceOrder.t()) :: result
+  @spec handle(PlaceOrder.t()) ::
+          {:ok, OrderId.t()} | {:error, Changeset.t(PlaceOrder.t()) | RepositoryError.t()}
   def handle(%PlaceOrder{} = command) do
     OrderRepository.transaction(fn ->
-      with {:ok, changeset} <- place_order(command) do
-        OrderRepository.save(changeset)
-      end
+      with {:ok, changeset} <- place_order(command), do: OrderRepository.save(changeset)
     end)
   end
 

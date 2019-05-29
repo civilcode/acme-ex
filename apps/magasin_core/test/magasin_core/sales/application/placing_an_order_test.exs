@@ -28,7 +28,7 @@ defmodule MagasinCore.Sales.PlacingAnOrderTest do
 
       _result = OrderApplicationService.handle(command)
 
-      placed_order = OrderRepository.get(order_id)
+      {:ok, placed_order} = OrderRepository.get(order_id)
       assert placed_order
       assert placed_order.id == order_id
       assert placed_order.product_id == product_id

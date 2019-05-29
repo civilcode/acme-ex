@@ -36,7 +36,7 @@ defmodule MagasinCore.Inventory.OrderPlacedTest do
 
       _result = StockItemApplicationService.handle(order_placed_event)
 
-      current_stock_item = StockItemRepository.get(previous_stock_item.id)
+      {:ok, current_stock_item} = StockItemRepository.get(previous_stock_item.id)
       assert current_stock_item.count_on_hand == Quantity.new!(0)
     end
   end
@@ -52,7 +52,7 @@ defmodule MagasinCore.Inventory.OrderPlacedTest do
 
       _result = StockItemApplicationService.handle(order_placed_event)
 
-      current_stock_item = StockItemRepository.get(previous_stock_item.id)
+      {:ok, current_stock_item} = StockItemRepository.get(previous_stock_item.id)
       assert current_stock_item.count_on_hand == Quantity.new!(0)
     end
   end

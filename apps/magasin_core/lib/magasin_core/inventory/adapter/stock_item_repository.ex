@@ -3,15 +3,12 @@ defmodule MagasinCore.Inventory.StockItemRepository do
   A collection of stock item aggregates.
   """
 
-  use CivilCode.Repository
+  use CivilCode.Repository, repo: MagasinData.Repo
 
   alias MagasinCore.Inventory.StockItem
 
-  alias MagasinData.{Catalog, Repo}
   alias MagasinData.Inventory.StockItem, as: Record
   alias MagasinData.Inventory.StockItemId
-
-  defdelegate transaction(fun, opts \\ []), to: Repo
 
   @impl true
   def next_id do
@@ -20,16 +17,17 @@ defmodule MagasinCore.Inventory.StockItemRepository do
 
   @impl true
   def get(stock_item_id) do
-    build(StockItem, fn ->
-      Repo.get(Record, stock_item_id)
-    end)
+    Record
+    |> Repo.lock()
+    |> Repo.get(stock_item_id)
+    |> load(StockItem)
   end
 
-  @spec get_by_product_id(Catalog.ProductId.t()) :: StockItem.t()
   def get_by_product_id(product_id) do
-    build(StockItem, fn ->
-      Repo.get_by(Record, product_id: product_id.value)
-    end)
+    Record
+    |> Repo.lock()
+    |> Repo.get_by(product_id: product_id.value)
+    |> load(StockItem)
   end
 
   @impl true
@@ -45,7 +43,7 @@ defmodule MagasinCore.Inventory.StockItemRepository do
 
     case result do
       {:ok, record} -> Result.ok(record.id)
-      {:error, changeset} -> RepositoryError.validate(changeset)
+      {:error, changeset} -> changeset |> RepositoryError.validate() |> Repo.rollback()
     end
   end
 end

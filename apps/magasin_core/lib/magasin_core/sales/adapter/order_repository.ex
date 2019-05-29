@@ -3,15 +3,12 @@ defmodule MagasinCore.Sales.OrderRepository do
   A collection of order aggregates.
   """
 
-  use CivilCode.Repository
+  use CivilCode.Repository, repo: MagasinData.Repo
 
   alias MagasinCore.Sales.Order
 
-  alias MagasinData.Repo
   alias MagasinData.Sales.Order, as: Record
   alias MagasinData.Sales.OrderId
-
-  defdelegate transaction(fun, opts \\ []), to: Repo
 
   @impl true
   def next_id do
@@ -20,9 +17,10 @@ defmodule MagasinCore.Sales.OrderRepository do
 
   @impl true
   def get(order_id) do
-    build(Order, fn ->
-      Repo.get!(Record, order_id)
-    end)
+    Record
+    |> Repo.lock()
+    |> Repo.get!(order_id)
+    |> load(Order)
   end
 
   @impl true
@@ -41,7 +39,7 @@ defmodule MagasinCore.Sales.OrderRepository do
 
     case result do
       {:ok, record} -> Result.ok(record.id)
-      {:error, changeset} -> RepositoryError.validate(changeset)
+      {:error, changeset} -> changeset |> RepositoryError.validate() |> Repo.rollback()
     end
   end
 end

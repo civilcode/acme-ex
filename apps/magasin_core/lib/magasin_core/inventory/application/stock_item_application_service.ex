@@ -8,26 +8,12 @@ defmodule MagasinCore.Inventory.StockItemApplicationService do
   alias MagasinCore.Inventory.{StockItem, StockItemRepository}
   alias MagasinCore.Sales
 
-  def handle(%Sales.OrderPlaced{product_id: product_id, quantity: quantity}) do
+  def handle(%Sales.OrderPlaced{} = command) do
     StockItemRepository.transaction(fn ->
-      product_id
-      |> fetch_stock_item
-      |> deplenish_inventory(quantity)
-      |> persist
+      with {:ok, stock_item} <- StockItemRepository.get_by_product_id(command.product_id),
+           {:ok, changeset} <- StockItem.deplenish(stock_item, command.quantity) do
+        StockItemRepository.save(changeset)
+      end
     end)
   end
-
-  defp fetch_stock_item(product_id) do
-    StockItemRepository.get_by_product_id(product_id)
-  end
-
-  defp deplenish_inventory(stock_item, quantity) do
-    StockItem.deplenish(stock_item, quantity)
-  end
-
-  defp persist({:ok, changeset}) do
-    StockItemRepository.save(changeset)
-  end
-
-  defp persist(result), do: result
 end
