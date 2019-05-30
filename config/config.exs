@@ -8,7 +8,9 @@ config :magasin_core,
   ecto_repos: [MagasinData.Repo],
   release: [tag: System.get_env("RELEASE_TAG")]
 
-config :magasin_data, MagasinData.Repo, adapter: Ecto.Adapters.Postgres
+config :magasin_data, MagasinData.Repo,
+  adapter: Ecto.Adapters.Postgres,
+  migration_primary_key: [name: :id, type: :binary_id]
 
 ###############################################################################
 # MAGASIN WEB
