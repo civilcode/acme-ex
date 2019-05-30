@@ -42,8 +42,7 @@ defmodule MagasinData.MixProject do
       {:faker, "~> 0.11.1", only: :test},
       {:jason, "~> 1.1"},
       {:mix_test_watch, "~> 0.5", only: :dev, runtime: false},
-      {:postgrex, ">= 0.0.0"},
-      {:uuid, "~> 1.1"}
+      {:postgrex, ">= 0.0.0"}
     ]
   end
 
