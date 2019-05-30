@@ -7,7 +7,7 @@
     "test",
     "lib/magasin_data/application.ex",
     "lib/magasin_data/release_tasks.ex",
-    "lib/magasin_data/schema.ex",
+    "lib/magasin_data/repo.ex",
     "lib/magasin_data.ex"
   ]
 }

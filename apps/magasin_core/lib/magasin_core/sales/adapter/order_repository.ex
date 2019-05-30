@@ -6,9 +6,7 @@ defmodule MagasinCore.Sales.OrderRepository do
   use CivilCode.Repository, repo: MagasinData.Repo
 
   alias MagasinCore.Sales.Order
-
-  alias MagasinData.Sales.Order, as: Record
-  alias MagasinData.Sales.OrderId
+  alias MagasinData.Sales.{OrderId, OrderRecord}
 
   @impl true
   def next_id do
@@ -17,7 +15,7 @@ defmodule MagasinCore.Sales.OrderRepository do
 
   @impl true
   def get(order_id) do
-    Record
+    OrderRecord
     |> Repo.lock()
     |> Repo.get!(order_id)
     |> load(Order)
@@ -32,7 +30,7 @@ defmodule MagasinCore.Sales.OrderRepository do
       |> Map.take([:id, :email, :product_id, :quantity])
 
     result =
-      %Record{}
+      %OrderRecord{}
       |> Ecto.Changeset.change(fields)
       |> Ecto.Changeset.unique_constraint(:id, name: :magasin_sale_orders_pkey)
       |> Repo.insert_or_update()

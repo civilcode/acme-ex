@@ -25,11 +25,11 @@ defmodule MagasinCore.Sales.PlaceOrder do
   def new(params) do
     __MODULE__
     |> struct
-    |> cast(ensure_map(params), [:order_id, :product_id, :email, :quantity])
+    |> cast(params, [:order_id, :product_id, :email, :quantity])
     |> cast_embed(:shipping_address)
     |> cast_embed(:line_items, with: &line_item_changeset/2)
     |> validate_required([:email])
-    |> apply_action(:update)
+    |> apply
   end
 
   def new!(params) do
@@ -37,8 +37,6 @@ defmodule MagasinCore.Sales.PlaceOrder do
     |> new
     |> Result.unwrap!()
   end
-
-  defp ensure_map(params), do: Enum.into(params, %{})
 
   defp line_item_changeset(struct, params) do
     cast(struct, params, [:product_id, :quantity])

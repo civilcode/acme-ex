@@ -3,7 +3,7 @@ defmodule MagasinData.PostalCode do
 
   use CivilCode.ValueObject, type: :string
 
-  def new(":invalid:"), do: {:error, :invalid}
+  def new(":invalid:"), do: Result.error("is invalid")
 
   def new(value) do
     {:ok, struct(__MODULE__, value: value)}

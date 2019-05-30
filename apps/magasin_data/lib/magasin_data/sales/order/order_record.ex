@@ -1,6 +1,6 @@
-defmodule MagasinData.Sales.Order do
+defmodule MagasinData.Sales.OrderRecord do
   @moduledoc false
-  use MagasinData.Schema
+  use CivilCode.Record
 
   alias MagasinData.{Catalog, Email, Quantity}
   alias MagasinData.Sales.OrderId

@@ -13,18 +13,18 @@ defmodule MagasinCore.Sales.PlacingAnOrderTest do
       product_id = Catalog.ProductRepository.next_id()
 
       command =
-        PlaceOrder.new!(
-          order_id: order_id.value,
-          email: "foo@bar.com",
-          product_id: product_id.value,
-          quantity: 1,
-          line_items: [],
-          shipping_address: %{
-            street_address: "1 Main St",
-            city: "Montreal",
-            postal_code: "H2T1S6"
+        PlaceOrder.new!(%{
+          "order_id" => to_string(order_id),
+          "email" => "foo@bar.com",
+          "product_id" => to_string(product_id),
+          "quantity" => "1",
+          "line_items" => [],
+          "shipping_address" => %{
+            "street_address" => "1 Main St",
+            "city" => "Montreal",
+            "postal_code" => "H2T1S6"
           }
-        )
+        })
 
       _result = OrderApplicationService.handle(command)
 
@@ -43,18 +43,18 @@ defmodule MagasinCore.Sales.PlacingAnOrderTest do
       product_id = Catalog.ProductRepository.next_id()
 
       command =
-        PlaceOrder.new!(
-          order_id: order_id.value,
-          email: "foo@bar.com",
-          product_id: product_id.value,
-          quantity: 1,
-          line_items: [],
-          shipping_address: %{
-            street_address: "1 Main St",
-            city: "Montreal",
-            postal_code: "H2T1S6"
+        PlaceOrder.new!(%{
+          "order_id" => to_string(order_id),
+          "email" => "foo@bar.com",
+          "product_id" => to_string(product_id),
+          "quantity" => "1",
+          "line_items" => [],
+          "shipping_address" => %{
+            "street_address" => "1 Main St",
+            "city" => "Montreal",
+            "postal_code" => "H2T1S6"
           }
-        )
+        })
 
       OrderApplicationService.handle(command)
       result = OrderApplicationService.handle(command)

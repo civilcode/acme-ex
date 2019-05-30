@@ -28,7 +28,7 @@ defmodule MagasinCore.Inventory.OrderPlacedTest do
   describe "a product in stock" do
     test "decreases the count on hand", %{order_placed_event: order_placed_event} do
       previous_stock_item =
-        Repo.insert!(%Inventory.StockItem{
+        Repo.insert!(%Inventory.StockItemRecord{
           id: StockItemRepository.next_id(),
           count_on_hand: Quantity.new!(1),
           product_id: order_placed_event.product_id.value
@@ -44,7 +44,7 @@ defmodule MagasinCore.Inventory.OrderPlacedTest do
   describe "a product out of stock" do
     test "notifies the product is out of stock", %{order_placed_event: order_placed_event} do
       previous_stock_item =
-        Repo.insert!(%Inventory.StockItem{
+        Repo.insert!(%Inventory.StockItemRecord{
           id: StockItemRepository.next_id(),
           count_on_hand: Quantity.new!(1),
           product_id: order_placed_event.product_id.value

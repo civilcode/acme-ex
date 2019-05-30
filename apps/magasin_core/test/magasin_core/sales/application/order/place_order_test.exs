@@ -55,7 +55,7 @@ defmodule MagasinCore.Sales.PlaceOrderTest do
 
       refute invalid_changeset.valid?
       assert "can't be blank" in errors_on(invalid_changeset).email
-      assert "is invalid" in errors_on(invalid_changeset).quantity
+      assert "must be negative" in errors_on(invalid_changeset).quantity
       assert "can't be blank" in errors_on(invalid_changeset).shipping_address.city
       assert "is invalid" in errors_on(invalid_changeset).shipping_address.postal_code
     end

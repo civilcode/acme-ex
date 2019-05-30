@@ -1,6 +1,6 @@
-defmodule MagasinData.Inventory.StockItem do
+defmodule MagasinData.Inventory.StockItemRecord do
   @moduledoc false
-  use MagasinData.Schema
+  use CivilCode.Record
 
   alias MagasinData.Inventory.StockItemId
   alias MagasinData.Quantity

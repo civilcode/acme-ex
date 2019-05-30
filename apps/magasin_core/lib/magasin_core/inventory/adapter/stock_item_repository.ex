@@ -6,9 +6,7 @@ defmodule MagasinCore.Inventory.StockItemRepository do
   use CivilCode.Repository, repo: MagasinData.Repo
 
   alias MagasinCore.Inventory.StockItem
-
-  alias MagasinData.Inventory.StockItem, as: Record
-  alias MagasinData.Inventory.StockItemId
+  alias MagasinData.Inventory.{StockItemId, StockItemRecord}
 
   @impl true
   def next_id do
@@ -17,14 +15,14 @@ defmodule MagasinCore.Inventory.StockItemRepository do
 
   @impl true
   def get(stock_item_id) do
-    Record
+    StockItemRecord
     |> Repo.lock()
     |> Repo.get(stock_item_id)
     |> load(StockItem)
   end
 
   def get_by_product_id(product_id) do
-    Record
+    StockItemRecord
     |> Repo.lock()
     |> Repo.get_by(product_id: product_id.value)
     |> load(StockItem)
@@ -37,7 +35,7 @@ defmodule MagasinCore.Inventory.StockItemRepository do
 
     result =
       stock_item
-      |> Entity.get_assigns(:record)
+      |> get_record()
       |> Ecto.Changeset.change(fields)
       |> Repo.insert_or_update()
 
