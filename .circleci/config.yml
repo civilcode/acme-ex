@@ -61,7 +61,6 @@ jobs:
       - run: mix ecto.migrate
       - run: mix coveralls.circle --umbrella
       - run: mix credo --strict
-      - run: mix project.seed
       - run: mix cmd --app magasin_web mix sobelow --compact --exit Low
       - run: sudo apk add --update --no-cache rsync
       - run:

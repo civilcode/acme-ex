@@ -1,5 +1,11 @@
 FROM civilcode/elixir-dev:1.8.1a
 
+# install Postgresql (for demo data seeding)
+RUN echo 'http://dl-cdn.alpinelinux.org/alpine/v3.7/main' >> /etc/apk/repositories
+
+RUN apk add --no-cache --virtual .build-deps \
+  postgresql-client
+
 WORKDIR /app
 
 CMD ["/bin/bash"]

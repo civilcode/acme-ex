@@ -19,4 +19,8 @@ release:
 
 reset:
 	heroku pg:reset --confirm $(APP) -r staging
-	heroku run /app/bin/$(BINARY) migrate -r staging
+	heroku run /app/bin/$(BINARY) load_demo_data -r staging
+	heroku run /app/bin/$(BINARY) seed -r staging
+
+bash:
+	heroku run bash -r staging

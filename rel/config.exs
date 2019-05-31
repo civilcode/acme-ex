@@ -40,6 +40,9 @@ release :acme_platform_staging do
       magasin_web: :permanent,
       master_proxy: :permanent
     ],
-    commands: [migrate: "rel/commands/migrate.sh"]
+    commands: [
+      load_demo_data: "rel/commands/load_demo_data.sh",
+      seed: "rel/commands/seed.sh"
+    ]
   )
 end

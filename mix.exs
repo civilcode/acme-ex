@@ -40,7 +40,13 @@ defmodule AcmePlatform.MixProject do
   defp aliases do
     [
       "project.seed": ["run apps/magasin_data/priv/seeds.exs"],
-      "project.setup": ["ecto.drop", "ecto.create", "ecto.migrate", "project.seed"],
+      "project.setup": [
+        "ecto.drop",
+        "ecto.create",
+        "demo_data.load",
+        "ecto.migrate",
+        "project.seed"
+      ],
       "project.check": [
         "compile --force --warnings-as-errors",
         "coveralls --umbrella --timeout 1000",

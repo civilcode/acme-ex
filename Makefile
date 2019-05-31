@@ -55,3 +55,9 @@ console:
 
 generate_release:
 	bin/generate_release
+
+demo_data.dump:
+	docker-compose exec application mix demo_data.dump
+
+demo_data.load:
+	docker-compose exec application mix demo_data.dump
