@@ -1,6 +1,6 @@
 # Configuration
 
-APP := acme-platform-staging
+HEROKU_APP := acme-platform-staging
 BINARY := acme_platform
 
 # Targets
@@ -18,9 +18,9 @@ release:
 	heroku container:release web -r staging
 
 reset:
-	heroku pg:reset --confirm $(APP) -r staging
-	heroku run /app/bin/$(BINARY) load_demo_data -r staging
-	heroku run /app/bin/$(BINARY) seed -r staging
+	heroku pg:reset --confirm $(HEROKU_APP) -a $(HEROKU_APP)
+	heroku run /app/bin/$(BINARY) load_demo_data -a $(HEROKU_APP)
+	heroku run /app/bin/$(BINARY) seed -a $(HEROKU_APP)
 
 bash:
 	heroku run bash -r staging
