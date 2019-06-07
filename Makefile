@@ -23,8 +23,14 @@ clean:
 setup:
 	docker-compose exec application mix deps.get
 	docker-compose exec application sh -c 'cd /app/apps/$(WEB_APP)/assets/ && npm install'
+	# TEST
 	docker-compose exec -e MIX_ENV=test application mix ecto.create
+	docker-compose exec -e MIX_ENV=test application mix event_store.init
 	docker-compose exec -e MIX_ENV=test application mix ecto.migrate
+	# DEV
+	docker-compose exec application mix ecto.create
+	docker-compose exec application mix event_store.init
+	docker-compose exec application mix ecto.migrate
 	docker-compose exec application mix project.setup
 
 docs:

@@ -5,10 +5,7 @@
   ],
   "skip_files": [
     "test",
-    "lib/magasin/application.ex",
-    "lib/magasin/release_tasks.ex",
-    "lib/magasin/repo.ex",
-    "lib/magasin/schema.ex",
-    "lib/magasin.ex"
+    "lib/magasin_core/application.ex",
+    "lib/magasin_core.ex"
   ]
 }

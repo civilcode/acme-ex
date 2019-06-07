@@ -1,15 +1,28 @@
 use Mix.Config
 
 ###############################################################################
-# MAGASIN DATA
+# CivilBus
+###############################################################################
+
+config :civil_bus, impl: CivilBus.EventStore
+
+###############################################################################
+# MAGASIN CORE
 ###############################################################################
 
 config :magasin_core,
   ecto_repos: [MagasinData.Repo],
   release: [tag: System.get_env("RELEASE_TAG")]
 
+###############################################################################
+# MAGASIN DATA
+###############################################################################
+
 config :magasin_data, MagasinData.Repo,
   adapter: Ecto.Adapters.Postgres,
+  # avoids conflict with EventStore schema_migrations
+  # https://github.com/commanded/eventstore/issues/73
+  migration_source: "ecto_schema_migrations",
   migration_primary_key: [name: :id, type: :binary_id]
 
 ###############################################################################

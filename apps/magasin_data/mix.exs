@@ -32,12 +32,17 @@ defmodule MagasinData.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:civilcode, github: "civilcode/civilcode-ex"},
-      # Uncomment this when update civilcode during Development
+      # Uncomment this when updating during development
+      # {:civil_bus, path: "../../civil-bus"},
+      {:civil_bus, github: "civilcode/civil-bus"},
+      # Uncomment this when updating during development
       # {:civilcode, path: "../../civilcode-ex"},
+      {:civilcode, github: "civilcode/civilcode-ex"},
       # civilcode-ex uses Ecto 2.x
       {:ecto, "~> 3.1.1", override: true},
       {:ecto_sql, "~> 3.1.0"},
+      {:elixir_uuid, "~> 1.1"},
+      {:eventstore, "~> 0.16"},
       {:ex_machina, "~> 2.2", only: :test},
       {:faker, "~> 0.11.1", only: :test},
       {:jason, "~> 1.1"},

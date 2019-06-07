@@ -143,6 +143,22 @@ mkdir $NEW_PROJECT_ROOT
 echo "Copying everything..."
 rsync -a --exclude-from="$ROOT_PATH/bin/project.new.exclusion_list" $ROOT_PATH $NEW_PROJECT_ROOT/
 
+# Override specific files
+cat << EOF > $NEW_PROJECT_ROOT/apps/magasin_core/lib/magasin_core/application.ex
+defmodule MagasinCore.Application do
+  @moduledoc false
+
+  use Application
+
+  def start(_type, _args) do
+    children = []
+
+    opts = [strategy: :one_for_one, name: MagasinCore.Supervisor]
+    Supervisor.start_link(children, opts)
+  end
+end
+EOF
+
 # Copy and replace files and directories with "magasin"
 echo "Copying and replacing magasin files..."
 file_list=`find $NEW_PROJECT_ROOT -name "*magasin*" | sort`

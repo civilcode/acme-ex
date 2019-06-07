@@ -36,8 +36,23 @@ defmodule MagasinCore.Sales.OrderRepository do
       |> Repo.insert_or_update()
 
     case result do
-      {:ok, record} -> Result.ok(record.id)
-      {:error, changeset} -> changeset |> RepositoryError.validate() |> Repo.rollback()
+      {:ok, record} ->
+        for event <- fetch_events(struct_or_changeset) do
+          CivilBus.publish(:test, event)
+        end
+
+        Result.ok(record.id)
+
+      {:error, changeset} ->
+        changeset |> RepositoryError.validate() |> Repo.rollback()
     end
+  end
+
+  defp fetch_events(%Ecto.Changeset{} = changeset) do
+    Ecto.Changeset.get_field(changeset, :__civilcode__).events
+  end
+
+  defp fetch_events(struct) do
+    struct.__civilcode__.events
   end
 end
