@@ -8,8 +8,6 @@
     "lib/magasin_data/application.ex",
     "lib/magasin_data/release_tasks.ex",
     "lib/magasin_data/repo.ex",
-    "lib/magasin_data.ex",
-    "lib/mix/tasks/demo_data.dump.ex",
-    "lib/mix/tasks/demo_data.load.ex"
+    "lib/magasin_data.ex"
   ]
 }

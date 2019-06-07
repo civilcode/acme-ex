@@ -60,7 +60,7 @@ defmodule MagasinData.ReleaseTasks do
     database_url = System.get_env("DATABASE_URL")
 
     base_command = "psql"
-    pipe_location = "< /app/lib/magasin_data-0.0.0/priv/demo_dump.sql"
+    pipe_location = "< /app/lib/magasin_demo-0.0.0/priv/demo_dump.sql"
 
     command =
       [base_command, database_url, pipe_location]

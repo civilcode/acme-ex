@@ -1,0 +1,9 @@
+{
+  "skip_files": [
+    "test",
+    "lib/magasin_demo/release_tasks.ex",
+    "lib/magasin_demo.ex",
+    "lib/mix/tasks/demo_data.dump.ex",
+    "lib/mix/tasks/demo_data.load.ex"
+  ]
+}
