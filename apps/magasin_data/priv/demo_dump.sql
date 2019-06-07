@@ -3,7 +3,7 @@
 --
 
 -- Dumped from database version 10.5 (Debian 10.5-2.pgdg90+1)
--- Dumped by pg_dump version 11.3
+-- Dumped by pg_dump version 10.8
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -22,6 +22,38 @@ ALTER TABLE ONLY public.magasin_inventory_stock_items DROP CONSTRAINT magasin_in
 DROP TABLE public.schema_migrations;
 DROP TABLE public.magasin_sale_orders;
 DROP TABLE public.magasin_inventory_stock_items;
+DROP EXTENSION plpgsql;
+DROP SCHEMA public;
+--
+-- Name: public; Type: SCHEMA; Schema: -; Owner: postgres
+--
+
+CREATE SCHEMA public;
+
+
+ALTER SCHEMA public OWNER TO postgres;
+
+--
+-- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: postgres
+--
+
+COMMENT ON SCHEMA public IS 'standard public schema';
+
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -311,6 +343,13 @@ ALTER TABLE ONLY public.magasin_sale_orders
 
 ALTER TABLE ONLY public.schema_migrations
     ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
+
+
+--
+-- Name: SCHEMA public; Type: ACL; Schema: -; Owner: postgres
+--
+
+GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
 --
