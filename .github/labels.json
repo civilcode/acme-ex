@@ -16,7 +16,31 @@
     "color": "f7a285"
   },
   {
-    "name": "mod:name",
+    "name": "mod:accounts",
+    "color": "fbca04"
+  },
+  {
+    "name": "mod:clients",
+    "color": "fbca04"
+  },
+  {
+    "name": "mod:financial-market",
+    "color": "fbca04"
+  },
+  {
+    "name": "mod:portfolios",
+    "color": "fbca04"
+  },
+  {
+    "name": "mod:statements",
+    "color": "fbca04"
+  },
+  {
+    "name": "mod:returns",
+    "color": "fbca04"
+  },
+  {
+    "name": "mod:system",
     "color": "fbca04"
   },
   {
@@ -32,11 +56,27 @@
     "color": "bfdadc"
   },
   {
+    "name": "fdd:module",
+    "color": "5319e7"
+  },
+  {
+    "name": "fdd:ability",
+    "color": "5319e7"
+  },
+  {
+    "name": "fdd:task",
+    "color": "5319e7"
+  },
+  {
     "name": "type:bug",
     "color": "ee0701"
   },
   {
     "name": "type:chore",
+    "color": "c5def5"
+  },
+  {
+    "name": "type:refactoring",
     "color": "c5def5"
   },
   {
@@ -46,18 +86,6 @@
   {
     "name": "type:exception",
     "color": "d93f0b"
-  },
-  {
-    "name": "type:module",
-    "color": "5319e7"
-  },
-  {
-    "name": "type:capability",
-    "color": "5319e7"
-  },
-  {
-    "name": "type:task",
-    "color": "5319e7"
   },
   {
     "name": "type:question",

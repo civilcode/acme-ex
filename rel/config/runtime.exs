@@ -15,3 +15,9 @@ config :magasin_web, MagasinWeb.Endpoint,
 ###############################################################################
 
 config :master_proxy, http: [port: String.to_integer(System.get_env("PORT"))]
+
+config :eventstore, EventStore.Storage,
+  serializer: EventStore.TermSerializer,
+  url: System.get_env("DATABASE_URL"),
+  pool_size: 2,
+  pool_overflow: 5

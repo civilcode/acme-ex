@@ -1,4 +1,6 @@
 /.git
+/civil-bus
+/civilcode-ex
 /apps/magasin_core/lib/magasin_core/catalog
 /apps/magasin_core/lib/magasin_core/inventory
 /apps/magasin_core/lib/magasin_core/sales

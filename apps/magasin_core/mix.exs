@@ -9,6 +9,7 @@ defmodule MagasinCore.MixProject do
       config_path: "../../config/config.exs",
       deps_path: "../../deps",
       lockfile: "../../mix.lock",
+      start_permanent: Mix.env() == :prod,
       elixir: "~> 1.6",
       deps: deps(),
       test_coverage: [tool: ExCoveralls],
@@ -23,7 +24,8 @@ defmodule MagasinCore.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger]
+      extra_applications: [:logger],
+      mod: {MagasinCore.Application, []}
     ]
   end
 

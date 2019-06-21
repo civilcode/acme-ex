@@ -1,8 +1,7 @@
 ---
 name: Feature - Module
 about: A module of the system
-labels: type:module
-
+labels: fdd:module
 ---
 
 ## Checklist

@@ -4,20 +4,34 @@ WEB_APP := magasin_web
 
 # Targets
 
-build:
-	echo "Please ensure no Docker containers are running with the same ports as this docker-compose.yml file"
+build: stop ensure_port_available do_build start setup
+
+ensure_port_available:
+	echo "Please ensure no Docker containers are running with the same ports as this docker-compose.yml file:"
+	docker ps
 	read -p "Press any key to continue..."
+
+do_build:
 	docker-compose build --force-rm --no-cache
-	docker-sync start
-	docker-compose up -d
-	docker-compose exec application mix deps.get
-	docker-compose exec application sh -c 'cd /app/apps/$(WEB_APP)/assets/ && npm install'
-	docker-compose exec -e MIX_ENV=test application mix ecto.create
-	docker-compose exec application mix project.setup
+
+reset_sync: stop clean start setup
 
 clean:
-	docker-compose down
+	docker-compose rm -v -f
 	docker-sync clean
+
+setup:
+	docker-compose exec application mix deps.get
+	docker-compose exec application sh -c 'cd /app/apps/$(WEB_APP)/assets/ && npm install'
+	# TEST
+	docker-compose exec -e MIX_ENV=test application mix ecto.create
+	docker-compose exec -e MIX_ENV=test application mix event_store.init
+	docker-compose exec -e MIX_ENV=test application mix ecto.migrate
+	# DEV
+	docker-compose exec application mix ecto.create
+	docker-compose exec application mix event_store.init
+	docker-compose exec application mix ecto.migrate
+	docker-compose exec application mix project.setup
 
 docs:
 	docker-compose exec application mix docs
@@ -31,10 +45,6 @@ config:
 	cp env.sample .env
 
 	echo "Please configure the 'secret' configuration files in ./config directory."
-
-setup:
-	./bin/setup.config
-	./bin/setup.docker
 
 start:
 	docker-sync start

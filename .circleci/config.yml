@@ -59,6 +59,7 @@ jobs:
       - run: mix format --check-formatted
       - run: mix dialyzer --halt-exit-status
       - run: mix ecto.migrate
+      - run: mix event_store.init
       - run: mix coveralls.circle --umbrella
       - run: mix credo --strict
       - run: mix cmd --app magasin_web mix sobelow --compact --exit Low
@@ -74,5 +75,14 @@ jobs:
                 hostname: \"localhost\",
                 username: \"postgres\",
                 password: \"postgres\",
-                pool: Ecto.Adapters.SQL.Sandbox" > config/test.secret.exs
+                pool: Ecto.Adapters.SQL.Sandbox
+
+                config :eventstore, EventStore.Storage,
+                  serializer: EventStore.TermSerializer,
+                  database: \"acme_test\",
+                  hostname: \"localhost\",
+                  username: \"postgres\",
+                  password: \"postgres\",
+                  pool_size: 10,
+                  pool_overflow: 5" > config/test.secret.exs
               mix do deps.get, test

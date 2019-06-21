@@ -29,4 +29,5 @@ config/test.secret.exs
 
 # Local Development on CivilCode
 
+civil-bus
 civilcode-ex

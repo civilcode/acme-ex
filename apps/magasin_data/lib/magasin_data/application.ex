@@ -5,6 +5,10 @@ defmodule MagasinData.Application do
 
   def start(_type, _args) do
     children = [
+      # %{
+      #   id: CivilBus,
+      #   start: {CivilBus, :start_link, []}
+      # },
       MagasinData.Repo
     ]
 

@@ -43,6 +43,9 @@ defmodule MagasinData.ReleaseTasks do
     # Start apps necessary for executing migrations
     Enum.each(@start_apps, &Application.ensure_all_started/1)
 
+    # Init EventStore
+    event_store()
+
     # Run migrations
     migrate()
 
@@ -68,6 +71,11 @@ defmodule MagasinData.ReleaseTasks do
       |> String.to_charlist()
 
     :os.cmd(command)
+  end
+
+  def event_store do
+    config = EventStore.Config.parsed()
+    EventStore.Tasks.Init.exec(config, [])
   end
 
   def migrate, do: Enum.each(repos(), &run_migrations_for/1)

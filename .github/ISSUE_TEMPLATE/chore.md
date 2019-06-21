@@ -2,7 +2,6 @@
 name: Chore
 about: An issue that does not add or change a feature
 labels: type:chore
-
 ---
 
 <!--- Is there a guide? Many chores will be documented in the Developer Guide or CivilCode Playbook.
