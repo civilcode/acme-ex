@@ -31,7 +31,6 @@ ALTER TABLE ONLY public.subscriptions DROP CONSTRAINT subscriptions_pkey;
 ALTER TABLE ONLY public.streams DROP CONSTRAINT streams_pkey;
 ALTER TABLE ONLY public.stream_events DROP CONSTRAINT stream_events_pkey;
 ALTER TABLE ONLY public.snapshots DROP CONSTRAINT snapshots_pkey;
-ALTER TABLE ONLY public.schema_migrations DROP CONSTRAINT schema_migrations_pkey;
 ALTER TABLE ONLY public.magasin_sale_orders DROP CONSTRAINT magasin_sale_orders_pkey;
 ALTER TABLE ONLY public.magasin_inventory_stock_items DROP CONSTRAINT magasin_inventory_stock_items_pkey;
 ALTER TABLE ONLY public.events DROP CONSTRAINT events_pkey;
@@ -44,7 +43,6 @@ DROP SEQUENCE public.streams_stream_id_seq;
 DROP TABLE public.streams;
 DROP TABLE public.stream_events;
 DROP TABLE public.snapshots;
-DROP TABLE public.schema_migrations;
 DROP TABLE public.magasin_sale_orders;
 DROP TABLE public.magasin_inventory_stock_items;
 DROP TABLE public.events;
@@ -176,18 +174,6 @@ CREATE TABLE public.magasin_sale_orders (
 ALTER TABLE public.magasin_sale_orders OWNER TO postgres;
 
 --
--- Name: schema_migrations; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public.schema_migrations (
-    version bigint NOT NULL,
-    inserted_at timestamp(0) without time zone
-);
-
-
-ALTER TABLE public.schema_migrations OWNER TO postgres;
-
---
 -- Name: snapshots; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -307,6 +293,8 @@ ALTER TABLE ONLY public.subscriptions ALTER COLUMN subscription_id SET DEFAULT n
 -- Data for Name: ecto_schema_migrations; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO public.ecto_schema_migrations VALUES (20180430195550, '2019-05-31 20:06:00');
+INSERT INTO public.ecto_schema_migrations VALUES (20180501193645, '2019-05-31 20:06:01');
 
 
 --
@@ -528,14 +516,6 @@ INSERT INTO public.magasin_inventory_stock_items VALUES ('4a43f285-8de0-46ec-8df
 
 
 --
--- Data for Name: schema_migrations; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-INSERT INTO public.schema_migrations VALUES (20180430195550, '2019-05-31 20:06:00');
-INSERT INTO public.schema_migrations VALUES (20180501193645, '2019-05-31 20:06:01');
-
-
---
 -- Data for Name: snapshots; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -558,6 +538,7 @@ INSERT INTO public.streams VALUES (0, '$all', 0, '2019-06-21 20:46:17.133704');
 -- Data for Name: subscriptions; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO public.subscriptions VALUES (1, 'test', 'Elixir.MagasinCore.Inventory.EventSubscriber', 0, '2019-06-21 21:26:07.470267');
 
 
 --
@@ -571,7 +552,7 @@ SELECT pg_catalog.setval('public.streams_stream_id_seq', 1, false);
 -- Name: subscriptions_subscription_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.subscriptions_subscription_id_seq', 1, false);
+SELECT pg_catalog.setval('public.subscriptions_subscription_id_seq', 1, true);
 
 
 --
@@ -604,14 +585,6 @@ ALTER TABLE ONLY public.magasin_inventory_stock_items
 
 ALTER TABLE ONLY public.magasin_sale_orders
     ADD CONSTRAINT magasin_sale_orders_pkey PRIMARY KEY (id);
-
-
---
--- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.schema_migrations
-    ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
 
 
 --

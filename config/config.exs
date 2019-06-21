@@ -22,7 +22,7 @@ config :magasin_data, MagasinData.Repo,
   adapter: Ecto.Adapters.Postgres,
   # avoids conflict with EventStore schema_migrations
   # https://github.com/commanded/eventstore/issues/73
-  migration_source: "schema_migrations",
+  migration_source: "ecto_schema_migrations",
   migration_primary_key: [name: :id, type: :binary_id]
 
 ###############################################################################
