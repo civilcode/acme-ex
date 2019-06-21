@@ -63,7 +63,6 @@ observer:
 bash:
 	docker-compose exec application bash
 
-
 console:
 	docker-compose exec application iex --name vm@application --cookie secret -S mix phx.server
 
