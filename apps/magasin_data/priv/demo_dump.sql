@@ -16,12 +16,40 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
+ALTER TABLE ONLY public.stream_events DROP CONSTRAINT stream_events_stream_id_fkey;
+ALTER TABLE ONLY public.stream_events DROP CONSTRAINT stream_events_original_stream_id_fkey;
+ALTER TABLE ONLY public.stream_events DROP CONSTRAINT stream_events_event_id_fkey;
+DROP TRIGGER event_notification ON public.streams;
+DROP RULE no_update_stream_events ON public.stream_events;
+DROP RULE no_update_events ON public.events;
+DROP RULE no_delete_stream_events ON public.stream_events;
+DROP RULE no_delete_events ON public.events;
+DROP INDEX public.ix_subscriptions_stream_uuid_subscription_name;
+DROP INDEX public.ix_streams_stream_uuid;
+DROP INDEX public.ix_stream_events;
+ALTER TABLE ONLY public.subscriptions DROP CONSTRAINT subscriptions_pkey;
+ALTER TABLE ONLY public.streams DROP CONSTRAINT streams_pkey;
+ALTER TABLE ONLY public.stream_events DROP CONSTRAINT stream_events_pkey;
+ALTER TABLE ONLY public.snapshots DROP CONSTRAINT snapshots_pkey;
 ALTER TABLE ONLY public.schema_migrations DROP CONSTRAINT schema_migrations_pkey;
 ALTER TABLE ONLY public.magasin_sale_orders DROP CONSTRAINT magasin_sale_orders_pkey;
 ALTER TABLE ONLY public.magasin_inventory_stock_items DROP CONSTRAINT magasin_inventory_stock_items_pkey;
+ALTER TABLE ONLY public.events DROP CONSTRAINT events_pkey;
+ALTER TABLE ONLY public.ecto_schema_migrations DROP CONSTRAINT ecto_schema_migrations_pkey;
+ALTER TABLE public.subscriptions ALTER COLUMN subscription_id DROP DEFAULT;
+ALTER TABLE public.streams ALTER COLUMN stream_id DROP DEFAULT;
+DROP SEQUENCE public.subscriptions_subscription_id_seq;
+DROP TABLE public.subscriptions;
+DROP SEQUENCE public.streams_stream_id_seq;
+DROP TABLE public.streams;
+DROP TABLE public.stream_events;
+DROP TABLE public.snapshots;
 DROP TABLE public.schema_migrations;
 DROP TABLE public.magasin_sale_orders;
 DROP TABLE public.magasin_inventory_stock_items;
+DROP TABLE public.events;
+DROP TABLE public.ecto_schema_migrations;
+DROP FUNCTION public.notify_events();
 DROP EXTENSION plpgsql;
 DROP SCHEMA public;
 --
@@ -54,9 +82,67 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 
+--
+-- Name: notify_events(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.notify_events() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+  payload text;
+BEGIN
+    -- Payload text contains:
+    --  * `stream_uuid`
+    --  * `stream_id`
+    --  * first `stream_version`
+    --  * last `stream_version`
+    -- Each separated by a comma (e.g. 'stream-12345,1,1,5')
+
+    payload := NEW.stream_uuid || ',' || NEW.stream_id || ',' || (OLD.stream_version + 1) || ',' || NEW.stream_version;
+
+    -- Notify events to listeners
+    PERFORM pg_notify('events', payload);
+
+    RETURN NULL;
+END;
+$$;
+
+
+ALTER FUNCTION public.notify_events() OWNER TO postgres;
+
 SET default_tablespace = '';
 
 SET default_with_oids = false;
+
+--
+-- Name: ecto_schema_migrations; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.ecto_schema_migrations (
+    version bigint NOT NULL,
+    inserted_at timestamp(0) without time zone
+);
+
+
+ALTER TABLE public.ecto_schema_migrations OWNER TO postgres;
+
+--
+-- Name: events; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.events (
+    event_id uuid NOT NULL,
+    event_type text NOT NULL,
+    causation_id uuid,
+    correlation_id uuid,
+    data bytea NOT NULL,
+    metadata bytea,
+    created_at timestamp without time zone DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
+
+ALTER TABLE public.events OWNER TO postgres;
 
 --
 -- Name: magasin_inventory_stock_items; Type: TABLE; Schema: public; Owner: postgres
@@ -100,6 +186,134 @@ CREATE TABLE public.schema_migrations (
 
 
 ALTER TABLE public.schema_migrations OWNER TO postgres;
+
+--
+-- Name: snapshots; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.snapshots (
+    source_uuid text NOT NULL,
+    source_version bigint NOT NULL,
+    source_type text NOT NULL,
+    data bytea NOT NULL,
+    metadata bytea,
+    created_at timestamp without time zone DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
+
+ALTER TABLE public.snapshots OWNER TO postgres;
+
+--
+-- Name: stream_events; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.stream_events (
+    event_id uuid NOT NULL,
+    stream_id bigint NOT NULL,
+    stream_version bigint NOT NULL,
+    original_stream_id bigint,
+    original_stream_version bigint
+);
+
+
+ALTER TABLE public.stream_events OWNER TO postgres;
+
+--
+-- Name: streams; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.streams (
+    stream_id bigint NOT NULL,
+    stream_uuid text NOT NULL,
+    stream_version bigint DEFAULT 0 NOT NULL,
+    created_at timestamp without time zone DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
+
+ALTER TABLE public.streams OWNER TO postgres;
+
+--
+-- Name: streams_stream_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.streams_stream_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.streams_stream_id_seq OWNER TO postgres;
+
+--
+-- Name: streams_stream_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.streams_stream_id_seq OWNED BY public.streams.stream_id;
+
+
+--
+-- Name: subscriptions; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.subscriptions (
+    subscription_id bigint NOT NULL,
+    stream_uuid text NOT NULL,
+    subscription_name text NOT NULL,
+    last_seen bigint,
+    created_at timestamp without time zone DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
+
+ALTER TABLE public.subscriptions OWNER TO postgres;
+
+--
+-- Name: subscriptions_subscription_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.subscriptions_subscription_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.subscriptions_subscription_id_seq OWNER TO postgres;
+
+--
+-- Name: subscriptions_subscription_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.subscriptions_subscription_id_seq OWNED BY public.subscriptions.subscription_id;
+
+
+--
+-- Name: streams stream_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.streams ALTER COLUMN stream_id SET DEFAULT nextval('public.streams_stream_id_seq'::regclass);
+
+
+--
+-- Name: subscriptions subscription_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.subscriptions ALTER COLUMN subscription_id SET DEFAULT nextval('public.subscriptions_subscription_id_seq'::regclass);
+
+
+--
+-- Data for Name: ecto_schema_migrations; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- Data for Name: events; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
 
 --
 -- Data for Name: magasin_inventory_stock_items; Type: TABLE DATA; Schema: public; Owner: postgres
@@ -322,6 +536,61 @@ INSERT INTO public.schema_migrations VALUES (20180501193645, '2019-05-31 20:06:0
 
 
 --
+-- Data for Name: snapshots; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- Data for Name: stream_events; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- Data for Name: streams; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.streams VALUES (0, '$all', 0, '2019-06-21 20:46:17.133704');
+
+
+--
+-- Data for Name: subscriptions; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- Name: streams_stream_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.streams_stream_id_seq', 1, false);
+
+
+--
+-- Name: subscriptions_subscription_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.subscriptions_subscription_id_seq', 1, false);
+
+
+--
+-- Name: ecto_schema_migrations ecto_schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ecto_schema_migrations
+    ADD CONSTRAINT ecto_schema_migrations_pkey PRIMARY KEY (version);
+
+
+--
+-- Name: events events_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.events
+    ADD CONSTRAINT events_pkey PRIMARY KEY (event_id);
+
+
+--
 -- Name: magasin_inventory_stock_items magasin_inventory_stock_items_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -343,6 +612,122 @@ ALTER TABLE ONLY public.magasin_sale_orders
 
 ALTER TABLE ONLY public.schema_migrations
     ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
+
+
+--
+-- Name: snapshots snapshots_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.snapshots
+    ADD CONSTRAINT snapshots_pkey PRIMARY KEY (source_uuid);
+
+
+--
+-- Name: stream_events stream_events_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.stream_events
+    ADD CONSTRAINT stream_events_pkey PRIMARY KEY (event_id, stream_id);
+
+
+--
+-- Name: streams streams_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.streams
+    ADD CONSTRAINT streams_pkey PRIMARY KEY (stream_id);
+
+
+--
+-- Name: subscriptions subscriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.subscriptions
+    ADD CONSTRAINT subscriptions_pkey PRIMARY KEY (subscription_id);
+
+
+--
+-- Name: ix_stream_events; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE UNIQUE INDEX ix_stream_events ON public.stream_events USING btree (stream_id, stream_version);
+
+
+--
+-- Name: ix_streams_stream_uuid; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE UNIQUE INDEX ix_streams_stream_uuid ON public.streams USING btree (stream_uuid);
+
+
+--
+-- Name: ix_subscriptions_stream_uuid_subscription_name; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE UNIQUE INDEX ix_subscriptions_stream_uuid_subscription_name ON public.subscriptions USING btree (stream_uuid, subscription_name);
+
+
+--
+-- Name: events no_delete_events; Type: RULE; Schema: public; Owner: postgres
+--
+
+CREATE RULE no_delete_events AS
+    ON DELETE TO public.events DO INSTEAD NOTHING;
+
+
+--
+-- Name: stream_events no_delete_stream_events; Type: RULE; Schema: public; Owner: postgres
+--
+
+CREATE RULE no_delete_stream_events AS
+    ON DELETE TO public.stream_events DO INSTEAD NOTHING;
+
+
+--
+-- Name: events no_update_events; Type: RULE; Schema: public; Owner: postgres
+--
+
+CREATE RULE no_update_events AS
+    ON UPDATE TO public.events DO INSTEAD NOTHING;
+
+
+--
+-- Name: stream_events no_update_stream_events; Type: RULE; Schema: public; Owner: postgres
+--
+
+CREATE RULE no_update_stream_events AS
+    ON UPDATE TO public.stream_events DO INSTEAD NOTHING;
+
+
+--
+-- Name: streams event_notification; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER event_notification AFTER UPDATE ON public.streams FOR EACH ROW EXECUTE PROCEDURE public.notify_events();
+
+
+--
+-- Name: stream_events stream_events_event_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.stream_events
+    ADD CONSTRAINT stream_events_event_id_fkey FOREIGN KEY (event_id) REFERENCES public.events(event_id);
+
+
+--
+-- Name: stream_events stream_events_original_stream_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.stream_events
+    ADD CONSTRAINT stream_events_original_stream_id_fkey FOREIGN KEY (original_stream_id) REFERENCES public.streams(stream_id);
+
+
+--
+-- Name: stream_events stream_events_stream_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.stream_events
+    ADD CONSTRAINT stream_events_stream_id_fkey FOREIGN KEY (stream_id) REFERENCES public.streams(stream_id);
 
 
 --
