@@ -19,5 +19,8 @@
       "description": "Who initiated this setup",
       "value": "CivilCode Inc"
     }
+  },
+  "scripts": {
+    "postdeploy": "/app/bin/acme_platform_staging load_demo_data && /app/bin/acme_platform_staging seed"
   }
 }

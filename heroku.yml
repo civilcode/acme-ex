@@ -24,6 +24,6 @@ build:
 release:
   image: web
   command:
-    - /app/bin/acme_platform migrate
+    - /app/bin/acme_platform seed
 run:
   web: /app/bin/acme_platform foreground

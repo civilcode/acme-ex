@@ -36,10 +36,14 @@ release :acme_platform_staging do
     applications: [
       :civilcode,
       :runtime_tools,
+      magasin_demo: :permanent,
       magasin_data: :permanent,
       magasin_web: :permanent,
       master_proxy: :permanent
     ],
-    commands: [migrate: "rel/commands/migrate.sh"]
+    commands: [
+      load_demo_data: "rel/commands/load_demo_data.sh",
+      seed: "rel/commands/seed.sh"
+    ]
   )
 end

@@ -51,6 +51,10 @@ RUN apk update && \
     apk upgrade --no-cache && \
     apk add --no-cache bash openssl curl
 
+# install Postgresql (for demo data seeding)
+RUN apk add --no-cache --virtual .build-deps \
+  postgresql-client
+
 # EXPOSE is not used by Heroku, it uses the PORT env var and expose the same value
 EXPOSE 4000
 

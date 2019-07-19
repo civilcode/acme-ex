@@ -4,7 +4,11 @@ use Mix.Config
 # MAGASIN DATA
 ###############################################################################
 
-config :magasin_data, MagasinData.Repo, ssl: true, queue_interval: 100, queue_target: 2000
+config :magasin_data, MagasinData.Repo,
+  ssl: true,
+  queue_interval: 100,
+  queue_target: 2000,
+  pool_size: 3
 
 ###############################################################################
 # MAGASIN WEB

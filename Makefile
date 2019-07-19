@@ -60,8 +60,17 @@ restart: stop start
 observer:
 	docker-compose exec -e DISPLAY=host.docker.internal:0 erlang erl -sname observer -hidden -setcookie secret -run observer
 
+bash:
+	docker-compose exec application bash
+
 console:
 	docker-compose exec application iex --name vm@application --cookie secret -S mix phx.server
 
 generate_release:
 	bin/generate_release
+
+demo_data.dump:
+	docker-compose exec application mix demo_data.dump
+
+demo_data.load:
+	docker-compose exec application mix demo_data.load

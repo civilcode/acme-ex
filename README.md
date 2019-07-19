@@ -50,12 +50,28 @@ To start and shutdown Docker containers:
 Before deploying to staging or production, you must create a release.
 
     make generate_release
-    
+
 ### Deployment to staging
 
 To deploy to staging:
 
     make -f deploy/staging/Makefile RELEASE_TAG=<git_tag>
+
+
+### Fake, Seed, and Demo Data
+
+Fake data: fake data simulating production data -- only for demonstration purposes
+Seed data: data necessary to bootstrap a working production database
+Demo data: fake data + seed data that has been saved in a SQL dump so we can load it easily
+
+- Most of the time, the demo data should include all of the seed data. However, this may not be the case when developing a feature (the developer defines seed data first, and dumps it later).
+
+Procedure for updating demo data:
+1. make changes to seeds (if necessary) in `MagasinData.Tasks.Seed`
+2. `dea mix project.setup` to load the existing demo data and create your seeds
+3. make the changes you want to the demo database (use iex, web interface, [DBeaver](https://dbeaver.io/) client or similar)
+4. run `make demo_data.dump`
+5. changes should be reflected in `apps/magasin_data/priv/demo_dump.sql`
 
 ## Guides
 

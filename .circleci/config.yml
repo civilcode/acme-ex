@@ -21,34 +21,34 @@ jobs:
       - run: mix do local.hex --force, local.rebar --force
       - restore_cache: # restore saved dependency cache
           keys:
-            - v6-dep-cache-{{ checksum "mix.lock" }}
-            - v6-dep-cache-{{ .Branch }}
-            - v6-dep-cache
+            - v7-dep-cache-{{ checksum "mix.lock" }}
+            - v7-dep-cache-{{ .Branch }}
+            - v7-dep-cache
       - restore_cache:  # restores saved build cache
           keys:
-            - v6-build-and-mix-cache-{{ .Branch }}
-            - v6-build-and-mix-cache
+            - v7-build-and-mix-cache-{{ .Branch }}
+            - v7-build-and-mix-cache
       - run: mix do deps.get, compile --warnings-as-errors
       - run:
           name: "Dialyzer PLT"
           command: mix dialyzer --plt
           no_output_timeout: "20m"
       - save_cache: # save dependencies to cache
-          key: v6-dep-cache-{{ checksum "mix.lock" }}
+          key: v7-dep-cache-{{ checksum "mix.lock" }}
           paths: "deps"
       - save_cache: # save dependencies to cache
-          key: v6-dep-cache-{{ .Branch }}
+          key: v7-dep-cache-{{ .Branch }}
           paths: "deps"
       - save_cache: # save dependencies to cache
-          key: v6-dep-cache
+          key: v7-dep-cache
           paths: "deps"
       - save_cache: # save build cache
-          key: v6-build-and-mix-cache-{{ .Branch }}
+          key: v7-build-and-mix-cache-{{ .Branch }}
           paths:
             - _build
             - ~/.mix
       - save_cache: # save build cache
-          key: v6-build-and-mix-cache
+          key: v7-build-and-mix-cache
           paths:
             - _build
             - ~/.mix
@@ -62,7 +62,6 @@ jobs:
       - run: mix event_store.init
       - run: mix coveralls.circle --umbrella
       - run: mix credo --strict
-      - run: mix project.seed
       - run: mix cmd --app magasin_web mix sobelow --compact --exit Low
       - run: sudo apk add --update --no-cache rsync
       - run:
