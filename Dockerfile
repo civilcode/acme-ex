@@ -1,5 +1,5 @@
 ### BUILD STAGE
-FROM bitwalker/alpine-elixir-phoenix:1.8.1 as builder
+FROM bitwalker/alpine-elixir-phoenix:1.9.0a as builder
 RUN mkdir /app
 
 WORKDIR /app
