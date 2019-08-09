@@ -78,7 +78,7 @@ Procedure for updating demo data:
 For more information on working with Docker for local development, deployment and other
 application development guides visit:
 
-    https://github.com/civilcode/acme-platform/tree/master/guides/app
+    https://civilcode.gitbook.io/developer-guides/
 
 ## About CivilCode Inc
 
