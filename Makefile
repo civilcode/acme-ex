@@ -4,12 +4,15 @@ WEB_APP := magasin_web
 
 # Targets
 
-build: stop ensure_port_available do_build start setup
+build: stop ensure_port_available remove_volumes do_build start setup
 
 ensure_port_available:
 	echo "Please ensure no Docker containers are running with the same ports as this docker-compose.yml file:"
 	docker ps
 	read -p "Press any key to continue..."
+
+remove_volumes:
+	docker-compose down --volumes
 
 do_build:
 	docker-compose build --force-rm --no-cache
@@ -18,6 +21,7 @@ reset_sync: stop clean start setup
 
 clean:
 	docker-compose rm -v -f
+	docker-compose down --volumes
 	docker-sync clean
 
 setup:
