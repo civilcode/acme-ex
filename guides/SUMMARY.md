@@ -1,7 +1,6 @@
 # Table of contents
 
 * [Developer Guides](README.md)
-* [Git Guide](git.md)
 * [CSS](css/README.md)
   * [SMACSS](css/smacss.md)
 * [Testing](testing/README.md)
@@ -11,7 +10,7 @@
   * [The Elixir Style Guide Amendments](elixir/style.md)
   * [Formatting](elixir/formatting.md)
   * [Pipeline Design](elixir/pipeline.md)
-  * [Dependencies](elixir/dependencies.md)
+  * [Upgrades](elixir/upgrades.md)
 * [Application](app/README.md)
   * [Setup Guide](app/setup.md)
   * [Using Docker for a local development environment](app/docker-development.md)
@@ -19,6 +18,7 @@
   * [S3 Setup Guide](app/s3.md)
   * [Heroku](app/heroku.md)
 * [Code](code/README.md)
+  * [Git Guide](code/git.md)
   * [Naming Conventions](code/naming.md)
 * [Ecto](ecto/README.md)
   * [Migrations](ecto/migrations.md)
