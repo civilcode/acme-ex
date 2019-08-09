@@ -17,16 +17,20 @@ ARG RELEASE_TAG
 ENV RELEASE_TAG ${RELEASE_TAG}
 RUN echo $RELEASE_TAG
 
-# Umbrella
+# Copy relevant files
 COPY mix.exs mix.lock ./
 COPY config config
-
-# Apps
+COPY rel rel
+COPY README.md README.md
 COPY apps apps
+
+# All COPY operations from the host have been completed
+RUN echo "It is now safe to switch branches."
+
+# Get and compile deps
 RUN mix do deps.get, deps.compile
 
-# Docs
-COPY README.md README.md
+# Compile docs
 RUN mix docs
 RUN mkdir -p apps/magasin_web/priv/static
 RUN cp -r doc apps/magasin_web/priv/static/.
@@ -40,7 +44,6 @@ WORKDIR /app/apps/magasin_web
 RUN mix phx.digest
 
 WORKDIR /app
-COPY rel rel
 RUN mix release acme_platform_$MIX_ENV
 
 ### RELEASE STAGE
