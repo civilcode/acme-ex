@@ -4,8 +4,6 @@ about: An ability is comprised of multiple tasks
 labels: fdd:task
 ---
 
-Ability: #
-
 ## Requirements
 
 <!--- User requirements. --->

@@ -8,6 +8,7 @@ labels: fdd:ability
 
 - [ ] Obtain related documents
 - [ ] Determine requirements using Event Storming or Story Mapping
+- [ ] Write examples using [Specification By Example](https://github.com/civilcode/playbook/blob/master/education/trails/specification-by-example.md)
 - [ ] Create a data model
 - [ ] Create a [Feature List](https://github.com/civilcode/playbook/blob/master/process/05%20development/fdd/feature-list.md)
 - [ ] Model the state transitions
