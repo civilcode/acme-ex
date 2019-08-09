@@ -23,3 +23,5 @@
   * [Naming Conventions](code/naming.md)
 * [Ecto](ecto/README.md)
   * [Migrations](ecto/migrations.md)
+* [Documentation](documentation/README.md)
+  * [Markdown](documentation/markdown.md)
