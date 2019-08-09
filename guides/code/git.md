@@ -46,3 +46,14 @@ feature follow this strategy to avoid merge conflicts:
 2. squash merge `branch_pending_review` into `your_new_branch`
 
 When `branch_pending_review` is merged into `master`, rebase `your_new_branch` with `master`.
+
+## Forking
+
+If a repository from a third-party needs to be forked for a client:
+
+1. create the branch with the application name, e.g. `acme-platform`.
+2. if you wish to submit a PR to the third-party, do that in another branch.
+
+Never make a reference to a third-party repository directly, always create a fork in the
+`civilcode` repository and reference that as the dependency. Try to resolve the fork and branch
+as soon as possible, i.e. PR to the third-party, update dependency when new release is available.
