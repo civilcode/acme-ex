@@ -6,6 +6,7 @@ defmodule MagasinCore.Inventory.StockItemRepository do
   use CivilCode.Repository, repo: MagasinData.Repo
 
   alias MagasinCore.Inventory.StockItem
+  alias MagasinData.Catalog
   alias MagasinData.Inventory.{StockItemId, StockItemRecord}
 
   @impl true
@@ -21,6 +22,7 @@ defmodule MagasinCore.Inventory.StockItemRepository do
     |> load(StockItem)
   end
 
+  @spec get_by_product_id(Catalog.ProductId.t()) :: Result.t(StockItem.t())
   def get_by_product_id(product_id) do
     StockItemRecord
     |> Repo.lock()

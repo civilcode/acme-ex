@@ -4,4 +4,6 @@ defmodule MagasinCore.Inventory.OutOfStock do
   """
 
   use CivilCode.BusinessRuleViolation
+
+  @type t :: %__MODULE__{}
 end

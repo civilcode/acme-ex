@@ -6,6 +6,7 @@ defmodule MagasinCore.Catalog.ProductRepository do
 
   alias MagasinData.Catalog.ProductId
 
+  @spec next_id() :: ProductId.t()
   def next_id do
     ProductId.new!(UUID.uuid4())
   end

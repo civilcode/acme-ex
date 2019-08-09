@@ -16,6 +16,7 @@ defmodule MagasinCore.Inventory.StockItem do
     field :product_id, ProductId
   end
 
+  @spec deplenish(t, Quantity.t()) :: Result.ok(Ecto.Changeset.t(t)) | Result.error(OutOfStock.t())
   def deplenish(stock_item, quantity) do
     case Quantity.subtract(stock_item.count_on_hand, quantity) do
       {:ok, new_count_on_hand} ->
@@ -27,7 +28,7 @@ defmodule MagasinCore.Inventory.StockItem do
         |> Result.ok()
 
       {:error, _} ->
-        {:error, OutOfStock.new(entity: stock_item)}
+        OutOfStock.new(entity: stock_item) |> Result.error()
     end
   end
 end
