@@ -9,7 +9,7 @@ jobs:
       # - provide `dockerize` used command below
       # - for more information see https://circleci.com/docs/2.0/circleci-images/
       - image: civilcode/elixir-ci:1.9.0a
-      - image: circleci/postgres:10.5
+      - image: circleci/postgres:11.4
         environment:
           POSTGRES_USER: postgres
           POSTGRES_DB: acme_test
