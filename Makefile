@@ -58,6 +58,7 @@ restart: stop start
 
 .PHONY: observer
 observer:
+	open -a xquartz
 	docker-compose exec -e DISPLAY=host.docker.internal:0 erlang erl -sname observer -hidden -setcookie secret -run observer
 
 bash:

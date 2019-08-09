@@ -9,6 +9,7 @@
 * [Elixir](elixir/README.md)
   * [The Elixir Style Guide Amendments](elixir/style.md)
   * [Formatting](elixir/formatting.md)
+  * [Observer](elixir/observer.md)
   * [Pipeline Design](elixir/pipeline.md)
   * [Upgrades](elixir/upgrades.md)
 * [Application](app/README.md)
