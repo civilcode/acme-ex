@@ -33,6 +33,36 @@ defmodule AcmePlatform.MixProject do
       homepage_url: "https://www.civilcode.io",
       docs: [
         extras: ["README.md"]
+      ],
+      releases: [
+        acme_platform_staging: [
+          include_executables_for: [:unix],
+          include_erts: true,
+          cookie: "KYY?g&*R>bH$!OT@yycvnL$Nr:v8/J>x^m_pnsjnM7;?N{Ss]p[`QhJB]s7l%7?U",
+          version: "0.0.0",
+          applications: [
+            civilcode: :permanent,
+            runtime_tools: :permanent,
+            magasin_demo: :permanent,
+            magasin_data: :permanent,
+            magasin_web: :permanent,
+            master_proxy: :permanent
+          ],
+          config_providers: [
+            {
+              Config.Reader,
+              "/etc/runtime.exs"
+            },
+            {
+              Config.Reader,
+              "/etc/staging.exs"
+            }
+          ],
+          overlays: [
+            {:copy, "rel/config/runtime.exs", "/etc/runtime.exs"},
+            {:copy, "rel/config/staging.exs", "/etc/staging.exs"}
+          ]
+        ]
       ]
     ]
   end
@@ -63,7 +93,6 @@ defmodule AcmePlatform.MixProject do
   # Run "mix help deps" for examples and options.
   defp deps do
     [
-      {:distillery, "~> 2.0", runtime: false},
       {:dialyxir, "~> 1.0.0-rc.4", only: [:test], runtime: false},
       {:credo, "~> 0.9.1", only: [:dev, :test], runtime: false},
       {:civil_credo,

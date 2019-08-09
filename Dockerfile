@@ -1,5 +1,5 @@
 ### BUILD STAGE
-FROM bitwalker/alpine-elixir-phoenix:1.9.0a as builder
+FROM bitwalker/alpine-elixir-phoenix:1.9.0 as builder
 RUN mkdir /app
 
 WORKDIR /app
@@ -41,7 +41,7 @@ RUN mix phx.digest
 
 WORKDIR /app
 COPY rel rel
-RUN mix release --env=$MIX_ENV --verbose --name=acme_platform_$MIX_ENV
+RUN mix release acme_platform_$MIX_ENV
 
 ### RELEASE STAGE
 FROM alpine:3.9
@@ -66,9 +66,11 @@ ENV PORT=4000 \
 RUN mkdir /app
 WORKDIR /app
 
-COPY --from=builder /app/_build/$MIX_ENV/rel/acme_platform_$MIX_ENV/releases/0.0.0/acme_platform_$MIX_ENV.tar.gz .
 
-RUN tar xzf acme_platform_$MIX_ENV.tar.gz && rm acme_platform_$MIX_ENV.tar.gz
+COPY --from=builder /app/_build/$MIX_ENV/rel/acme_platform_$MIX_ENV/ .
+COPY --from=builder /app/rel/config/runtime.exs /etc
+COPY --from=builder /app/rel/config/$MIX_ENV/*.exs /etc
+
 RUN ln -s /app/bin/acme_platform_$MIX_ENV /app/bin/acme_platform
 
 RUN chown -R root ./releases
@@ -76,4 +78,4 @@ RUN ls /app/bin
 
 USER root
 
-CMD ["/app/bin/acme_platform", "foreground"]
+CMD ["/app/bin/acme_platform", "start"]

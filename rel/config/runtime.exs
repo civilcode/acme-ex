@@ -1,4 +1,4 @@
-use Mix.Config
+import Config
 
 # Note: Only runtime configuration (i.e. not static) should be added to this file.
 

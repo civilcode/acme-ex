@@ -24,6 +24,6 @@ build:
 release:
   image: web
   command:
-    - /app/bin/acme_platform seed
+    - /app/bin/acme_platform eval "Elixir.MagasinData.ReleaseTasks.seed()"
 run:
-  web: /app/bin/acme_platform foreground
+  web: /app/bin/acme_platform start

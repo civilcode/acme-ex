@@ -21,7 +21,7 @@ run:
 		-e DATABASE_POOL_SIZE=5 \
 		-e DATABASE_URL=$(DATABASE_URL) \
 		-e SECRET_KEY_BASE=$(SECRET_KEY_BASE) \
-		$(IMAGE_NAME) /app/bin/$(BINARY) foreground
+		$(IMAGE_NAME) /app/bin/$(BINARY) start
 
 stop:
 	docker stop $(IMAGE_NAME)
