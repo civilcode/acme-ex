@@ -12,15 +12,14 @@ labels: fdd:module
 - [ ] Create a [Feature List](https://github.com/civilcode/playbook/blob/master/process/05%20development/fdd/feature-list.md)
 - [ ] Model the state transitions
 - [ ] Determine the business rules
-- [ ] Create the screen wireframes
 
 ## Statement of Purpose
 
 {what is the purpose of this module}
 
-## To-do
+## Features
 
-{insert to-do items}
+{insert list of abilities and tasks. If an ability is documented in an issue, move tasks to that issue.}
 
 ## Event Storming Model (or Story Mapping)
 
@@ -37,7 +36,3 @@ labels: fdd:module
 ## Business rules
 
 {add business rules}
-
-## Wireframes
-
-{insert wireframes}
