@@ -28,7 +28,7 @@ defmodule MagasinData.ReleaseTasks do
 
   def repos, do: Application.get_env(myapp(), :ecto_repos, [])
 
-  def seed do
+  def db_seed do
     me = myapp()
 
     # CHANGE: Start the entire application rather than just loading the code and manually
@@ -47,7 +47,7 @@ defmodule MagasinData.ReleaseTasks do
     event_store()
 
     # Run migrations
-    migrate()
+    db_migrate()
 
     # Run seed script
     Enum.each(repos(), &run_seeds_for/1)
@@ -59,11 +59,11 @@ defmodule MagasinData.ReleaseTasks do
 
   # Loads seed data + fake data dumped from dev database.
   # (For use on staging servers)
-  def load_demo_data do
+  def demo_load do
     database_url = System.get_env("DATABASE_URL")
 
     base_command = "psql"
-    pipe_location = "< /app/lib/magasin_demo-0.0.0/priv/demo_dump.sql"
+    pipe_location = "< /app/lib/magasin_demo-0.0.0/priv/demo.sql"
 
     command =
       [base_command, database_url, pipe_location]
@@ -78,7 +78,7 @@ defmodule MagasinData.ReleaseTasks do
     EventStore.Tasks.Init.exec(config, [])
   end
 
-  def migrate, do: Enum.each(repos(), &run_migrations_for/1)
+  def db_migrate, do: Enum.each(repos(), &run_migrations_for/1)
 
   def priv_dir(app), do: "#{:code.priv_dir(app)}"
 

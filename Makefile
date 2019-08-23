@@ -4,27 +4,11 @@ WEB_APP := magasin_web
 
 # Targets
 
-build: stop ensure_port_available remove_volumes do_build start setup
+build: docker.stop docker.port.review docker.down docker.build docker.start app.setup
+start: docker.start
+stop: docker.stop
 
-ensure_port_available:
-	echo "Please ensure no Docker containers are running with the same ports as this docker-compose.yml file:"
-	docker ps
-	read -p "Press any key to continue..."
-
-remove_volumes:
-	docker-compose down --volumes
-
-do_build:
-	docker-compose build --force-rm --no-cache
-
-reset_sync: stop clean start setup
-
-clean:
-	docker-compose rm -v -f
-	docker-compose down --volumes
-	docker-sync clean
-
-setup:
+app.setup:
 	docker-compose exec application mix deps.get
 	docker-compose exec application sh -c 'cd /app/apps/$(WEB_APP)/assets/ && npm install'
 	# TEST
@@ -37,45 +21,64 @@ setup:
 	docker-compose exec application mix ecto.migrate
 	docker-compose exec application mix project.setup
 
-docs:
+app.docs:
 	docker-compose exec application mix docs
 	docker-compose exec application cp GLOSSARY.md apps/$(WEB_APP)/priv/static/
 	docker-compose exec application cp -R doc apps/$(WEB_APP)/priv/static/
 
-.PHONY: config
-config:
+app.observe:
+	open -a xquartz
+	docker-compose exec -e DISPLAY=host.docker.internal:0 erlang erl -sname observer -hidden -setcookie secret -run observer
+
+app.config:
 	cp config/dev.secret.exs.sample config/dev.secret.exs
 	cp config/test.secret.exs.sample config/test.secret.exs
 	cp env.sample .env
 
 	echo "Please configure the 'secret' configuration files in ./config directory."
 
-start:
+app.console:
+	docker-compose exec application iex --name vm@application --cookie secret -S mix phx.server
+
+app.run:
+	docker-compose exec application mix phx.server
+
+docker.build:
+	docker-compose build --force-rm --no-cache
+
+docker.reset: docker.stop docker.clean docker.start app.setup
+
+docker.down:
+	docker-compose down --volumes
+
+docker.clean:
+	docker-compose rm -v -f
+	docker-compose down --volumes
+	docker-sync clean
+
+docker.start:
 	docker-sync start
 	docker-compose up --detach
 
-stop:
+docker.stop:
 	docker-compose stop
 	docker-sync stop
 
-restart: stop start
+docker.restart: stop start
 
-.PHONY: observer
-observer:
-	open -a xquartz
-	docker-compose exec -e DISPLAY=host.docker.internal:0 erlang erl -sname observer -hidden -setcookie secret -run observer
+docker.port.review:
+	echo "Please ensure no Docker containers are running with the same ports as this docker-compose.yml file:"
+	docker ps
+	read -p "Press any key to continue..."
 
-bash:
+docker.bash:
 	docker-compose exec application bash
 
-console:
-	docker-compose exec application iex --name vm@application --cookie secret -S mix phx.server
+release.create:
+	bin/release_create
 
-generate_release:
-	bin/generate_release
+demo.dump:
+	docker-compose exec application mix demo.dump
 
-demo_data.dump:
-	docker-compose exec application mix demo_data.dump
-
-demo_data.load:
-	docker-compose exec application mix demo_data.load
+demo.load:
+	docker-compose exec application mix demo.load

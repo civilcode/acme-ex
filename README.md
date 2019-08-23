@@ -28,12 +28,12 @@ the instructions:
 
     git clone https://github.com/civilcode/acme-platform
     cd acme-platform
-    make config
+    make app.config
     make build
 
 To run the server:
 
-    docker-compose exec application mix phx.server
+    make app.run
 
 To view the application with your browser visit:
 
@@ -49,7 +49,7 @@ To start and shutdown Docker containers:
 
 Before deploying to staging or production, you must create a release.
 
-    make generate_release
+    make release.create
 
 ### Deployment to staging
 
@@ -70,8 +70,8 @@ Procedure for updating demo data:
 1. make changes to seeds (if necessary) in `MagasinData.Tasks.Seed`
 2. `dea mix project.setup` to load the existing demo data and create your seeds
 3. make the changes you want to the demo database (use iex, web interface, [DBeaver](https://dbeaver.io/) client or similar)
-4. run `make demo_data.dump`
-5. changes should be reflected in `apps/magasin_data/priv/demo_dump.sql`
+4. run `make demo.dump`
+5. changes should be reflected in `apps/magasin_data/priv/demo.sql`
 
 ## Guides
 
