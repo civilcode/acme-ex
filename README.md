@@ -60,11 +60,11 @@ To deploy to staging:
 
 ### Fake, Seed, and Demo Data
 
-Fake data: fake data simulating production data -- only for demonstration purposes
-Seed data: data necessary to bootstrap a working production database
-Demo data: fake data + seed data that has been saved in a SQL dump so we can load it easily
+- Fake data: fake data simulating production data -- only for demonstration purposes
+- Seed data: data necessary to bootstrap a working production database
+- Demo data: fake data + seed data that has been saved in a SQL dump so we can load it easily
 
-- Most of the time, the demo data should include all of the seed data. However, this may not be the case when developing a feature (the developer defines seed data first, and dumps it later).
+Most of the time, the demo data should include all of the seed data. However, this may not be the case when developing a feature (the developer defines seed data first, and dumps it later).
 
 Procedure for updating demo data:
 1. make changes to seeds (if necessary) in `MagasinData.Tasks.Seed`
