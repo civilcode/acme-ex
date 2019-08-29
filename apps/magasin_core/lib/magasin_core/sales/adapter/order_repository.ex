@@ -22,12 +22,8 @@ defmodule MagasinCore.Sales.OrderRepository do
   end
 
   @impl true
-  def save(struct_or_changeset) do
-    fields =
-      struct_or_changeset
-      |> Ecto.Changeset.change()
-      |> Ecto.Changeset.apply_changes()
-      |> Map.take([:id, :email, :product_id, :quantity])
+  def save(struct) do
+    fields = Map.take(struct, [:id, :email, :product_id, :quantity])
 
     result =
       %OrderRecord{}
@@ -37,7 +33,7 @@ defmodule MagasinCore.Sales.OrderRepository do
 
     case result do
       {:ok, record} ->
-        for event <- fetch_events(struct_or_changeset) do
+        for event <- fetch_events(struct) do
           CivilBus.publish(:test, event)
         end
 
@@ -46,10 +42,6 @@ defmodule MagasinCore.Sales.OrderRepository do
       {:error, changeset} ->
         changeset |> RepositoryError.validate() |> Repo.rollback()
     end
-  end
-
-  defp fetch_events(%Ecto.Changeset{} = changeset) do
-    Ecto.Changeset.get_field(changeset, :__civilcode__).events
   end
 
   defp fetch_events(struct) do

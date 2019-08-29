@@ -3,20 +3,20 @@ defmodule MagasinCore.Inventory.StockItem do
   The entity stock item.
   """
 
-  use CivilCode.Aggregate.Root
+  use CivilCode.AggregateRoot
 
   alias MagasinCore.Inventory.{OutOfStock, StockItemAdjusted}
   alias MagasinData.Catalog.ProductId
   alias MagasinData.Inventory.StockItemId
   alias MagasinData.Quantity
 
-  embedded_schema do
-    field :id, StockItemId
-    field :count_on_hand, Quantity
-    field :product_id, ProductId
+  schema do
+    field :id, StockItemId.t()
+    field :count_on_hand, Quantity.t()
+    field :product_id, ProductId.t()
   end
 
-  @spec deplenish(t, Quantity.t()) :: Result.ok(Ecto.Changeset.t(t)) | Result.error(OutOfStock.t())
+  @spec deplenish(t, Quantity.t()) :: Result.ok(t) | Result.error(OutOfStock.t())
   def deplenish(stock_item, quantity) do
     case Quantity.subtract(stock_item.count_on_hand, quantity) do
       {:ok, new_count_on_hand} ->
@@ -24,11 +24,17 @@ defmodule MagasinCore.Inventory.StockItem do
           StockItemAdjusted.new(stock_item_id: stock_item.id, new_count_on_hand: new_count_on_hand)
 
         stock_item
-        |> change(stock_item_adjusted, count_on_hand: new_count_on_hand)
+        |> apply_event(stock_item_adjusted)
         |> Result.ok()
 
       {:error, _} ->
         OutOfStock.new(entity: stock_item) |> Result.error()
     end
+  end
+
+  defp apply_event(state, %StockItemAdjusted{} = event) do
+    state
+    |> Map.put(:count_on_hand, event.new_count_on_hand)
+    |> put_event(event)
   end
 end

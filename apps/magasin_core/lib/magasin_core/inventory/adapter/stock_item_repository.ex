@@ -31,8 +31,7 @@ defmodule MagasinCore.Inventory.StockItemRepository do
   end
 
   @impl true
-  def save(changeset) do
-    stock_item = Ecto.Changeset.apply_changes(changeset)
+  def save(stock_item) do
     fields = Map.take(stock_item, [:id, :count_on_hand])
 
     result =

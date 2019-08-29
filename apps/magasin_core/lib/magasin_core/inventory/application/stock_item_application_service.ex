@@ -12,8 +12,8 @@ defmodule MagasinCore.Inventory.StockItemApplicationService do
   def handle(%Sales.OrderPlaced{} = command) do
     StockItemRepository.transaction(fn ->
       with {:ok, stock_item} <- StockItemRepository.get_by_product_id(command.product_id),
-           {:ok, changeset} <- StockItem.deplenish(stock_item, command.quantity) do
-        StockItemRepository.save(changeset)
+           {:ok, updated_stock_item} <- StockItem.deplenish(stock_item, command.quantity) do
+        StockItemRepository.save(updated_stock_item)
       end
     end)
   end

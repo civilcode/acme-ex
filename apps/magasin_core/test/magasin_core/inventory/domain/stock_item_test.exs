@@ -9,10 +9,7 @@ defmodule MagasinCore.Inventory.StockItemTest do
       stock_item = StockItem.new(count_on_hand: Quantity.new!(2))
       quantity = Quantity.new!(1)
 
-      deplinished_stock_item =
-        stock_item
-        |> StockItem.deplenish(quantity)
-        |> apply_changes
+      {:ok, deplinished_stock_item} = StockItem.deplenish(stock_item, quantity)
 
       assert deplinished_stock_item.count_on_hand == quantity
     end
