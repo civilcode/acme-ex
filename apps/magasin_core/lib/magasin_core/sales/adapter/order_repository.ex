@@ -5,8 +5,9 @@ defmodule MagasinCore.Sales.OrderRepository do
 
   use CivilCode.Repository, repo: MagasinData.Repo
 
-  alias MagasinCore.Sales.Order
-  alias MagasinData.Sales.{OrderId, OrderRecord}
+  alias MagasinCore.{Catalog, Email, Quantity}
+  alias MagasinCore.Sales.{Order, OrderId}
+  alias MagasinData.Sales.{OrderRecord}
 
   @impl true
   def next_id do
@@ -17,13 +18,29 @@ defmodule MagasinCore.Sales.OrderRepository do
   def get(order_id) do
     OrderRecord
     |> Repo.lock()
-    |> Repo.get!(order_id)
-    |> load(Order)
+    |> Repo.get!(order_id.value)
+    |> load_aggregate(Order)
+  end
+
+  defp load_aggregate(record, aggregate) do
+    schema = %{id: OrderId, email: Email, product_id: Catalog.ProductId, quantity: Quantity}
+    keys = Map.keys(schema)
+    params = Map.take(record, keys)
+
+    {struct(aggregate), schema}
+    |> Ecto.Changeset.cast(params, keys)
+    |> Ecto.Changeset.apply_changes()
+    |> Result.ok()
   end
 
   @impl true
   def save(struct) do
-    fields = Map.take(struct, [:id, :email, :product_id, :quantity])
+    fields = [
+      id: struct.id.value,
+      email: struct.email.value,
+      product_id: struct.product_id.value,
+      quantity: struct.quantity.value
+    ]
 
     result =
       %OrderRecord{}
@@ -32,12 +49,12 @@ defmodule MagasinCore.Sales.OrderRepository do
       |> Repo.insert_or_update()
 
     case result do
-      {:ok, record} ->
+      {:ok, _record} ->
         for event <- fetch_events(struct) do
           CivilBus.publish(:test, event)
         end
 
-        Result.ok(record.id)
+        Result.ok(struct.id)
 
       {:error, changeset} ->
         changeset |> RepositoryError.validate() |> Repo.rollback()

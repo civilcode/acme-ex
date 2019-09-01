@@ -5,8 +5,7 @@ defmodule MagasinCore.Sales.OrderApplicationService do
 
   use CivilCode.ApplicationService
 
-  alias MagasinCore.Sales.{Order, OrderRepository, PlaceOrder}
-  alias MagasinData.Sales.OrderId
+  alias MagasinCore.Sales.{Order, OrderId, OrderRepository, PlaceOrder}
 
   @spec handle(PlaceOrder.t()) ::
           {:ok, OrderId.t()} | {:error, Changeset.t(PlaceOrder.t()) | RepositoryError.t()}

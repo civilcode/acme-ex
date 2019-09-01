@@ -1,4 +1,4 @@
-defmodule MagasinData.Sales.OrderId do
+defmodule MagasinCore.Sales.OrderId do
   @moduledoc """
   The ID of a order entity.
   """

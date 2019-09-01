@@ -5,10 +5,13 @@ defmodule MagasinCore.Sales.OrderPlaced do
 
   use CivilCode.DomainEvent
 
+  alias MagasinCore.Sales.OrderId
+  alias MagasinData.{Catalog, Email, Quantity}
+
   typedstruct do
-    field :order_id, MagasinData.Sales.OrderId.t()
-    field :email, MagasinData.Email.t()
-    field :product_id, MagasinData.Catalog.ProductId.t()
-    field :quantity, MagasinData.Quantity.t()
+    field :order_id, OrderId.t()
+    field :email, Email.t()
+    field :product_id, Catalog.ProductId.t()
+    field :quantity, Quantity.t()
   end
 end

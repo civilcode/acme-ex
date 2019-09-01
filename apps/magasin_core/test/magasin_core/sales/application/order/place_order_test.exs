@@ -1,9 +1,8 @@
 defmodule MagasinCore.Sales.PlaceOrderTest do
   use MagasinCore.TestCase
 
-  alias MagasinCore.Catalog
+  alias MagasinCore.{Address, Catalog, Email, PostalCode, Quantity}
   alias MagasinCore.Sales.{OrderRepository, PlaceOrder}
-  alias MagasinData.{Address, Email, PostalCode, Quantity}
 
   describe "constructing a command" do
     test "valid params returns new command" do

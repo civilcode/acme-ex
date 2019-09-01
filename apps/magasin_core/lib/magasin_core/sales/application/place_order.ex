@@ -5,8 +5,8 @@ defmodule MagasinCore.Sales.PlaceOrder do
 
   use CivilCode.Command
 
-  alias MagasinData.{Address, Catalog, Email, Quantity}
-  alias MagasinData.Sales.OrderId
+  alias MagasinCore.{Address, Catalog, Email, Quantity}
+  alias MagasinCore.Sales.OrderId
 
   embedded_schema do
     field :order_id, OrderId

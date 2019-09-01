@@ -4,7 +4,7 @@ defmodule MagasinCore.Catalog.ProductRepository do
   application is the `product_id`.
   """
 
-  alias MagasinData.Catalog.ProductId
+  alias MagasinCore.Catalog.ProductId
 
   @spec next_id() :: ProductId.t()
   def next_id do

@@ -1,10 +1,9 @@
 defmodule MagasinCore.Inventory.OrderPlacedTest do
   use MagasinCore.TestCase
 
-  alias MagasinData.{Email, Inventory, Quantity}
+  alias MagasinCore.{Catalog, Email, Quantity}
 
-  alias MagasinCore.Catalog
-  alias MagasinCore.Inventory.{StockItemApplicationService, StockItemRepository}
+  alias MagasinCore.Inventory.{StockItemApplicationService, StockItemId, StockItemRepository}
   alias MagasinCore.Sales.{OrderPlaced, OrderRepository}
 
   @moduletag timeout: 1_000
@@ -28,15 +27,15 @@ defmodule MagasinCore.Inventory.OrderPlacedTest do
   describe "a product in stock" do
     test "decreases the count on hand", %{order_placed_event: order_placed_event} do
       previous_stock_item =
-        Repo.insert!(%Inventory.StockItemRecord{
-          id: StockItemRepository.next_id(),
-          count_on_hand: Quantity.new!(1),
+        Repo.insert!(%MagasinData.Inventory.StockItemRecord{
+          id: StockItemRepository.next_id().value,
+          count_on_hand: Quantity.new!(1).value,
           product_id: order_placed_event.product_id.value
         })
 
       _result = StockItemApplicationService.handle(order_placed_event)
 
-      {:ok, current_stock_item} = StockItemRepository.get(previous_stock_item.id)
+      {:ok, current_stock_item} = StockItemRepository.get(StockItemId.new!(previous_stock_item.id))
       assert current_stock_item.count_on_hand == Quantity.new!(0)
     end
   end
@@ -44,15 +43,16 @@ defmodule MagasinCore.Inventory.OrderPlacedTest do
   describe "a product out of stock" do
     test "notifies the product is out of stock", %{order_placed_event: order_placed_event} do
       previous_stock_item =
-        Repo.insert!(%Inventory.StockItemRecord{
-          id: StockItemRepository.next_id(),
-          count_on_hand: Quantity.new!(1),
+        Repo.insert!(%MagasinData.Inventory.StockItemRecord{
+          id: StockItemRepository.next_id().value,
+          count_on_hand: Quantity.new!(1).value,
           product_id: order_placed_event.product_id.value
         })
 
       _result = StockItemApplicationService.handle(order_placed_event)
 
-      {:ok, current_stock_item} = StockItemRepository.get(previous_stock_item.id)
+      {:ok, current_stock_item} = StockItemRepository.get(StockItemId.new!(previous_stock_item.id))
+
       assert current_stock_item.count_on_hand == Quantity.new!(0)
     end
   end

@@ -5,9 +5,8 @@ defmodule MagasinCore.Sales.Order do
 
   use CivilCode.AggregateRoot
 
-  alias MagasinCore.Sales.OrderPlaced
-  alias MagasinData.{Catalog, Email, Quantity}
-  alias MagasinData.Sales.OrderId
+  alias MagasinCore.{Catalog, Email, Quantity}
+  alias MagasinCore.Sales.{OrderId, OrderPlaced}
 
   schema do
     field :id, OrderId.t()
@@ -17,7 +16,7 @@ defmodule MagasinCore.Sales.Order do
   end
 
   @spec place(OrderId.t(), Email.t(), Catalog.ProductId.t(), Quantity.t()) ::
-          {:ok, Ecto.Changeset.t(t)}
+          {:ok, t}
   def place(order_id, email, product_id, quantity) do
     fields = [
       order_id: order_id,

@@ -1,9 +1,8 @@
 defmodule MagasinCore.Sales.PlacingAnOrderTest do
   use MagasinCore.TestCase
 
-  alias MagasinCore.Catalog
+  alias MagasinCore.{Catalog, Email, Quantity}
   alias MagasinCore.Sales.{OrderApplicationService, OrderRepository, PlaceOrder}
-  alias MagasinData.{Email, Quantity}
 
   @moduletag timeout: 1_000
 

@@ -5,10 +5,9 @@ defmodule MagasinCore.Inventory.StockItem do
 
   use CivilCode.AggregateRoot
 
-  alias MagasinCore.Inventory.{OutOfStock, StockItemAdjusted}
-  alias MagasinData.Catalog.ProductId
-  alias MagasinData.Inventory.StockItemId
-  alias MagasinData.Quantity
+  alias MagasinCore.Catalog.ProductId
+  alias MagasinCore.Inventory.{OutOfStock, StockItemAdjusted, StockItemId}
+  alias MagasinCore.Quantity
 
   schema do
     field :id, StockItemId.t()

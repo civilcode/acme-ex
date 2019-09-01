@@ -3,5 +3,5 @@ defmodule MagasinCore.Factory do
 
   use ExMachina
   use MagasinCore.ApplicationFactory
-  use MagasinData.ApplicationFactory
+  use MagasinCore.SharedFactory
 end

@@ -1,4 +1,4 @@
-defmodule MagasinData.Catalog.ProductId do
+defmodule MagasinCore.Catalog.ProductId do
   @moduledoc """
   The ID of a product entity.
   """

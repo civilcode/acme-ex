@@ -5,9 +5,10 @@ defmodule MagasinCore.Inventory.StockItemRepository do
 
   use CivilCode.Repository, repo: MagasinData.Repo
 
-  alias MagasinCore.Inventory.StockItem
-  alias MagasinData.Catalog
-  alias MagasinData.Inventory.{StockItemId, StockItemRecord}
+  alias MagasinCore.{Catalog, Quantity}
+
+  alias MagasinCore.Inventory.{StockItem, StockItemId}
+  alias MagasinData.Inventory.StockItemRecord
 
   @impl true
   def next_id do
@@ -18,8 +19,8 @@ defmodule MagasinCore.Inventory.StockItemRepository do
   def get(stock_item_id) do
     StockItemRecord
     |> Repo.lock()
-    |> Repo.get(stock_item_id)
-    |> load(StockItem)
+    |> Repo.get(stock_item_id.value)
+    |> load_aggregate(StockItem)
   end
 
   @spec get_by_product_id(Catalog.ProductId.t()) :: Result.t(StockItem.t())
@@ -27,16 +28,30 @@ defmodule MagasinCore.Inventory.StockItemRepository do
     StockItemRecord
     |> Repo.lock()
     |> Repo.get_by(product_id: product_id.value)
-    |> load(StockItem)
+    |> load_aggregate(StockItem)
+  end
+
+  defp load_aggregate(record, aggregate) do
+    schema = %{id: StockItemId, count_on_hand: Quantity}
+    keys = Map.keys(schema)
+    params = Map.take(record, keys)
+
+    {struct(aggregate), schema}
+    |> Ecto.Changeset.cast(params, keys)
+    |> Ecto.Changeset.apply_changes()
+    |> Result.ok()
   end
 
   @impl true
   def save(stock_item) do
-    fields = Map.take(stock_item, [:id, :count_on_hand])
+    fields = [
+      id: stock_item.id.value,
+      count_on_hand: stock_item.count_on_hand.value
+    ]
 
     result =
-      stock_item
-      |> get_record()
+      StockItemRecord
+      |> Repo.get!(stock_item.id.value)
       |> Ecto.Changeset.change(fields)
       |> Repo.insert_or_update()
 

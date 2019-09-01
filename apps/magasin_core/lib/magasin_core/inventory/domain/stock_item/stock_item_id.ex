@@ -1,4 +1,4 @@
-defmodule MagasinData.Inventory.StockItemId do
+defmodule MagasinCore.Inventory.StockItemId do
   @moduledoc """
   The ID of a stock item entity.
   """

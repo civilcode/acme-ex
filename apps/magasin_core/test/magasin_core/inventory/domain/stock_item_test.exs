@@ -2,7 +2,7 @@ defmodule MagasinCore.Inventory.StockItemTest do
   use MagasinCore.TestCase
 
   alias MagasinCore.Inventory.{OutOfStock, StockItem}
-  alias MagasinData.Quantity
+  alias MagasinCore.Quantity
 
   describe "deplenishing a stock item in stock" do
     test "decreases the count on hand by the given quantity" do

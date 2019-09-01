@@ -3,8 +3,7 @@ defmodule MagasinCore.Sales.OrderRepositoryTest do
 
   alias CivilCode.RepositoryError
 
-  alias MagasinCore.Sales.OrderRepository
-  alias MagasinData.Sales.OrderId
+  alias MagasinCore.Sales.{OrderId, OrderRepository}
 
   @moduletag timeout: 1_000
 

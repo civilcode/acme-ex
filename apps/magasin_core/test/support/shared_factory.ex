@@ -1,9 +1,9 @@
-defmodule MagasinData.SharedFactory do
+defmodule MagasinCore.SharedFactory do
   @moduledoc false
 
   defmacro __using__(_opts) do
     quote do
-      alias MagasinData.{Email, Quantity}
+      alias MagasinCore.{Email, Quantity}
 
       def quantity_factory do
         Quantity.new!(Enum.random(1..1000))

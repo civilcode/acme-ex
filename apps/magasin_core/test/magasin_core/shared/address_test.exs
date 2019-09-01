@@ -1,7 +1,7 @@
-defmodule MagasinData.AddressTest do
-  use MagasinData.TestCase
+defmodule MagasinCore.AddressTest do
+  use MagasinCore.TestCase
 
-  alias MagasinData.{Address, PostalCode}
+  alias MagasinCore.{Address, PostalCode}
 
   describe "new" do
     test "valid params returns a new address" do

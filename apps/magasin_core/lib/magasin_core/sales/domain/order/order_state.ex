@@ -1,4 +1,4 @@
-defmodule MagasinData.OrderState do
+defmodule MagasinCore.OrderState do
   @moduledoc """
   The state of the `MagasinData.OrderRecord`. This is not currently being used, but provides an
   example of how to use an enum `CivilCode.ValueObject`.

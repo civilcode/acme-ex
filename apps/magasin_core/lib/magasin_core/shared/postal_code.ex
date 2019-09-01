@@ -1,4 +1,4 @@
-defmodule MagasinData.PostalCode do
+defmodule MagasinCore.PostalCode do
   @moduledoc false
 
   use CivilCode.ValueObject, type: :string

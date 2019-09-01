@@ -1,10 +1,8 @@
 defmodule MagasinCore.Sales.OrderTest do
   use MagasinCore.TestCase
 
-  alias MagasinCore.Catalog
+  alias MagasinCore.{Catalog, Email, Quantity}
   alias MagasinCore.Sales.{Order, OrderRepository}
-
-  alias MagasinData.{Email, Quantity}
 
   describe "placing an order" do
     test "order is placed" do

@@ -1,7 +1,7 @@
-defmodule MagasinData.QuantityTest do
-  use MagasinData.TestCase
+defmodule MagasinCore.QuantityTest do
+  use MagasinCore.TestCase
 
-  alias MagasinData.Quantity
+  alias MagasinCore.Quantity
 
   describe "subtracting two quantities" do
     test "returns a new quantity" do

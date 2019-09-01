@@ -1,9 +1,9 @@
-defmodule MagasinData.Address do
+defmodule MagasinCore.Address do
   @moduledoc false
 
   use CivilCode.ValueObject, type: :composite, required: [:street_address, :city, :postal_code]
 
-  alias MagasinData.PostalCode
+  alias MagasinCore.PostalCode
 
   embedded_schema do
     field :street_address, :string

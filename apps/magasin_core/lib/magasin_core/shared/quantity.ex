@@ -1,4 +1,4 @@
-defmodule MagasinData.Quantity do
+defmodule MagasinCore.Quantity do
   @moduledoc false
 
   use CivilCode.ValueObject, type: :non_neg_integer
