@@ -2,7 +2,7 @@
 
 ## What are child apps?
 
-- we architect our projects as elixir umbrella apps with many child apps, which are contained in the `apps` folder of the project
+- we architect our projects as Elixir umbrella apps with many child apps, which are contained in the `apps` folder of the project
 
 ## Why create child apps?
 
@@ -17,6 +17,8 @@
 - remove boilerplate from `<app_name>.ex`
 - remove `<app_name>_test.exs` boilerplate
 - add the app to `rel/config.exs` where appropriate
+- remove any generated comments (e.g. from `mix.exs`)
+- remove the `config` directory since all configuration is handled in the root
 
 # When to create a new child app
 
