@@ -27,7 +27,5 @@ config/test.secret.exs
 .env
 .docker-sync
 
-# Local Development on CivilCode
-
-civil-bus
-civilcode-ex
+# Local Development on packages (e.g. CivilCode)
+packages

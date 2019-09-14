@@ -33,10 +33,10 @@ defmodule MagasinData.MixProject do
   defp deps do
     [
       # Uncomment this when updating during development
-      # {:civil_bus, path: "../../civil-bus"},
+      # {:civil_bus, path: "../../packages/civil-bus"},
       {:civil_bus, github: "civilcode/civil-bus"},
       # Uncomment this when updating during development
-      # {:civilcode, path: "../../civilcode-ex"},
+      # {:civilcode, path: "../../packages/civilcode-ex"},
       {:civilcode, github: "civilcode/civilcode-ex"},
       # civilcode-ex uses Ecto 2.x
       {:ecto, "~> 3.1.1", override: true},
