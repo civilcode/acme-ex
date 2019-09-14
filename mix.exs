@@ -94,9 +94,9 @@ defmodule AcmePlatform.MixProject do
   defp deps do
     [
       {:dialyxir, "~> 1.0.0-rc.4", only: [:test], runtime: false},
-      {:credo, "~> 0.9.1", only: [:dev, :test], runtime: false},
+      {:credo, "~> 1.1.0", only: [:dev, :test], runtime: false},
       # Uncomment this when updating during development
-      # {:civil_credo, path: "../../packages/civil-credo"},
+      # {:civil_credo, path: "./packages/civil-credo"},
       {:civil_credo, github: "civilcode/civil-credo", only: [:dev, :test], runtime: false},
       {:ex_doc, "~> 0.19", runtime: false},
       {:excoveralls, "~> 0.8", only: :test}

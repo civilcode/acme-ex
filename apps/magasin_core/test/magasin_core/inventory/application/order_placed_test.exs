@@ -8,6 +8,8 @@ defmodule MagasinCore.Inventory.OrderPlacedTest do
 
   @moduletag timeout: 1_000
 
+  # credo:disable-for-this-file Credo.Check.Design.DuplicatedCode
+
   setup do
     order_id = OrderRepository.next_id()
     product_id = Catalog.ProductRepository.next_id()

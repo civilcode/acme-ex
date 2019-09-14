@@ -6,7 +6,7 @@ defmodule MagasinCore.Sales.OrderPlaced do
   use CivilCode.DomainEvent
 
   alias MagasinCore.Sales.OrderId
-  alias MagasinData.{Catalog, Email, Quantity}
+  alias MagasinCore.{Catalog, Email, Quantity}
 
   typedstruct do
     field :order_id, OrderId.t()

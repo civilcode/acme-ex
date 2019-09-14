@@ -14,6 +14,9 @@
       # "default" is used.
       #
       name: "default",
+      plugins: [
+        {CivilCredo, []}
+      ],
       #
       # These are the files included in the analysis:
       files: %{
@@ -49,11 +52,6 @@
       #
       checks: [
         #
-        ## Custom Checks
-        #
-        {CivilCredo.Check.Design.TagWip},
-
-        #
         ## Consistency Checks
         #
         {Credo.Check.Consistency.ExceptionNames},
@@ -76,7 +74,7 @@
         # or the `schema` macro in Ecto schemas to trigger DuplicatedCode, just
         # set the `excluded_macros` parameter to `[:schema, :setup, :test]`.
         #
-        {Credo.Check.Design.DuplicatedCode, excluded_macros: []},
+        {Credo.Check.Design.DuplicatedCode, excluded_macros: [:test]},
         # You can also customize the exit_status of each check.
         # If you don't want TODO comments to cause `mix credo` to fail, just
         # set this value to 0 (zero).
@@ -120,6 +118,8 @@
         {Credo.Check.Refactor.PipeChainStart,
          excluded_argument_types: [:atom, :binary, :fn, :keyword], excluded_functions: []},
         {Credo.Check.Refactor.UnlessWithElse},
+        # Not compatiable with 1.9.x
+        {Credo.Check.Refactor.MapInto, false},
 
         #
         ## Warnings
@@ -128,7 +128,8 @@
         {Credo.Check.Warning.ExpensiveEmptyEnumCheck},
         {Credo.Check.Warning.IExPry},
         {Credo.Check.Warning.IoInspect},
-        {Credo.Check.Warning.LazyLogging},
+        # Not compatiable with 1.9.x
+        {Credo.Check.Warning.LazyLogging, false},
         {Credo.Check.Warning.OperationOnSameValues},
         {Credo.Check.Warning.OperationWithConstantResult},
         {Credo.Check.Warning.UnusedEnumOperation},
