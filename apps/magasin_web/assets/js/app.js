@@ -11,7 +11,7 @@ import css from "../css/app.scss"
 //
 import "phoenix_html"
 import "bootstrap"
-import PerfectScrollbar from 'perfect-scrollbar'
+import PerfectScrollbar from "perfect-scrollbar"
 import "@coreui/coreui"
 
 // Import local files

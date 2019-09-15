@@ -2,7 +2,7 @@
 
 All notable tasks related to deployments are documented in this file.
 
-## [Example]
+## {Example}
 
 ### Tasks
 
