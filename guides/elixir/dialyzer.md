@@ -22,7 +22,7 @@ The function is expected to crash.  If there are other errors in the run, it's w
 them first, as a crash may be an effect of one of these more descriptive errors.
 
 Keep in mind that the function may not actually ever crash (in tests or in the live system), but
-Dialyzer thinks it will because there is a spec mismatch.
+Dialyzer thinks it will because there is a spec mismatch for a function call in its body.
 
 `The @spec for the function does not match the success typing of the function.`
 
