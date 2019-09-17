@@ -21,6 +21,9 @@ Dialyzer is also included in our CI pipeline.
 The function is expected to crash.  If there are other errors in the run, it's worth investigating
 them first, as a crash may be an effect of one of these more descriptive errors.
 
+Keep in mind that the function may not actually ever crash (in tests or in the live system), but
+Dialyzer thinks it will because there is a spec mismatch for a function call in its body.
+
 `The @spec for the function does not match the success typing of the function.`
 
 Based on the spec that was written for it, the function is expected to pass invalid params to
