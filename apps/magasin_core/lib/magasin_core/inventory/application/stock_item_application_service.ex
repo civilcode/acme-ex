@@ -5,10 +5,10 @@ defmodule MagasinCore.Inventory.StockItemApplicationService do
 
   use CivilCode.ApplicationService
 
-  alias MagasinCore.Inventory.{StockItem, StockItemRepository}
+  alias MagasinCore.Inventory.{OutOfStock, StockItem, StockItemRepository}
   alias MagasinCore.Sales
 
-  @spec handle(Sales.OrderPlaced.t()) :: Result.t(StockItem.t())
+  @spec handle(Sales.OrderPlaced.t()) :: Result.t(StockItem.t(), OutOfStock.t())
   def handle(%Sales.OrderPlaced{} = command) do
     StockItemRepository.transaction(fn ->
       with {:ok, stock_item} <- StockItemRepository.get_by_product_id(command.product_id),

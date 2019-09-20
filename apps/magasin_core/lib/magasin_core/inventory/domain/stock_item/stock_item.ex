@@ -15,7 +15,7 @@ defmodule MagasinCore.Inventory.StockItem do
     field :product_id, ProductId.t()
   end
 
-  @spec deplenish(t, Quantity.t()) :: Result.ok(t) | Result.error(OutOfStock.t())
+  @spec deplenish(t, Quantity.t()) :: Result.t(t, OutOfStock.t())
   def deplenish(stock_item, quantity) do
     case Quantity.subtract(stock_item.count_on_hand, quantity) do
       {:ok, new_count_on_hand} ->

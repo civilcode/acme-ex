@@ -23,7 +23,7 @@ defmodule MagasinCore.Inventory.StockItemRepository do
     |> load_aggregate(StockItem)
   end
 
-  @spec get_by_product_id(Catalog.ProductId.t()) :: Result.t(StockItem.t())
+  @spec get_by_product_id(Catalog.ProductId.t()) :: Result.ok(StockItem.t())
   def get_by_product_id(product_id) do
     StockItemRecord
     |> Repo.lock()
