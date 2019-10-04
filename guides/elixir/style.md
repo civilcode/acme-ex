@@ -73,7 +73,7 @@ This documents outlines amendments to the [Elixir Community Style Guide](https:/
   %{my_struct | bar: "foo"}
   ```
 
-*  When selecting a macro to implement a conditional statement, e.g. `if`, `case`, or `with`, it is easy to select a more complex macro than is required. We should always use the simpliest macro to express our intent. \[[link](style.md#conditional-macros)\]
+*  When selecting a macro to implement a conditional statement, e.g. `if`, `case`, or `with`, it is easy to select a more complex macro than is required. We should always use the simplest macro to express our intent. \[[link](style.md#conditional-macros)\]
 
   ```elixir
   # not preferred
@@ -114,6 +114,9 @@ This documents outlines amendments to the [Elixir Community Style Guide](https:/
   end
   ```
 
+* Keyword lists are generally used for passing options in a function. They should not be used as a key-value
+  store as they allow for duplicate keys. Ref: [Elixir Guides](https://elixir-lang.org/getting-started/keywords-and-maps.html#keyword-lists) [[link](style.md#keyword-lists)]
+
 ### Naming
 
 *   Treat acronyms as words in names \(XmlHttpRequest not XMLHTTPRequest\), even if the acronym is the entire name \(class Html not class HTML\).
@@ -131,4 +134,3 @@ This documents outlines amendments to the [Elixir Community Style Guide](https:/
 * do not provide module-level documentation for modules suffixed with their archetype \(e.g. `Service`, `Controller`, `Query`, `Repo`\)
 * apply `@module false` to these modules.
 * [typespec](http://elixir-lang.org/getting-started/typespecs-and-behaviours.html#types-and-specs) is mandatory for public functions \(except in controllers and views\)
-
