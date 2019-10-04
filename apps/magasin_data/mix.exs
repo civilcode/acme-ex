@@ -39,11 +39,10 @@ defmodule MagasinData.MixProject do
       # {:civilcode, path: "../../packages/civilcode-ex"},
       {:civilcode, github: "civilcode/civilcode-ex"},
       # civilcode-ex uses Ecto 2.x
-      {:ecto, "~> 3.1.1", override: true},
-      {:ecto_sql, "~> 3.1.0"},
+      {:ecto_sql, "~> 3.2.0"},
       {:elixir_uuid, "~> 1.1"},
       {:eventstore, "~> 0.16"},
-      {:ex_machina, "~> 2.2", only: :test},
+      {:ex_machina, "~> 2.3", only: :test},
       {:faker, "~> 0.11.1", only: :test},
       {:jason, "~> 1.1"},
       {:mix_test_watch, "~> 0.5", only: :dev, runtime: false},
