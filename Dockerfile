@@ -20,7 +20,6 @@ RUN echo $RELEASE_TAG
 # Copy relevant files
 COPY mix.exs mix.lock ./
 COPY config config
-COPY rel rel
 COPY README.md README.md
 COPY apps apps
 
@@ -71,8 +70,6 @@ WORKDIR /app
 
 
 COPY --from=builder /app/_build/$MIX_ENV/rel/acme_platform_$MIX_ENV/ .
-COPY --from=builder /app/rel/config/runtime.exs /etc
-COPY --from=builder /app/rel/config/$MIX_ENV/*.exs /etc
 
 RUN ln -s /app/bin/acme_platform_$MIX_ENV /app/bin/acme_platform
 
