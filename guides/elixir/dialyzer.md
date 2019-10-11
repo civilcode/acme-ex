@@ -35,6 +35,15 @@ one can paste the suggested success typing in as the typespec, and incrementally
 change terms back to the originals until the violation occurs again.  Then the developer will know
 that the last changed term is the one causing the violation.
 
+## Ignoring Errors
+
+To instruct Dialyzer to ignore specific errors:
+
+- run `mix dialyzer --format dialyzer`
+- copy the error string into `dialyzer.ignore-warnings`
+
+This is useful when a macro from an external dependency generates mistyped code.
+
 ## General Tips
 
 - Dialyzer doesn't catch all type errors, but it's never wrong
