@@ -21,6 +21,6 @@
     }
   },
   "scripts": {
-    "postdeploy": "/app/bin/acme_platform eval \"Elixir.MagasinDemo.ReleaseTasks.demo_load()\" && /app/bin/acme_platform eval \"Elixir.MagasinData.ReleaseTasks.db_seed()\""
+    "postdeploy": "app/bin/demo_load && /app/bin/db_seed"
   }
 }

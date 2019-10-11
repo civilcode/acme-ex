@@ -1,0 +1,3 @@
+#!/bin/sh
+
+/app/bin/acme_platform eval "Elixir.MagasinDemo.ReleaseTasks.demo_load()"
