@@ -47,20 +47,6 @@ defmodule AcmePlatform.MixProject do
             magasin_data: :permanent,
             magasin_web: :permanent,
             master_proxy: :permanent
-          ],
-          config_providers: [
-            {
-              Config.Reader,
-              "/etc/runtime.exs"
-            },
-            {
-              Config.Reader,
-              "/etc/staging.exs"
-            }
-          ],
-          overlays: [
-            {:copy, "rel/config/runtime.exs", "/etc/runtime.exs"},
-            {:copy, "rel/config/staging.exs", "/etc/staging.exs"}
           ]
         ]
       ]
