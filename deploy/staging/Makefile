@@ -3,6 +3,8 @@
 HEROKU_APP := acme-platform-staging
 BINARY := acme_platform
 
+ERLANG_COOKIE := $(shell heroku config:get ERLANG_COOKIE -a $(HEROKU_APP))
+
 # Targets
 
 .PHONY: deploy

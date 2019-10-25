@@ -18,6 +18,9 @@
     "SETUP_BY": {
       "description": "Who initiated this setup",
       "value": "CivilCode Inc"
+    },
+    "ERLANG_COOKIE": {
+      "required": true
     }
   },
   "scripts": {

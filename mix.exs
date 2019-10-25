@@ -38,7 +38,6 @@ defmodule AcmePlatform.MixProject do
         acme_platform_staging: [
           include_executables_for: [:unix],
           include_erts: true,
-          cookie: "KYY?g&*R>bHOT@yycvnLNr:v8/J>x^m_pnsjnM7;?N{Ss]p[QhJB]s7l%7?U",
           version: "0.0.0",
           applications: [
             civilcode: :permanent,

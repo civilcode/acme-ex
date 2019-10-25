@@ -16,7 +16,7 @@ config :magasin_web, MagasinWeb.Endpoint,
 This application is setup to remotely observe the application on a Heroku Dyno:
 
 1. make -f deploy/staging/Makefile heroku.port.forward
-2. make -f deploy/staging/Makefile ERLANG_COOKIE="{cookie-in-mix-file}"
+2. make -f deploy/staging/Makefile heroku.observe
 
 References:
 
