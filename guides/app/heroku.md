@@ -11,6 +11,19 @@ config :magasin_web, MagasinWeb.Endpoint,
     force_ssl: [rewrite_on: [:x_forwarded_proto]],
 ```
 
+## Remote Observing
+
+This application is setup to remotely observe the application on a Heroku Dyno:
+
+1. make -f deploy/staging/Makefile heroku.port.forward
+2. make -f deploy/staging/Makefile ERLANG_COOKIE="{cookie-in-mix-file}"
+
+References:
+
+- [Using SSH Tunnelling with Docker on Heroku](https://devcenter.heroku.com/articles/exec#using-with-docker)
+- [Tracing and observing your remote node](http://blog.plataformatec.com.br/2016/05/tracing-and-observing-your-remote-node/)
+- [Pull Request](https://github.com/civilcode/acme-platform/pull/221)
+
 ## Upgrade Database
 
 See: https://devcenter.heroku.com/articles/upgrading-heroku-postgres-databases

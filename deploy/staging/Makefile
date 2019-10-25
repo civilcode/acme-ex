@@ -22,5 +22,13 @@ db.reset:
 	heroku run /app/bin/$(BINARY) load_demo -a $(HEROKU_APP)
 	heroku run /app/bin/$(BINARY) seed -a $(HEROKU_APP)
 
-bash:
-	heroku run bash -r staging
+heroku.bash:
+	heroku ps:exec -a $(HEROKU_APP)
+
+# See guides/app/heroku.md for remote observing
+heroku.port.forward:
+	heroku ps:forward 4369,9001 -a $(HEROKU_APP)
+
+heroku.observe:
+	epmd -names
+	iex --name console@127.0.0.1 --cookie '$(ERLANG_COOKIE)' -e ':observer.start'

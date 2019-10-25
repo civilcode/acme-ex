@@ -22,6 +22,7 @@ COPY mix.exs mix.lock ./
 COPY config config
 COPY README.md README.md
 COPY apps apps
+COPY rel rel
 
 # All COPY operations from the host have been completed
 RUN echo "It is now safe to switch branches."
@@ -51,7 +52,7 @@ FROM alpine:3.9
 # we need bash and openssl for Phoenix, and curl for heroku
 RUN apk update && \
     apk upgrade --no-cache && \
-    apk add --no-cache bash openssl curl
+    apk add --no-cache bash openssl openssh curl python
 
 # install Postgresql (for demo data seeding)
 RUN apk add --no-cache --virtual .build-deps \
@@ -70,6 +71,8 @@ WORKDIR /app
 
 COPY --from=builder /app/_build/$MIX_ENV/rel/acme_platform_$MIX_ENV/ .
 
+ADD deploy/staging/heroku-exec.sh /app/.profile.d/heroku-exec.sh
+RUN chmod a+x /app/.profile.d/heroku-exec.sh
 COPY bin/db_seed /app/bin/db_seed
 COPY bin/demo_load /app/bin/demo_load
 
@@ -79,5 +82,9 @@ RUN chown -R root ./releases
 RUN ls /app/bin
 
 USER root
+
+ADD deploy/staging/sh-wrapper.sh /bin/sh-wrapper.sh
+RUN chmod a+x /bin/sh-wrapper.sh
+RUN rm /bin/sh && ln -s /bin/sh-wrapper.sh /bin/sh
 
 CMD ["/app/bin/acme_platform", "start"]
