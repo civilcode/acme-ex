@@ -28,7 +28,10 @@ defmodule MagasinData.ReleaseTasks do
 
   def repos, do: Application.get_env(myapp(), :ecto_repos, [])
 
-  def db_seed do
+  @doc """
+  Run database migrations.
+  """
+  def db_migrate do
     me = myapp()
 
     # CHANGE: Start the entire application rather than just loading the code and manually
@@ -47,7 +50,7 @@ defmodule MagasinData.ReleaseTasks do
     event_store()
 
     # Run migrations
-    db_migrate()
+    migrate()
 
     # Run seed script
     Enum.each(repos(), &run_seeds_for/1)
@@ -57,8 +60,73 @@ defmodule MagasinData.ReleaseTasks do
     :init.stop()
   end
 
-  # Loads seed data + fake data dumped from dev database.
-  # (For use on staging servers)
+  defp event_store do
+    config = EventStore.Config.parsed()
+    EventStore.Tasks.Init.exec(config, [])
+  end
+
+  defp migrate, do: Enum.each(repos(), &run_migrations_for/1)
+
+  defp run_migrations_for(repo) do
+    app = Keyword.get(repo.config, :otp_app)
+    IO.puts("Running migrations for #{app}")
+    IO.puts("Running migrations against #{repo}")
+    IO.puts("Running migrations from #{migrations_path(repo)}")
+
+    Ecto.Migrator.run(repo, migrations_path(repo), :up, all: true)
+  end
+
+  def migrations_path(repo), do: priv_path_for(repo, "migrations")
+
+  def priv_path_for(repo, filename) do
+    app = Keyword.get(repo.config, :otp_app)
+    repo_underscore = repo |> Module.split() |> List.last() |> Macro.underscore()
+    Path.join([priv_dir(app), repo_underscore, filename])
+  end
+
+  defp priv_dir(app), do: "#{:code.priv_dir(app)}"
+
+  @doc """
+  Seed the database required by the application(s).
+  """
+  def db_seed do
+    me = myapp()
+
+    # CHANGE: Start the entire application rather than just loading the code and manually
+    # start the application's `Repo`s. Why: the mix task called in the seeding script contains
+    # a `Application.ensure_all_started/1` which will fail as they `Repo`s are already
+    # started, i.e.;
+    #     {failed_to_start_child,'Elixir.MyApp.Repo', pid}
+    IO.puts("Starting #{me}..")
+    {:ok, _} = Application.ensure_all_started(me)
+
+    IO.puts("Starting dependencies..")
+    # Start apps necessary for executing migrations
+    Enum.each(@start_apps, &Application.ensure_all_started/1)
+
+    # Run seed script
+    Enum.each(repos(), &run_seeds_for/1)
+
+    # Signal shutdown
+    IO.puts("Success!")
+    :init.stop()
+  end
+
+  defp run_seeds_for(repo) do
+    # Run the seed script if it exists
+    seed_script = seeds_path(repo)
+
+    if File.exists?(seed_script) do
+      IO.puts("Running seed script..")
+      Code.eval_file(seed_script)
+    end
+  end
+
+  defp seeds_path(repo), do: priv_path_for(repo, "seeds.exs")
+
+  @doc """
+  Loads seed data + fake data dumped from dev database. (For use on staging servers)
+  """
   def demo_load do
     database_url = System.get_env("DATABASE_URL")
 
@@ -71,43 +139,5 @@ defmodule MagasinData.ReleaseTasks do
       |> String.to_charlist()
 
     :os.cmd(command)
-  end
-
-  def event_store do
-    config = EventStore.Config.parsed()
-    EventStore.Tasks.Init.exec(config, [])
-  end
-
-  def db_migrate, do: Enum.each(repos(), &run_migrations_for/1)
-
-  def priv_dir(app), do: "#{:code.priv_dir(app)}"
-
-  defp run_migrations_for(repo) do
-    app = Keyword.get(repo.config, :otp_app)
-    IO.puts("Running migrations for #{app}")
-    IO.puts("Running migrations against #{repo}")
-    IO.puts("Running migrations from #{migrations_path(repo)}")
-
-    Ecto.Migrator.run(repo, migrations_path(repo), :up, all: true)
-  end
-
-  def run_seeds_for(repo) do
-    # Run the seed script if it exists
-    seed_script = seeds_path(repo)
-
-    if File.exists?(seed_script) do
-      IO.puts("Running seed script..")
-      Code.eval_file(seed_script)
-    end
-  end
-
-  def migrations_path(repo), do: priv_path_for(repo, "migrations")
-
-  def seeds_path(repo), do: priv_path_for(repo, "seeds.exs")
-
-  def priv_path_for(repo, filename) do
-    app = Keyword.get(repo.config, :otp_app)
-    repo_underscore = repo |> Module.split() |> List.last() |> Macro.underscore()
-    Path.join([priv_dir(app), repo_underscore, filename])
   end
 end

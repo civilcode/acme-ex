@@ -5,10 +5,6 @@ defmodule MagasinData.Repo do
 
   import Ecto.Query, only: [lock: 2]
 
-  def init(_type, config) do
-    {:ok, Keyword.put(config, :url, System.get_env("DATABASE_URL"))}
-  end
-
   def lock(query) do
     lock(query, "FOR UPDATE")
   end

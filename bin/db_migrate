@@ -1,0 +1,3 @@
+#!/bin/sh
+
+/app/bin/acme_platform eval "Elixir.MagasinData.ReleaseTasks.db_migrate()"

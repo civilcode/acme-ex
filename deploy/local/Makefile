@@ -18,10 +18,11 @@ build:
 
 run:
 	docker run -i --name $(IMAGE_NAME) -t --rm -p 4000:4000 \
-		-e DATABASE_POOL_SIZE=5 \
+		-e DATABASE_POOL_SIZE=2 \
 		-e DATABASE_URL=$(DATABASE_URL) \
 		-e SECRET_KEY_BASE=$(SECRET_KEY_BASE) \
-		$(IMAGE_NAME) /app/bin/$(BINARY) start
+		$(IMAGE_NAME) /app/bin/db_migrate
+		# $(IMAGE_NAME) /app/bin/$(BINARY) start
 
 stop:
 	docker stop $(IMAGE_NAME)
@@ -31,8 +32,6 @@ bash:
 		-e DATABASE_POOL_SIZE=5 \
 		-e DATABASE_URL=$(DATABASE_URL) \
 		-e SECRET_KEY_BASE="76kdAGeJAyvTbuKTqcWRzN5v1WR/Th7rDOPnlHCxZwc4KRxg5qe3ooDiZirHf/WI" \
-		-e BASIC_AUTH_USERNAME=giverny \
-		-e BASIC_AUTH_PASSWORD=gccg2 \
 		-e BASIC_AUTH_REALM="Heroku Docker (localhost)" \
 		-e DATABASE_POOL_SIZE=1 \
 		$(IMAGE_NAME) bash

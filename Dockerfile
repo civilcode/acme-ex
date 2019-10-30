@@ -73,6 +73,7 @@ COPY --from=builder /app/_build/$MIX_ENV/rel/acme_platform_$MIX_ENV/ .
 
 ADD deploy/staging/heroku-exec.sh /app/.profile.d/heroku-exec.sh
 RUN chmod a+x /app/.profile.d/heroku-exec.sh
+COPY bin/db_migrate /app/bin/db_migrate
 COPY bin/db_seed /app/bin/db_seed
 COPY bin/demo_load /app/bin/demo_load
 
