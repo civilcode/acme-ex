@@ -18,12 +18,31 @@ PREVIOUS_RELEASE_MINOR=${PREVIOUS_RELEASE_TAG:16}
 NEW_MINOR=$(determine_minor $TODAY $PREVIOUS_RELEASE_DATE $PREVIOUS_RELEASE_MINOR)
 RELEASE_TAG="release-${TODAY}${NEW_MINOR}"
 
+git checkout master
+git fetch origin master
+git reset --hard origin/master
+
+if grep --fixed-strings --ignore-case --quiet '[Pending]' DEPLOYMENTLOG.md
+then
+  sed -i '' "s/\[Pending\]/[${RELEASE_TAG}]/g" DEPLOYMENTLOG.md
+  git add DEPLOYMENTLOG.md
+  git commit -m "chore: Finalized DEPLOYMENLOG.md entry for ${RELEASE_TAG}."
+  git push
+
+  # Exit if push failed
+  if [[ $? -ne 0 ]];
+  then
+    exit 1
+  fi
+
+  echo "Finalized [Pending] entry in DEPLOYMENTLOG.md as ${RELEASE_TAG}"
+fi
+
 # Create a new empty release
 hub release create -m "${RELEASE_TAG}" $RELEASE_TAG
 
 git fetch --all --tags
-git checkout master
-git pull -f
+git checkout $RELEASE_TAG
 
 # Edit current release message
 echo "${RELEASE_TAG}" > RELEASE_NOTES
@@ -34,3 +53,6 @@ rm RELEASE_NOTES
 
 echo ""
 echo "Your release is ready: ${RELEASE_TAG}"
+echo "You can now build the release:"
+echo "> make -f deploy/staging/Makefile deploy RELEASE_TAG=${RELEASE_TAG}"
+echo "> make -f deploy/prod/Makefile deploy.push RELEASE_TAG=${RELEASE_TAG}"
