@@ -96,7 +96,7 @@ workflows:
     # Note that changes are only picked up when file is in the master branch.
     triggers:
       - schedule:
-          cron: "0 11 * * * *"
+          cron: "0 11 * * *"
           filters:
             branches:
               only:
