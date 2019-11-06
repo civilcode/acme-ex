@@ -82,3 +82,22 @@ jobs:
                   pool_size: 10,
                   pool_overflow: 5" > config/test.secret.exs
               mix do deps.get, test
+
+workflows:
+  version: 2
+
+  git_push:
+    # No need for triggers. By default, a workflow is triggered on every git push.
+    jobs:
+      - build
+
+  nightly:
+    triggers:
+      - schedule:
+          cron: "25 * * * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - build
