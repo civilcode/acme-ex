@@ -92,9 +92,11 @@ workflows:
       - build
 
   nightly:
+    # Cron format, in UTC timezone.
+    # Note that changes are only picked up when file is in the master branch.
     triggers:
       - schedule:
-          cron: "25 * * * *"
+          cron: "0 11 * * * *"
           filters:
             branches:
               only:
