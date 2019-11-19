@@ -2,6 +2,7 @@
   "name": "ACME platform",
   "description": "CivilCode's Reference Application",
   "repository": "https://github.com/civilcode/acme_platform",
+  "stack": "container",
   "addons": [
     "heroku-postgresql:hobby-dev",
     "papertrail:choklad"
