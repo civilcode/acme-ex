@@ -43,9 +43,9 @@ defmodule MagasinData.MixProject do
       {:elixir_uuid, "~> 1.1"},
       {:eventstore, "~> 0.16"},
       {:ex_machina, "~> 2.3", only: :test},
-      {:faker, "~> 0.11.1", only: :test},
+      {:faker, "~> 0.11", only: :test},
       {:jason, "~> 1.1"},
-      {:mix_test_watch, "~> 0.5", only: :dev, runtime: false},
+      {:mix_test_watch, "~> 1.0", only: :dev, runtime: false},
       {:postgrex, ">= 0.0.0"}
     ]
   end

@@ -39,7 +39,7 @@ defmodule MagasinWeb.MixProject do
       {:gettext, "~> 0.11"},
       {:magasin_core, in_umbrella: true},
       {:jason, "~> 1.0"},
-      {:sobelow, "~> 0.7.1", only: [:dev, :test]},
+      {:sobelow, "~> 0.7", only: [:dev, :test]},
       {:plug_cowboy, "~> 2.0"}
     ]
   end
