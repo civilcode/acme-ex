@@ -55,7 +55,7 @@ jobs:
       - run: mix format --check-formatted
       - run: mix dialyzer --halt-exit-status
       - run: mix ecto.migrate
-      - run: mix event_store.init
+      - run: mix event_store.init -e CivilBus.EventStore.Repo
       - run: mix coveralls.circle --umbrella
       - run: mix credo --strict
       - run: mix cmd --app magasin_web mix sobelow --compact --exit Low
@@ -64,7 +64,7 @@ jobs:
            command: |
               ./bin/project.new -c starbucks -a physical-store -g civilcode/star-bucks-platform -Y -Q -r .
               cd ../starbucks-platform
-              echo "use Mix.Config
+              echo "import Config
               config :physical_store_data, PhysicalStoreData.Repo,
                 adapter: Ecto.Adapters.Postgres,
                 database: \"acme_test\",
@@ -73,7 +73,7 @@ jobs:
                 password: \"postgres\",
                 pool: Ecto.Adapters.SQL.Sandbox
 
-                config :eventstore, EventStore.Storage,
+                config :civil_bus, CivilBus.EventStore.Repo,
                   serializer: EventStore.TermSerializer,
                   database: \"acme_test\",
                   hostname: \"localhost\",

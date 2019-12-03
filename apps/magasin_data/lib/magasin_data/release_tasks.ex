@@ -61,8 +61,8 @@ defmodule MagasinData.ReleaseTasks do
   end
 
   defp event_store do
-    config = EventStore.Config.parsed()
-    EventStore.Tasks.Init.exec(config, [])
+    config = EventStore.Config.parsed(CivilBus.EventStore.Repo, :civil_bus)
+    :ok = EventStore.Tasks.Init.exec(CivilBus.EventStore.Repo, config, [])
   end
 
   defp migrate, do: Enum.each(repos(), &run_migrations_for/1)

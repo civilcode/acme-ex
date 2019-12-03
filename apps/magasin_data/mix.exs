@@ -41,7 +41,7 @@ defmodule MagasinData.MixProject do
       # civilcode-ex uses Ecto 2.x
       {:ecto_sql, "~> 3.2.0"},
       {:elixir_uuid, "~> 1.1"},
-      {:eventstore, "~> 0.16"},
+      {:eventstore, "~> 1.0"},
       {:ex_machina, "~> 2.3", only: :test},
       {:faker, "~> 0.11", only: :test},
       {:jason, "~> 1.1"},

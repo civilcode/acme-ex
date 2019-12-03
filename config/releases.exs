@@ -9,7 +9,7 @@ config :magasin_data, MagasinData.Repo,
   ssl: true,
   queue_interval: 100,
   queue_target: 2000,
-  pool_size: System.get_env("DATABASE_POOL_SIZE") |> String.to_integer()
+  pool_size: String.to_integer(System.get_env("DATABASE_POOL_SIZE"))
 
 ###############################################################################
 # MAGASIN WEB
@@ -32,8 +32,7 @@ config :phoenix, :serve_endpoints, true
 
 config :master_proxy, http: [port: String.to_integer(System.get_env("PORT"))]
 
-config :eventstore, EventStore.Storage,
-  serializer: EventStore.TermSerializer,
+config :civil_bus, CivilBus.EventStore.Repo,
   ssl: true,
   url: System.get_env("DATABASE_URL"),
   pool_size: 2,
