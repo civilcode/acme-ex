@@ -51,7 +51,7 @@ defmodule MagasinCore.Sales.OrderRepository do
     case result do
       {:ok, _record} ->
         for event <- fetch_events(struct) do
-          CivilBus.publish(:test, event)
+          CivilBus.publish(:domain_events, event)
         end
 
         Result.ok(struct.id)

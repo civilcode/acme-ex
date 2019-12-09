@@ -4,7 +4,7 @@
   "certifi": {:hex, :certifi, "2.5.1", "867ce347f7c7d78563450a18a6a28a8090331e77fa02380b4a21962a65d36ee5", [:rebar3], [{:parse_trans, "~>3.3", [hex: :parse_trans, repo: "hexpm", optional: false]}], "hexpm"},
   "civil_bus": {:git, "https://github.com/civilcode/civil-bus.git", "692d2cd27fd7efc522ae73d68bd09f486c1796a5", []},
   "civil_credo": {:git, "https://github.com/civilcode/civil-credo.git", "928474b4590fb1d5c7596a78c2c97fd395191632", []},
-  "civilcode": {:git, "https://github.com/civilcode/civilcode-ex.git", "d2f95c97e7102a35daff66eb0695559e26308a6c", []},
+  "civilcode": {:git, "https://github.com/civilcode/civilcode-ex.git", "4bf7000ded8b15b79696bf7b08a27e4b49836dec", []},
   "connection": {:hex, :connection, "1.0.4", "a1cae72211f0eef17705aaededacac3eb30e6625b04a6117c1b2db6ace7d5976", [:mix], [], "hexpm"},
   "cowboy": {:hex, :cowboy, "2.7.0", "91ed100138a764355f43316b1d23d7ff6bdb0de4ea618cb5d8677c93a7a2f115", [:rebar3], [{:cowlib, "~> 2.8.0", [hex: :cowlib, repo: "hexpm", optional: false]}, {:ranch, "~> 1.7.1", [hex: :ranch, repo: "hexpm", optional: false]}], "hexpm"},
   "cowlib": {:hex, :cowlib, "2.8.0", "fd0ff1787db84ac415b8211573e9a30a3ebe71b5cbff7f720089972b2319c8a4", [:rebar3], [], "hexpm"},

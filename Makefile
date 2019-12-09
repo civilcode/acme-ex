@@ -4,22 +4,13 @@ WEB_APP := magasin_web
 
 # Targets
 
-build: docker.stop docker.port.review docker.down docker.build docker.start app.setup
+build: docker.stop docker.port.review docker.down docker.build docker.start app.setup db.setup
 start: docker.start
 stop: docker.stop
 
 app.setup:
 	docker-compose exec application mix deps.get
 	docker-compose exec application sh -c 'cd /app/apps/$(WEB_APP)/assets/ && npm install'
-	# TEST
-	docker-compose exec -e MIX_ENV=test application mix ecto.create
-	docker-compose exec -e MIX_ENV=test application mix event_store.init
-	docker-compose exec -e MIX_ENV=test application mix ecto.migrate
-	# DEV
-	docker-compose exec application mix ecto.create
-	docker-compose exec application mix event_store.init
-	docker-compose exec application mix ecto.migrate
-	docker-compose exec application mix project.setup
 
 app.docs:
 	docker-compose exec application mix docs
@@ -42,6 +33,15 @@ app.console:
 
 app.run:
 	docker-compose exec application mix phx.server
+
+db.setup:
+	# TEST
+	docker-compose exec -e MIX_ENV=test application mix ecto.drop
+	docker-compose exec -e MIX_ENV=test application mix ecto.create
+	docker-compose exec -e MIX_ENV=test application mix event_store.init
+	docker-compose exec -e MIX_ENV=test application mix ecto.migrate
+	# DEV
+	docker-compose exec application mix project.setup
 
 docker.build:
 	docker-compose build --force-rm --no-cache

@@ -8,7 +8,9 @@ CivilCredo
 # CivilBus
 ###############################################################################
 
-config :civil_bus, impl: CivilBus.EventStore, event_stores: [CivilBus.EventStore.Repo]
+config :magasin_data, event_stores: [CivilBus.EventStore.Repo]
+
+config :civil_bus, impl: CivilBus.EventStore
 
 config :civil_bus, CivilBus.EventStore.Repo, serializer: EventStore.TermSerializer
 

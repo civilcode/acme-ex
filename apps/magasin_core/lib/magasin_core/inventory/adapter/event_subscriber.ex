@@ -1,7 +1,7 @@
 defmodule MagasinCore.Inventory.EventSubscriber do
   @moduledoc false
 
-  use CivilBus.Subscriber, channel: :test
+  use CivilBus.Subscriber, channel: :domain_events
 
   def handle_event(event, state) do
     {:ok, _} = MagasinCore.Inventory.StockItemApplicationService.handle(event)

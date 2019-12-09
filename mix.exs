@@ -59,6 +59,7 @@ defmodule AcmePlatform.MixProject do
         "ecto.drop",
         "ecto.create",
         "demo.load",
+        "event_store.init",
         "ecto.migrate",
         "project.seed"
       ],
