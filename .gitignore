@@ -29,9 +29,3 @@ config/test.secret.exs
 
 # Local Development on packages (e.g. CivilCode)
 packages
-
-# Support files for the ElixirLS VS Code extension
-.elixir_ls
-
-# Visual Studio Code Workspace settings
-.vscode

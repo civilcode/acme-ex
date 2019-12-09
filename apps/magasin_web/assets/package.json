@@ -12,7 +12,8 @@
     "perfect-scrollbar": "^1.4.0",
     "phoenix": "file:../../../deps/phoenix",
     "phoenix_html": "file:../../../deps/phoenix_html",
-    "popper.js": "^1.15.0"
+    "popper.js": "^1.15.0",
+    "serialize-javascript": "^2.1.2"
   },
   "devDependencies": {
     "autoprefixer": "^9.5.1",
