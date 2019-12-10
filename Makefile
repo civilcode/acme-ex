@@ -29,7 +29,7 @@ app.config:
 	echo "Please configure the 'secret' configuration files in ./config directory."
 
 app.console:
-	docker-compose exec application iex --name vm@application --cookie secret -S mix phx.server
+	docker-compose exec application iex --name vm@127.0.0.1 --cookie secret --erl '-kernel inet_dist_listen_min 9001 inet_dist_listen_max 9001' -S mix phx.server
 
 app.run:
 	docker-compose exec application mix phx.server
@@ -65,6 +65,14 @@ docker.stop:
 	docker-sync stop
 
 docker.restart: stop start
+
+docker.port.forward:
+	mutagen forward create --name=acmePlatform tcp:localhost:9001 docker://acme-platform_application_1:tcp:localhost:9001
+	mutagen forward create --name=acmePlatform tcp:localhost:4369 docker://acme-platform_application_1:tcp:localhost:4369
+	epmd -names
+
+docker.port.forward.terminate:
+	mutagen forward terminate acmePlatform
 
 docker.port.review:
 	echo "Please ensure no Docker containers are running with the same ports as this docker-compose.yml file:"

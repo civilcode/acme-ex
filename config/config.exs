@@ -9,10 +9,10 @@ CivilCredo
 ###############################################################################
 
 config :magasin_data, event_stores: [CivilBus.EventStore.Repo]
-
-config :civil_bus, impl: CivilBus.EventStore
-
 config :civil_bus, CivilBus.EventStore.Repo, serializer: EventStore.TermSerializer
+# Change the implementation of the EventBus
+config :civil_bus, impl: CivilBus.EventStore
+# config :civil_bus, impl: CivilBus.Registry
 
 ###############################################################################
 # MAGASIN CORE
@@ -25,6 +25,8 @@ config :magasin_core,
 ###############################################################################
 # MAGASIN DATA
 ###############################################################################
+
+config :magasin_data, ecto_repos: [MagasinData.Repo]
 
 config :magasin_data, MagasinData.Repo,
   # avoids conflict with EventStore schema_migrations
