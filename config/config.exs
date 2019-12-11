@@ -1,9 +1,5 @@
 import Config
 
-# Ensure Custom Credo Check is reference for SourceLevel.io
-
-CivilCredo
-
 ###############################################################################
 # CivilBus
 ###############################################################################
