@@ -35,6 +35,14 @@ labels: fdd:ability
 
 {insert diagram}
 
+## Sequence Diagrams
+
+{insert diagram}
+
+## Acceptance Criteria
+
+{insert Gherkin specifications}
+
 ## Business rules
 
 {add business rules}
